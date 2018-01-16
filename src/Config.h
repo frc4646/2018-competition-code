@@ -11,6 +11,6 @@
 // Uncomment to enable gamepad control
 //#define GAMEPAD
 
-#define DRIVETRAIN TankDrive
+#define DRIVETRAIN MecanumDriveTrain
 
 #endif /* Config_H */

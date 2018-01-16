@@ -1,7 +1,7 @@
 #include "CommandBase.h"
 
 #include <Commands/Scheduler.h>
-#include <Subsystems/TankDriveTrain.h>
+#include <Subsystems/MecanumDriveTrain.h>
 
 #include "PinEnums.h"
 #include "Config.h"
@@ -18,5 +18,5 @@ CommandBase::CommandBase(const std::string &name) :
 }
 
 void CommandBase::init() {
-	drivetrain.reset(new DRIVETRAIN(M0, M1));
+	drivetrain.reset(new DRIVETRAIN(M0, M1, M2, M3));
 }
