@@ -1,11 +1,11 @@
-#ifndef HandleDrive_H
-#define HandleDrive_H
+#ifndef HandleMecanumDrive_H
+#define HandleMecanumDrive_H
 
 #include "../CommandBase.h"
 
-class HandleDrive : public CommandBase {
+class HandleMecanumDrive : public CommandBase {
 public:
-	HandleDrive();
+	HandleMecanumDrive();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
@@ -13,4 +13,4 @@ public:
 	void Interrupted();
 };
 
-#endif  // HandleDrive_H
+#endif  // HandleMecanumDrive_H
