@@ -1,13 +1,29 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+#ifndef OI_H
+#define OI_H
 
-#pragma once
+#include "Config.h"
+#include <Wpilib.h>
 
 class OI {
 public:
 	OI();
+	double GetLeftJoystickX();
+	double GetLeftJoystickY();
+	double GetRightJoystickX();
+	double GetRightJoystickY();
+#ifndef GAMEPAD
+	double GetMechanismX();
+	double GetMechanismY();
+	double GetMechanismZ();
+#endif
+private:
+#ifndef GAMEPAD
+	Joystick left;
+	Joystick right;
+	Joystick mechanism;
+#else
+	Joystick gamepad;
+#endif
 };
+
+#endif  // OI_H
