@@ -18,5 +18,5 @@ CommandBase::CommandBase(const std::string &name) :
 }
 
 void CommandBase::init() {
-	drivetrain.reset(new DRIVETRAIN(M0, M1, M2, M3));
+	drivetrain.reset(new DRIVETRAIN(DRIVETRAIN_INIT_PARAMS));
 }
