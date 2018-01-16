@@ -6,7 +6,7 @@
 #include "../PinEnums.h"
 #include "IDriveTrain.h"
 
-class TankDrive : public IDriveTrain {
+class TankDriveTrain : public IDriveTrain {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -15,7 +15,7 @@ private:
 	Spark left, right;
 
 public:
-	TankDrive(MotorPin leftPin, MotorPin rightPin);
+	TankDriveTrain(MotorPin leftPin, MotorPin rightPin);
 	void InitDefaultCommand();
 	void Stop();
 	void Drive(SDriveData driveData);

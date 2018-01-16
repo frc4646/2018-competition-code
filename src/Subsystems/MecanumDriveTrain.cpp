@@ -1,12 +1,12 @@
 #include <Commands/HandleMecanumDrive.h>
-#include "MecanumDrive.h"
+#include <Subsystems/MecanumDriveTrain.h>
 #include "../PinEnums.h"
 #include "../RobotMap.h"
 #include "IDriveTrain.h"
 #include <cmath>
 #define PI 3.141592
 
-MecanumDrive::MecanumDrive(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
+MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
 	IDriveTrain("MecanumDrive"),
 	fl(frontLeftPin),
 	fr(frontRightPin),
@@ -15,7 +15,7 @@ MecanumDrive::MecanumDrive(MotorPin frontLeftPin, MotorPin frontRightPin, MotorP
 
 }
 
-void MecanumDrive::InitDefaultCommand() {
+void MecanumDriveTrain::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
 	SetDefaultCommand(new HandleDrive());
@@ -24,14 +24,14 @@ void MecanumDrive::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-void MecanumDrive::Stop() {
+void MecanumDriveTrain::Stop() {
 	fl.Set(0);
 	fr.Set(0);
 	bl.Set(0);
 	br.Set(0);
 }
 
-void MecanumDrive::Drive(SDriveData driveData) {
+void MecanumDriveTrain::Drive(SDriveData driveData) {
 	double r = hypot(driveData.cartX, driveData.cartY);
 	double theta = atan2(driveData.cartY, driveData.cartX);
 	fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
