@@ -19,5 +19,9 @@
 // number and the module. For example you with a rangefinder:
 // constexpr int RANGE_FINDER_PORT = 1;
 // constexpr int RANGE_FINDER_MODULE = 1;
+constexpr MotorPin frontLeft = M0;
+constexpr MotorPin frontRight = M1;
+constexpr MotorPin backLeft = M2;
+constexpr MotorPin backRight = M3;
 
 #endif  // ROBOTMAP_H

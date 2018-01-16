@@ -11,7 +11,12 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fr(frontRightPin),
 	bl(backLeftPin),
 	br(backRightPin) {
-
+	fl.SetSafetyEnabled(false);
+	fr.SetSafetyEnabled(false);
+	bl.SetSafetyEnabled(false);
+	br.SetSafetyEnabled(false);
+	fl.SetInverted(true);
+	bl.SetInverted(true);
 }
 
 void MecanumDriveTrain::InitDefaultCommand() {
@@ -24,15 +29,16 @@ void MecanumDriveTrain::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void MecanumDriveTrain::Stop() {
-	fl.Set(0);
-	fr.Set(0);
-	bl.Set(0);
-	br.Set(0);
+	fl.Set(0.0);
+	fr.Set(0.0);
+	bl.Set(0.0);
+	br.Set(0.0);
 }
 
 void MecanumDriveTrain::Drive(SDriveData driveData) {
+	frc::SmartDashboard::PutNumber("Test 1", 5);
 	double r = hypot(driveData.cartX, driveData.cartY);
-	double theta = atan2(driveData.cartY, driveData.cartX);
+	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
 	fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
 	fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
 	bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);

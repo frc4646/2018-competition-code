@@ -14,8 +14,8 @@ void HandleDrive::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void HandleDrive::Execute() {
 	SDriveData driveData;
-	driveData.cartX = oi->GetRightJoystickX();
-	driveData.cartY = oi->GetRightJoystickY();
+	driveData.cartX = oi->GetMechanismX();
+	driveData.cartY = oi->GetMechanismY();
 	driveData.cartR = oi->GetLeftJoystickX();
 	drivetrain->Drive(driveData);
 }

@@ -21,9 +21,9 @@
 #define DRIVETRAIN MecanumDriveTrain
 #define DRIVETRAIN_INIT_PARAMS frontLeftPin, frontRightPin, backLeftPin, backRightPin
 
-const int frontLeftPin = M0;
-const int frontRightPin = M1;
-const int backLeftPin = M2;
-const int backRightPin = M3;
+const MotorPin frontLeftPin = M0;
+const MotorPin frontRightPin = M1;
+const MotorPin backLeftPin = M2;
+const MotorPin backRightPin = M3;
 
 #endif /* Config_H */
