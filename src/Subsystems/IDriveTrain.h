@@ -2,6 +2,7 @@
 #define IDriveTrain_H
 
 #include <Commands/Subsystem.h>
+#include "ADXRS450_Gyro.h"
 
 typedef struct {
 	/*
@@ -22,12 +23,15 @@ class IDriveTrain : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
+protected:
+	ADXRS450_Gyro gyro;
 
 public:
 	IDriveTrain(std::string name);
 	virtual void InitDefaultCommand() = 0;
 	virtual void Stop() = 0;
 	virtual void Drive(SDriveData driveData) = 0;
+	double GetAngle();
 };
 
 #endif  // IDriveTrain_H

@@ -4,10 +4,6 @@
 #include "../CommandBase.h"
 
 class HandleMecanumDrive : public CommandBase {
-private:
-	frc::ADXRS450_Gyro gyro;
-	bool tarHeadingMode;
-	float tar;
 public:
 	HandleMecanumDrive();
 	void Initialize();
@@ -15,6 +11,11 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+	/*static void ShouldRunTargeting(bool enabled);
+	static bool IsTargeting();
+	static void SetTarget(float target);*/
+	static float tar;
+	static bool tarHeadingMode;
 };
 
 #endif  // HandleMecanumDrive_H

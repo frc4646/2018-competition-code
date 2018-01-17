@@ -33,6 +33,10 @@ void MecanumDriveTrain::Stop() {
 	fr.Set(0.0);
 	bl.Set(0.0);
 	br.Set(0.0);
+	fl.SetSafetyEnabled(true);
+	fr.SetSafetyEnabled(true);
+	bl.SetSafetyEnabled(true);
+	br.SetSafetyEnabled(true);
 }
 
 void MecanumDriveTrain::Drive(SDriveData driveData) {
