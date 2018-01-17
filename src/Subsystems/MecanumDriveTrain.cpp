@@ -38,7 +38,7 @@ void MecanumDriveTrain::Stop() {
 void MecanumDriveTrain::Drive(SDriveData driveData) {
 	double r = hypot(driveData.cartX, driveData.cartY);
 	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
-	frc::SmartDashboard::PutNumber("Heading", fmod(theta, 2.0 * PI));
+	//frc::SmartDashboard::PutNumber("Heading", fmod(theta, 2.0 * PI));
 	fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
 	fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
 	bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
