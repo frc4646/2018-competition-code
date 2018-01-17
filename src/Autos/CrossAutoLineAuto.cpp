@@ -7,7 +7,8 @@ CrossAutoLineAuto::CrossAutoLineAuto() :
 	driveTime(frc::Preferences::GetInstance()->GetDouble("CALA-driveTime", 0)) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(drivetrain.get());
+	// Stop your complaining
+	Requires((frc::Subsystem*) drivetrain.get());
 }
 
 // Called just before this Command runs the first time

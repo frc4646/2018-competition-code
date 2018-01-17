@@ -3,7 +3,9 @@
 
 #include "../CommandBase.h"
 #include <Timer.h>
-#include "LOOPCore/IDriveTrain.h"
+#include "IDriveTrain.h"
+
+using namespace loop;
 
 class CrossAutoLineAuto : public CommandBase {
 private:

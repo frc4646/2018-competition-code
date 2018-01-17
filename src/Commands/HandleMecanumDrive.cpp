@@ -8,7 +8,7 @@ bool HandleMecanumDrive::trackTarget = false;
 HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(drivetrain.get());
+	Requires((frc::Subsystem*) drivetrain.get());
 	target = 0;
 	trackTarget = false;
 }
