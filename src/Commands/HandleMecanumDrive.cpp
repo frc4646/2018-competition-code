@@ -27,8 +27,11 @@ void HandleMecanumDrive::Execute() {
 
 	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
 	if (tarHeadingMode) {
-		double r = std::max(std::min(frc::SmartDashboard::GetNumber("P", 0) * (gyro.GetAngle() - tar), frc::SmartDashboard::GetNumber("IC", 0)), -frc::SmartDashboard::GetNumber("IC", 0));
-		double sig = (r < 0.0) ? -1.0 : 1.0;
+		double p = frc::SmartDashboard::GetNumber("P", 0);
+		double ic = frc::SmartDashboard::GetNumber("IC", 0);
+		double err = (gyro.GetAngle() - tar);
+		double r = std::max(std::min(p * err, ic), -ic);
+		//double sig = (r < 0.0) ? -1.0 : 1.0;
 		//double rr = sig * ((std::fabs(r))*(std::fabs(r)));
 		driveData.cartR = r; //rr
 		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);
