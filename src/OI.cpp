@@ -20,14 +20,14 @@ OI::OI() :
 	// Works fine for tele-op, but not for auto.
 	straightDrive.WhenPressed(new Binding(
 		[]() {
-			HandleMecanumDrive::tar = CommandBase::drivetrain->GetAngle();
-			HandleMecanumDrive::tarHeadingMode = true;
+			HandleMecanumDrive::target = CommandBase::drivetrain->GetAngle();
+			HandleMecanumDrive::trackTarget = true;
 		},
 		[]() {
 
 		},
 		[]() {
-			HandleMecanumDrive::tarHeadingMode = false;
+			HandleMecanumDrive::trackTarget = false;
 		},
 		1,
 		CommandBase::drivetrain.get()

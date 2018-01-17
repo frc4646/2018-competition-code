@@ -3,6 +3,8 @@
 
 #include "../CommandBase.h"
 
+using namespace loop;
+
 class HandleMecanumDrive : public CommandBase {
 public:
 	HandleMecanumDrive();
@@ -14,8 +16,9 @@ public:
 	/*static void ShouldRunTargeting(bool enabled);
 	static bool IsTargeting();
 	static void SetTarget(float target);*/
-	static float tar;
-	static bool tarHeadingMode;
+
+	static float target;
+	static bool trackTarget;
 };
 
 #endif  // HandleMecanumDrive_H

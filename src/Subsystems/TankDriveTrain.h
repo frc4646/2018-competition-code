@@ -4,7 +4,9 @@
 #include <Commands/Subsystem.h>
 #include <Spark.h>
 #include "../PinEnums.h"
-#include "IDriveTrain.h"
+#include "LOOPCore/IDriveTrain.h"
+
+using namespace loop;
 
 class TankDriveTrain : public IDriveTrain {
 private:

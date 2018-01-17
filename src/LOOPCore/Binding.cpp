@@ -2,6 +2,8 @@
 #include <cstdarg>
 #include <functional>
 
+using namespace loop;
+
 Binding::Binding(std::function<void (void)> init, std::function<void (void)> exec, std::function<void (void)> end, int numRequires, ...) : CommandBase("Binding"){
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());

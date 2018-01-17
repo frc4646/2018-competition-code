@@ -1,5 +1,9 @@
 #include "HandleTankDrive.h"
 
+#include "LOOPCore/IDriveTrain.h"
+
+using namespace loop;
+
 HandleTankDrive::HandleTankDrive() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());

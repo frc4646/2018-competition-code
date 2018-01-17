@@ -1,5 +1,7 @@
 #include "CrossAutoLineAuto.h"
 
+using namespace loop;
+
 CrossAutoLineAuto::CrossAutoLineAuto() :
 	CommandBase("CrossAutoLineAuto"),
 	driveTime(frc::Preferences::GetInstance()->GetDouble("CALA-driveTime", 0)) {

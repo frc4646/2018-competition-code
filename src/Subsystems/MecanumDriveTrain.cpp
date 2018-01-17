@@ -1,9 +1,11 @@
 #include <Commands/HandleMecanumDrive.h>
 #include <Subsystems/MecanumDriveTrain.h>
 #include "../PinEnums.h"
-#include "IDriveTrain.h"
+#include "LOOPCore/IDriveTrain.h"
 #include <cmath>
 #define PI 3.141592
+
+using namespace loop;
 
 MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
 	IDriveTrain("MecanumDrive"),

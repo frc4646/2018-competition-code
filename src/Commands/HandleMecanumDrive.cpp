@@ -1,14 +1,16 @@
 #include "HandleMecanumDrive.h"
 
-float HandleMecanumDrive::tar = 0;
-bool HandleMecanumDrive::tarHeadingMode = false;
+using namespace loop;
+
+float HandleMecanumDrive::target = 0;
+bool HandleMecanumDrive::trackTarget = false;
 
 HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(drivetrain.get());
-	tar = 0;
-	tarHeadingMode = false;
+	target = 0;
+	trackTarget = false;
 }
 
 // Called just before this Command runs the first time
@@ -28,13 +30,10 @@ void HandleMecanumDrive::Execute() {
 	//tar = frc::SmartDashboard::GetNumber("Target", 0);
 
 	frc::SmartDashboard::PutNumber("Gyro heading", drivetrain->GetAngle());
-	if (tarHeadingMode) {
-		double r = std::max(std::min(frc::SmartDashboard::GetNumber("P", 0) * (drivetrain->GetAngle() - tar), frc::SmartDashboard::GetNumber("IC", 0)), -frc::SmartDashboard::GetNumber("IC", 0));
-		double sig = (r < 0.0) ? -1.0 : 1.0;
-		//double rr = sig * ((std::fabs(r))*(std::fabs(r)));
-		driveData.cartR = r; //rr
+	if (trackTarget) {
+		driveData.cartR = std::max(std::min(frc::SmartDashboard::GetNumber("P", 0) * (drivetrain->GetAngle() - target), frc::SmartDashboard::GetNumber("IC", 0)), -frc::SmartDashboard::GetNumber("IC", 0));
 		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);
-		frc::SmartDashboard::PutNumber("Err", (drivetrain->GetAngle() - tar));
+		frc::SmartDashboard::PutNumber("Err", (drivetrain->GetAngle() - target));
 	}
 
 	drivetrain->Drive(driveData);
