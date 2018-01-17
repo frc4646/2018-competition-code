@@ -29,8 +29,8 @@ void HandleMecanumDrive::Execute() {
 	if (tarHeadingMode) {
 		double p = frc::SmartDashboard::GetNumber("P", 0);
 		double ic = frc::SmartDashboard::GetNumber("IC", 0);
-		double err = (gyro.GetAngle() - tar);
-		double r = std::max(std::min(p * err, ic), -ic);
+		double error = (gyro.GetAngle() - tar);
+		double r = std::max(std::min(p * error, ic), -ic);
 		//double sig = (r < 0.0) ? -1.0 : 1.0;
 		//double rr = sig * ((std::fabs(r))*(std::fabs(r)));
 		driveData.cartR = r; //rr
