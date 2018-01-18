@@ -8,6 +8,11 @@ private:
 	frc::ADXRS450_Gyro gyro;
 	bool tarHeadingMode;
 	float tar;
+	const double defaultP = 0.045;
+	const double defaultMaxCommand = 0.75;
+	const double defaultMinCommand = 0.2;
+	const double deltaDegree = 1.5;
+
 public:
 	HandleMecanumDrive();
 	void Initialize();
