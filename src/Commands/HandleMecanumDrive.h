@@ -5,11 +5,12 @@
 
 class HandleMecanumDrive : public CommandBase {
 private:
-	frc::ADXRS450_Gyro gyro;
 	bool tarHeadingMode;
-	bool joytar;
-	double joyDB;
 	float tar;
+	frc::ADXRS450_Gyro gyro;
+	double joyDB;
+	bool joytar;
+
 	const double defaultP = 0.045;
 	const double defaultMaxCommand = 0.75;
 	const double defaultMinCommand = 0.2;

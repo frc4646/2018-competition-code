@@ -1,6 +1,6 @@
 #include "HandleMecanumDrive.h"
 
-HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), tarHeadingMode(true), tar(0), gyro() {
+HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), tarHeadingMode(true), tar(0), gyro(), joyDB(0.1), joytar(false) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(drivetrain.get());

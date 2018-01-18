@@ -10,10 +10,10 @@ class MecanumDriveTrain : public IDriveTrain {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	Spark fr;
 	Spark fl;
-	Spark br;
+	Spark fr;
 	Spark bl;
+	Spark br;
 
 public:
 	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin);
