@@ -16,20 +16,35 @@ void HandleMecanumDrive::Initialize() {
 	frc::SmartDashboard::PutNumber("Delta Degree", deltaDegree);
 	frc::SmartDashboard::PutBoolean("Heading Targeting", false);
 	frc::SmartDashboard::PutNumber("Target", 0);
+	frc::SmartDashboard::PutNumber("Joystick Targeting Control", false);
+	frc::SmartDashboard::PutNumber("Joystick Deadband", defaultJoyDB);
 }
 
 // Called repeatedly when this Command is scheduled to run
 
 void HandleMecanumDrive::Execute() {
+
+	//build drive data
 	SDriveData driveData;
 	driveData.cartX = oi->GetMechanismX();
 	driveData.cartY = oi->GetMechanismY();
 	driveData.cartR = oi->GetLeftJoystickX();
 
+	//get heading targeting values
 	tarHeadingMode = frc::SmartDashboard::GetBoolean("Heading Targeting", false);
 	tar = frc::SmartDashboard::GetNumber("Target", 0);
+	joytar = frc::SmartDashboard::GetBoolean("Joystick Targeting Control", false);
+	joyDB = frc::SmartDashboard::GetNumber("Joystick Deadband", defaultJoyDB);
 
+	//put gyro on dashboard
 	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
+
+	//deadband rotation joystick and change error variable if necessary
+	if ((oi->GetLeftJoystickX() > joyDB || oi->GetLeftJoystickX() < -joyDB) && joytar && (tar < 20 && tar > -20)){
+		tar += oi->GetLeftJoystickX();
+	}
+
+	//if targeting is on, run P loop math
 	if (tarHeadingMode) {
 		double p = frc::SmartDashboard::GetNumber("P", defaultP);
 		double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
@@ -61,7 +76,7 @@ void HandleMecanumDrive::Execute() {
 
 		driveData.cartR = motorCommand;
 		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);
-		frc::SmartDashboard::PutNumber("Err", (gyro.GetAngle() - tar));
+		frc::SmartDashboard::PutNumber("Err", error);
 	}
 
 	drivetrain->Drive(driveData);
