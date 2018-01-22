@@ -13,7 +13,7 @@ private:
 
 	const double defaultP = 0.045;
 	const double defaultMaxCommand = 0.75;
-	const double defaultMinCommand = 0.2;
+	const double defaultMinCommand = 0.1;
 	const double deltaDegree = 1.5;
 	const double defaultJoyDB = 0.1;
 
