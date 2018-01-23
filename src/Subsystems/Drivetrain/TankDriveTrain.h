@@ -3,7 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include <Spark.h>
-#include "../PinEnums.h"
+#include "../../PinEnums.h"
 #include "IDriveTrain.h"
 
 class TankDriveTrain : public IDriveTrain {

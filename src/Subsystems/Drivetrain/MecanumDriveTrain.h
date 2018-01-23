@@ -3,7 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include "IDriveTrain.h"
-#include "../PinEnums.h"
+#include "../../PinEnums.h"
 #include <Spark.h>
 
 class MecanumDriveTrain : public IDriveTrain {

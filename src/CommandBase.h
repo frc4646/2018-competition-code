@@ -9,7 +9,7 @@
 #include "OI.h"
 #include "PinEnums.h"
 #include "Config.h"
-#include "Subsystems/MecanumDriveTrain.h"
+#include "Subsystems/Drivetrain/MecanumDriveTrain.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
