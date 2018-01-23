@@ -5,6 +5,8 @@
 #include "Binding.h"
 #include "Commands/HandleMecanumDrive.h"
 
+using namespace loop;
+
 OI::OI() :
 #ifndef GAMEPAD
 	left(0),

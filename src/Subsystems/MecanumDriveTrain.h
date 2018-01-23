@@ -5,6 +5,7 @@
 #include "../PinEnums.h"
 #include <Spark.h>
 #include "IDriveTrain.h"
+#include "PID.h"
 
 using namespace loop;
 
@@ -16,6 +17,9 @@ private:
 	Spark fr;
 	Spark bl;
 	Spark br;
+	double trackingAngle;
+	bool doTracking;
+	PID pid;
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 
 public:
@@ -23,6 +27,10 @@ public:
 	void InitDefaultCommand() override;
 	void Stop();
 	void Drive(SDriveData driveData) override;
+
+	void EnableTracking(bool enable);
+	bool TrackingEnabled();
+	void SetAngleTrackingTarget(double angle);
 };
 
 #endif  // MecanumDrive_H

@@ -7,7 +7,7 @@ using namespace loop;
 HandleTankDrive::HandleTankDrive() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(drivetrain.get());
+	Requires((frc::Subsystem*) drivetrain.get());
 }
 
 // Called just before this Command runs the first time

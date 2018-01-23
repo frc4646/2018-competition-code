@@ -5,6 +5,8 @@
 #include <Timer.h>
 #include "IDriveTrain.h"
 
+using namespace loop;
+
 class CrossAutoLineAuto : public CommandBase {
 private:
 	Timer timer;
