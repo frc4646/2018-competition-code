@@ -2,7 +2,7 @@
 
 #include <WPILib.h>
 #include "Config.h"
-#include "LOOPCore/Binding.h"
+#include "Binding.h"
 #include "Commands/HandleMecanumDrive.h"
 
 OI::OI() :

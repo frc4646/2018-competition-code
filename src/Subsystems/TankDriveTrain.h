@@ -4,7 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <Spark.h>
 #include "../PinEnums.h"
-#include "LOOPCore/IDriveTrain.h"
+#include "IDriveTrain.h"
 
 using namespace loop;
 

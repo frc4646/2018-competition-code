@@ -1,6 +1,6 @@
 #include "HandleTankDrive.h"
 
-#include "LOOPCore/IDriveTrain.h"
+#include "IDriveTrain.h"
 
 using namespace loop;
 
