@@ -11,7 +11,10 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fl(frontLeftPin),
 	fr(frontRightPin),
 	bl(backLeftPin),
-	br(backRightPin) {
+	br(backRightPin),
+	trackingAngle(0),
+	doTracking(false),
+	pid(frc::Preferences::GetInstance()->GetDouble("kP", 0.1), frc::Preferences::GetInstance()->GetDouble("kI", 0), 0) {
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
 	bl.SetSafetyEnabled(false);
@@ -41,11 +44,32 @@ void MecanumDriveTrain::Stop() {
 }
 
 void MecanumDriveTrain::Drive(SDriveData driveData) {
+	pid.SetInput(gyro.GetAngle());
 	double r = hypot(driveData.cartX, driveData.cartY);
 	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
 	//frc::SmartDashboard::PutNumber("Heading", fmod(theta, 2.0 * PI));
-	fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
-	fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
-	bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
-	br.Set(r * sin(theta + (PI / 4)) - driveData.cartR);
+	if (doTracking) {
+		double rot = pid.GetOutput();
+		fl.Set(r * sin(theta + (PI / 4)) + rot);
+		fr.Set(r * cos(theta + (PI / 4)) - rot);
+		bl.Set(r * cos(theta + (PI / 4)) + rot);
+		br.Set(r * sin(theta + (PI / 4)) - rot);
+	} else {
+		fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
+		fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
+		bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
+		br.Set(r * sin(theta + (PI / 4)) - driveData.cartR);
+	}
+}
+
+void MecanumDriveTrain::EnableTracking(bool enable) {
+	doTracking = enable;
+}
+
+bool MecanumDriveTrain::TrackingEnabled() {
+	return doTracking;
+}
+
+void MecanumDriveTrain::SetAngleTrackingTarget(double angle) {
+	pid.SetSetpoint(angle);
 }
