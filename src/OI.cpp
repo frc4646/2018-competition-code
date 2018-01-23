@@ -20,7 +20,7 @@ OI::OI() :
 	// Process operator interface input here.
 	// Anonymous implementation of straight drive.
 	// Works fine for tele-op, but not for auto.
-	straightDrive.WhenPressed(new Binding(
+	/*straightDrive.WhenPressed(new Binding(
 		[]() {
 			HandleMecanumDrive::target = CommandBase::drivetrain->GetAngle();
 			HandleMecanumDrive::trackTarget = true;
@@ -33,7 +33,7 @@ OI::OI() :
 		},
 		1,
 		CommandBase::drivetrain.get()
-	));
+	));*/
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering
