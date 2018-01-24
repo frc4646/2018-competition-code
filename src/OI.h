@@ -24,6 +24,7 @@ private:
 #else
 	Joystick gamepad;
 #endif
+	JoystickButton straightDrive;
 };
 
 #endif  // OI_H
