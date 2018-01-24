@@ -2,17 +2,38 @@
 
 #include <WPILib.h>
 #include "Config.h"
+#include "Binding.h"
+#include "Commands/HandleMecanumDrive.h"
+
+using namespace loop;
 
 OI::OI() :
 #ifndef GAMEPAD
 	left(0),
 	right(1),
-	mechanism(2)
+	mechanism(2),
 #else
-	gamepad(0)
+	gamepad(0),
 #endif
+	straightDrive(&right, 1)
 	{
 	// Process operator interface input here.
+	// Anonymous implementation of straight drive.
+	// Works fine for tele-op, but not for auto.
+	/*straightDrive.WhenPressed(new Binding(
+		[]() {
+			HandleMecanumDrive::target = CommandBase::drivetrain->GetAngle();
+			HandleMecanumDrive::trackTarget = true;
+		},
+		[]() {
+
+		},
+		[]() {
+			HandleMecanumDrive::trackTarget = false;
+		},
+		1,
+		CommandBase::drivetrain.get()
+	));*/
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering

@@ -15,6 +15,11 @@
 #include "Commands/ExampleCommand.h"
 #include "Commands/MyAutoCommand.h"
 #include "CommandBase.h"
+
+#include "Config.h"
+
+using namespace loop;
+
 class Robot : public frc::TimedRobot {
 public:
 	void RobotInit() override {
@@ -22,6 +27,7 @@ public:
 		m_chooser.AddDefault("Default Auto", &m_defaultAuto);
 		m_chooser.AddObject("My Auto", &m_myAuto);
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+		frc::SmartDashboard::PutString("Drive train", "DRIVETRAIN");
 	}
 
 	/**
