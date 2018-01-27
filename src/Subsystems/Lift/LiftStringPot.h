@@ -2,7 +2,8 @@
 #define LiftStringPot_H
 
 #include <Commands/Subsystem.h>
-#include "PinEnums.h";
+#include "PinEnums.h"
+#include <WPILib.h>
 
 class LiftStringPot : public Subsystem {
 private:
@@ -13,7 +14,7 @@ private:
 	AnalogInput LiftStringPotPin;
 
 public:
-	LiftStringPot(AnalogPin pin);
+	LiftStringPot(int pin);
 	void InitDefaultCommand();
 	double GetHeight();
 };

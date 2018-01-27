@@ -1,6 +1,6 @@
 #include <Commands/HandleMecanumDrive.h>
 #include "MecanumDriveTrain.h"
-#include "../../PinEnums.h"
+#include <PinEnums.h>
 #include "IDriveTrain.h"
 #include <cmath>
 #include <LOOP/PID.h>
@@ -12,6 +12,8 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fr(frontRightPin),
 	bl(backLeftPin),
 	br(backRightPin),
+	doTracking(true),
+	trackingAngle(0),
 	pid(1.0,2.0,3.0) {
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);

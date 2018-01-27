@@ -6,6 +6,7 @@
 #include <PinEnums.h>
 #include <Subsystems/Drivetrain/IDriveTrain.h>
 #include <LOOP/Binding.h>
+#include <WPILib.h>
 
 using namespace loop;
 

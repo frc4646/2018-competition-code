@@ -2,6 +2,7 @@
 #define IDriveTrain_H
 
 #include <Commands/Subsystem.h>
+#include <WPILib.h>
 
 typedef struct {
 	/*

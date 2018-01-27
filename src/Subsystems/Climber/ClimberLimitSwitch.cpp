@@ -1,12 +1,12 @@
 #include "ClimberLimitSwitch.h"
-#include "../RobotMap.h"
+#include <RobotMap.h>
 
-ClimberLimitSwitch::ClimberLimitSwitch(DIOPin pin) : Subsystem("ExampleSubsystem") {
-	ClimberLimitSwitchPin = new DigitalInput(pin);
+ClimberLimitSwitch::ClimberLimitSwitch(DIOPin pin) : Subsystem("ExampleSubsystem"), ClimberLimitSwitchPin(pin) {
+	//ClimberLimitSwitchPin = new DigitalInput(pin);
 }
 
 void ClimberLimitSwitch::InitDefaultCommand() {}
 
-bool IsPressed() {
-	return ClimberLimitSwitchPin->Get();
+bool ClimberLimitSwitch::IsPressed() {
+	return ClimberLimitSwitchPin.Get();
 }

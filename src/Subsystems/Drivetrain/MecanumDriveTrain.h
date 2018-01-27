@@ -7,6 +7,7 @@
 #include <Subsystems/Drivetrain/IDriveTrain.h>
 #include <LOOP/PID.h>
 #include <LOOP/Binding.h>
+#include <WPILib.h>
 
 using namespace loop;
 
@@ -18,8 +19,8 @@ private:
 	Spark fr;
 	Spark bl;
 	Spark br;
-	double trackingAngle;
 	bool doTracking;
+	double trackingAngle;
 	PID pid;
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 
