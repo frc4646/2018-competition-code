@@ -18,7 +18,7 @@ HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), tarHeadin
 // Called just before this Command runs the first time
 void HandleMecanumDrive::Initialize() {
 	frc::SmartDashboard::PutNumber("IC", 0);
-	gyro.Reset();
+	//gyro.Reset();
 	frc::SmartDashboard::PutNumber("P", defaultP);
 	frc::SmartDashboard::PutNumber("Max Command", defaultMaxCommand);
 	frc::SmartDashboard::PutNumber("Min Command", defaultMinCommand);
@@ -37,7 +37,7 @@ void HandleMecanumDrive::Execute() {
 	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
 	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);
 	double delta = frc::SmartDashboard::GetNumber("Delta Degree", deltaDegree);
-	double error = (gyro.GetAngle() - tar);
+	double error = (gyro.GetAngleZ() - tar);
 	double motorCommand;
 
 	//build drive data
@@ -102,9 +102,15 @@ void HandleMecanumDrive::Execute() {
 		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);
 		frc::SmartDashboard::PutNumber("Err", error);
 		frc::SmartDashboard::PutNumber("Target", tar);
-		frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
-	}
 
+
+
+	}
+	frc::SmartDashboard::PutNumber("X Gyro", gyro.GetAngleX());
+	frc::SmartDashboard::PutNumber("Y Gyro", gyro.GetAngleY());
+	frc::SmartDashboard::PutNumber("Z Gyro", gyro.GetAngleZ());
+	frc::SmartDashboard::PutData("Gyro Data", &gyro);
+	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
 	drivetrain->Drive(driveData);
 }
 
