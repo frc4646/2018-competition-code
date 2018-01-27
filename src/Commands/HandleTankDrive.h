@@ -3,8 +3,6 @@
 
 #include "../CommandBase.h"
 
-using namespace loop;
-
 class HandleTankDrive : public CommandBase {
 public:
 	HandleTankDrive();

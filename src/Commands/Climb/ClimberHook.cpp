@@ -1,36 +1,32 @@
-#include "HandleTankDrive.h"
+#include "ClimberHook.h"
 
-HandleTankDrive::HandleTankDrive() {
+ClimberHook::ClimberHook() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(drivetrain.get());
 }
 
 // Called just before this Command runs the first time
-void HandleTankDrive::Initialize() {
+void ClimberHook::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void HandleTankDrive::Execute() {
-	SDriveData driveData;
-	driveData.lTank = oi->GetLeftJoystickY();
-	driveData.rTank = oi->GetRightJoystickY();
-	drivetrain->Drive(driveData);
+void ClimberHook::Execute() {
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool HandleTankDrive::IsFinished() {
+bool ClimberHook::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void HandleTankDrive::End() {
-	drivetrain->Stop();
+void ClimberHook::End() {
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void HandleTankDrive::Interrupted() {
-	End();
+void ClimberHook::Interrupted() {
+
 }
