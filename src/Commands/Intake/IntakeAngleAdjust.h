@@ -1,7 +1,7 @@
 #ifndef IntakeAngleAdjust_H
 #define IntakeAngleAdjust_H
 
-#include "../../CommandBase.h"
+#include <CommandBase.h>
 
 class IntakeAngleAdjust : public CommandBase {
 public:

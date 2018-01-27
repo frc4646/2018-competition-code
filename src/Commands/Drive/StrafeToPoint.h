@@ -1,7 +1,7 @@
 #ifndef StrafeToPoint_H
 #define StrafeToPoint_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class StrafeToPoint : public CommandBase {
 public:

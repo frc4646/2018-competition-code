@@ -1,4 +1,9 @@
 #include "RobotLeftScaleRight.h"
+#include <Commands/Drive/DriveToPoint.h>
+#include <Commands/Drive/RotateToPoint.h>
+#include <Commands/Lift/LiftUp.h>
+#include <Commands/Intake/IntakeAngleAdjust.h>
+#include <Commands/Launch/LaunchPowerCube.h>
 
 RobotLeftScaleRight::RobotLeftScaleRight() {
 	// Add Commands here:

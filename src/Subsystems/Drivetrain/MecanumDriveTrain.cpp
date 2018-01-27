@@ -3,6 +3,7 @@
 #include "../../PinEnums.h"
 #include "IDriveTrain.h"
 #include <cmath>
+#include <LOOP/PID.h>
 #define PI 3.141592
 
 MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
@@ -10,7 +11,8 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fl(frontLeftPin),
 	fr(frontRightPin),
 	bl(backLeftPin),
-	br(backRightPin) {
+	br(backRightPin),
+	pid(1.0,2.0,3.0) {
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
 	bl.SetSafetyEnabled(false);

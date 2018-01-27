@@ -1,7 +1,7 @@
 #ifndef DriveToPoint_H
 #define DriveToPoint_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class DriveToPoint : public CommandBase {
 public:

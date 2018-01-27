@@ -1,7 +1,7 @@
 #ifndef OuttakePowerCube_H
 #define OuttakePowerCube_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class OuttakePowerCube : public CommandBase {
 public:

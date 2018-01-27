@@ -1,7 +1,7 @@
 #ifndef ClimberPull_H
 #define ClimberPull_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class ClimberPull : public CommandBase {
 public:

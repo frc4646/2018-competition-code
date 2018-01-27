@@ -1,7 +1,7 @@
 #ifndef HandleTankDrive_H
 #define HandleTankDrive_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class HandleTankDrive : public CommandBase {
 public:

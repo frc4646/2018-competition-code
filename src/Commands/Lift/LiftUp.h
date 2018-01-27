@@ -1,7 +1,7 @@
 #ifndef LiftUp_H
 #define LiftUp_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class LiftUp : public CommandBase {
 public:

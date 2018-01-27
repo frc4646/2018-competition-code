@@ -3,8 +3,9 @@
 
 #include <Commands/Subsystem.h>
 #include <Spark.h>
-#include "../PinEnums.h"
-#include "IDriveTrain.h"
+#include <PinEnums.h>
+#include <Subsystems/Drivetrain/IDriveTrain.h>
+#include <LOOP/Binding.h>
 
 using namespace loop;
 

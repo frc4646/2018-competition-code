@@ -1,4 +1,6 @@
 #include "Portal.h"
+#include <Commands/Launch/LaunchAngleAdjust.h>
+#include <Commands/Outtake/OuttakePowerCube.h>
 
 Portal::Portal() {
 	// Add Commands here:

@@ -2,7 +2,7 @@
 
 #include <WPILib.h>
 #include "Config.h"
-#include "Binding.h"
+#include <LOOP/Binding.h>
 #include "Commands/HandleMecanumDrive.h"
 
 using namespace loop;

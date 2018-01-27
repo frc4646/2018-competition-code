@@ -1,4 +1,7 @@
 #include "Scale.h"
+#include <Commands/Lift/LiftUp.h>
+#include <Commands/Launch/LaunchAngleAdjust.h>
+#include <Commands/Outtake/OuttakePowerCube.h>
 
 Scale::Scale() {
 	// Add Commands here:

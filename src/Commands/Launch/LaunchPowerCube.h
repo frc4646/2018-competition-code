@@ -1,7 +1,7 @@
 #ifndef LaunchPowerCube_H
 #define LaunchPowerCube_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class LaunchPowerCube : public CommandBase {
 public:

@@ -1,7 +1,7 @@
 #ifndef LaunchAngleAdjust_H
 #define LaunchAngleAdjust_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class LaunchAngleAdjust : public CommandBase {
 public:

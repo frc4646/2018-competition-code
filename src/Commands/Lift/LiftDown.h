@@ -1,7 +1,7 @@
 #ifndef LiftDown_H
 #define LiftDown_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class LiftDown : public CommandBase {
 public:

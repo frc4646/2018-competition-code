@@ -1,7 +1,7 @@
 #ifndef ClimberRaise_H
 #define ClimberRaise_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class ClimberRaise : public CommandBase {
 public:

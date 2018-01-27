@@ -1,7 +1,7 @@
 #ifndef HandleMecanumDrive_H
 #define HandleMecanumDrive_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 using namespace loop;
 

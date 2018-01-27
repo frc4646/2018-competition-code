@@ -1,7 +1,7 @@
 #ifndef RotateToPoint_H
 #define RotateToPoint_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class RotateToPoint : public CommandBase {
 public:
