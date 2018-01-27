@@ -2,6 +2,7 @@
 #define HandleMecanumDrive_H
 
 #include <CommandBase.h>
+#include <IMU10Axis/ADIS16448_IMU.h>
 
 using namespace loop;
 
@@ -9,7 +10,8 @@ class HandleMecanumDrive : public CommandBase {
 private:
 	bool tarHeadingMode;
 	float tar;
-	frc::ADXRS450_Gyro gyro;
+	//frc::ADXRS450_Gyro gyro;
+	ADIS16448_IMU gyro;
 	double joyDB;
 	bool joytar;
 
