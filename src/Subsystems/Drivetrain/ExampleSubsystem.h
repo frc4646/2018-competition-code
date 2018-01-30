@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Commands/Subsystem.h>
+#include <WPILib.h>
 
 class ExampleSubsystem : public frc::Subsystem {
 public:

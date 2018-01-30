@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include "LaunchAngleAdjust.h"
 
 LaunchAngleAdjust::LaunchAngleAdjust() {
@@ -31,3 +32,37 @@ void LaunchAngleAdjust::End() {
 void LaunchAngleAdjust::Interrupted() {
 
 }
+=======
+#include "LaunchAngleAdjust.h"
+
+LaunchAngleAdjust::LaunchAngleAdjust() {
+	// Use Requires() here to declare subsystem dependencies
+	// eg. Requires(Robot::chassis.get());
+}
+
+// Called just before this Command runs the first time
+void LaunchAngleAdjust::Initialize() {
+
+}
+
+// Called repeatedly when this Command is scheduled to run
+void LaunchAngleAdjust::Execute() {
+
+}
+
+// Make this return true when this Command no longer needs to run execute()
+bool LaunchAngleAdjust::IsFinished() {
+	return false;
+}
+
+// Called once after isFinished returns true
+void LaunchAngleAdjust::End() {
+
+}
+
+// Called when another command which requires one or more of the same
+// subsystems is scheduled to run
+void LaunchAngleAdjust::Interrupted() {
+
+}
+>>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32

@@ -12,6 +12,10 @@ HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), joyDB(0.1
 // Called just before this Command runs the first time
 void HandleMecanumDrive::Initialize() {
 	frc::SmartDashboard::PutNumber("IC", 0);
+<<<<<<< HEAD
+=======
+	//gyro.Reset();
+>>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
 	frc::SmartDashboard::PutNumber("P", defaultP);
 	frc::SmartDashboard::PutNumber("Max Command", defaultMaxCommand);
 	frc::SmartDashboard::PutNumber("Min Command", defaultMinCommand);
@@ -25,6 +29,17 @@ void HandleMecanumDrive::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 
 void HandleMecanumDrive::Execute() {
+<<<<<<< HEAD
+=======
+
+	double p = frc::SmartDashboard::GetNumber("P", defaultP);
+	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
+	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);
+	double delta = frc::SmartDashboard::GetNumber("Delta Degree", deltaDegree);
+	double error = (gyro.GetAngleZ() - tar);
+	double motorCommand;
+
+>>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
 	//build drive data
 	SDriveData driveData;
 	driveData.cartX = oi->GetMechanismX();
@@ -59,6 +74,47 @@ void HandleMecanumDrive::Execute() {
 		// * 4 is for 180 degree rotation per second.
 	}
 
+<<<<<<< HEAD
+=======
+	//if targeting is on, run P loop math
+	if (tarHeadingMode) {
+		//Get updated values from the dashboard if needed.
+
+		if (std::abs(error) < delta){
+			//close enough to target so turn off command
+			motorCommand = 0;
+		}
+		else{
+			//need to move the robot
+			motorCommand = p * error;
+			if (motorCommand > maxCommand){
+				motorCommand = maxCommand;
+			}
+			else if ((motorCommand < minCommand) && (motorCommand > 0)){
+				motorCommand = minCommand;
+			}
+			else if((motorCommand > -minCommand) && (motorCommand < 0)){
+				motorCommand = -minCommand;
+			}
+			else if (motorCommand < -maxCommand){
+				motorCommand = -maxCommand;
+			}
+		}
+
+		driveData.cartR = motorCommand;
+		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);
+		frc::SmartDashboard::PutNumber("Err", error);
+		frc::SmartDashboard::PutNumber("Target", tar);
+
+
+
+	}
+	frc::SmartDashboard::PutNumber("X Gyro", gyro.GetAngleX());
+	frc::SmartDashboard::PutNumber("Y Gyro", gyro.GetAngleY());
+	frc::SmartDashboard::PutNumber("Z Gyro", gyro.GetAngleZ());
+	frc::SmartDashboard::PutData("Gyro Data", &gyro);
+	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
+>>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
 	drivetrain->Drive(driveData);
 }
 

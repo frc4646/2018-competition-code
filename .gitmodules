@@ -1,3 +1,0 @@
-[submodule "include/LOOP"]
-	path = include/LOOP
-	url = https://github.com/fortraan/LOOP.git
