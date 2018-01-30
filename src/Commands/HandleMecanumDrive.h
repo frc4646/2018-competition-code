@@ -7,9 +7,6 @@ using namespace loop;
 
 class HandleMecanumDrive : public CommandBase {
 private:
-	bool tarHeadingMode;
-	float tar;
-	frc::ADXRS450_Gyro gyro;
 	double joyDB;
 	bool joytar;
 
@@ -26,12 +23,6 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-	/*static void ShouldRunTargeting(bool enabled);
-	static bool IsTargeting();
-	static void SetTarget(float target);*/
-
-	static float target;
-	static bool trackTarget;
 };
 
 #endif  // HandleMecanumDrive_H

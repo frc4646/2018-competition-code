@@ -4,7 +4,7 @@
 #include <Commands/Subsystem.h>
 #include <PinEnums.h>
 #include <Spark.h>
-#include <Subsystems/Drivetrain/IDriveTrain.h>
+#include <LOOP/IDriveTrain.h>
 #include <LOOP/PID.h>
 #include <LOOP/Binding.h>
 
@@ -22,12 +22,13 @@ private:
 	bool doTracking;
 	PID pid;
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
+protected:
+	void DoDrive(SDriveData driveData) override;
 
 public:
 	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin);
 	void InitDefaultCommand() override;
 	void Stop();
-	void Drive(SDriveData driveData) override;
 
 	void EnableTracking(bool enable);
 	bool TrackingEnabled();

@@ -25,7 +25,7 @@ void TankDriveTrain::Stop() {
 	right.Set(0);
 }
 
-void TankDriveTrain::Drive(SDriveData driveData) {
+void TankDriveTrain::DoDrive(SDriveData driveData) {
 	left.Set(driveData.lTank);
 	right.Set(driveData.rTank);
 }

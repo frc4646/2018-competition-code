@@ -23,7 +23,7 @@ RobotLeftScaleLeft::RobotLeftScaleLeft() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 		AddSequential(new DriveToPoint());
-		AddSequential(new RotateToPoint());
+		AddSequential(new RotateToPoint(90));
 		AddParallel(new LiftUp());
 		AddSequential(new IntakeAngleAdjust());
 		AddSequential(new LaunchPowerCube());

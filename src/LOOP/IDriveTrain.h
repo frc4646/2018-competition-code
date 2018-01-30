@@ -3,6 +3,7 @@
 
 #include <Commands/Subsystem.h>
 #include "ADXRS450_Gyro.h"
+#include "PID.h"
 
 namespace loop {
 	typedef struct {
@@ -26,13 +27,19 @@ namespace loop {
 		// for methods that implement subsystem capabilities
 	protected:
 		ADXRS450_Gyro gyro;
+		PID trackingPid;
+		bool track;
+		virtual void DoDrive(SDriveData driveData) = 0;
 
 	public:
 		IDriveTrain(std::string name);
 		virtual void InitDefaultCommand() = 0;
 		virtual void Stop() = 0;
-		virtual void Drive(SDriveData driveData) = 0;
+		void Drive(SDriveData driveData);
 		double GetAngle();
+		void TrackAngle(double angle);
+		void EnableTracking(bool enabled);
+		bool BusyTracking();
 	};
 }
 

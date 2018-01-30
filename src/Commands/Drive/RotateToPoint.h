@@ -4,8 +4,10 @@
 #include <CommandBase.h>
 
 class RotateToPoint : public CommandBase {
+private:
+	double target;
 public:
-	RotateToPoint();
+	RotateToPoint(double angle);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

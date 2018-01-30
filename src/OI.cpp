@@ -4,6 +4,9 @@
 #include "Config.h"
 #include <LOOP/Binding.h>
 #include "Commands/HandleMecanumDrive.h"
+#include "Commands/Intake/IntakePowerCube.h"
+#include "Commands/Outtake/OuttakePowerCube.h"
+#include "Commands/Intake/AdjustToIntakeAngle.h"
 
 using namespace loop;
 
@@ -15,7 +18,9 @@ OI::OI() :
 #else
 	gamepad(0),
 #endif
-	straightDrive(&right, 1)
+	straightDrive(&right, 1),
+	intake(&mechanism, 1),
+	outtake(&mechanism, 2)
 	{
 	// Process operator interface input here.
 	// Anonymous implementation of straight drive.
@@ -34,6 +39,9 @@ OI::OI() :
 		1,
 		CommandBase::drivetrain.get()
 	));*/
+	intake.WhenPressed(new AdjustToIntakeAngle());
+	intake.WhileHeld(new IntakePowerCube());
+	outtake.WhileHeld(new OuttakePowerCube());
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering

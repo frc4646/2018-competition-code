@@ -12,15 +12,23 @@ PID::PID(double p, double i, double d) :
 	PIDOutput(),
 	inputBuffer(0),
 	outputBuffer(0),
-	controller(p, i, d, this, this) {
+	controller(p, i, d, this, this),
+	input(NULL),
+	outp(NULL) {
 	controller.SetContinuous(true);
 }
 
 double PID::PIDGet() {
+	if (input != NULL) {
+		return input();
+	}
 	return inputBuffer;
 }
 
 void PID::PIDWrite(double output) {
+	if (outp != NULL) {
+		outp(output);
+	}
 	outputBuffer = output;
 }
 
@@ -34,4 +42,16 @@ double PID::GetOutput() {
 
 void PID::SetInput(double input) {
 	inputBuffer = input;
+}
+
+void PID::BindInput(std::function<double (void)> inp) {
+	input = inp;
+}
+
+void PID::BindOutput(std::function<void (double)> out) {
+	outp = out;
+}
+
+void PID::GetSetpoint() {
+	return controller.GetSetpoint();
 }

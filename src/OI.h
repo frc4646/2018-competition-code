@@ -25,6 +25,8 @@ private:
 	Joystick gamepad;
 #endif
 	JoystickButton straightDrive;
+	JoystickButton intake;
+	JoystickButton outtake;
 };
 
 #endif  // OI_H

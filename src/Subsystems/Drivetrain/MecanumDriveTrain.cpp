@@ -1,10 +1,12 @@
 #include <Commands/HandleMecanumDrive.h>
 #include "MecanumDriveTrain.h"
 #include "../../PinEnums.h"
-#include "IDriveTrain.h"
+#include "LOOP/IDriveTrain.h"
 #include <cmath>
 #include <LOOP/PID.h>
 #define PI 3.141592
+
+using namespace loop;
 
 MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
 	IDriveTrain("MecanumDrive"),
@@ -37,7 +39,7 @@ void MecanumDriveTrain::Stop() {
 	br.Set(0.0);
 }
 
-void MecanumDriveTrain::Drive(SDriveData driveData) {
+void MecanumDriveTrain::DoDrive(SDriveData driveData) {
 	double r = hypot(driveData.cartX, driveData.cartY);
 	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
 	//frc::SmartDashboard::PutNumber("Heading", fmod(theta, 2.0 * PI));

@@ -26,4 +26,15 @@ const MotorPin frontRightPin = M1;
 const MotorPin backLeftPin = M2;
 const MotorPin backRightPin = M3;
 
+#define LIFT_INIT_PARAMS liftTilterPin, liftLifterPin
+
+const MotorPin liftTilterPin = M4;
+const MotorPin liftLifterPin = M5;
+const double liftMovementFactor = 0.1;
+
+#define INTAKE_INIT_PARAMS intakeIn, intakeIn, intakeLimit
+
+const MotorPin intakeIn = M6;
+const DIOPin intakeLimit = D0;
+
 #endif /* Config_H */

@@ -10,6 +10,8 @@
 #include "PinEnums.h"
 #include "Config.h"
 #include "Subsystems/Drivetrain/MecanumDriveTrain.h"
+#include "Subsystems/Lift/LiftControl.h"
+#include "Subsystems/Intake/IntakeControl.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,6 +28,8 @@ public:
 
 	// Create a single static instance of all of your subsystems
 	static std::unique_ptr<DRIVETRAIN> drivetrain;
+	static std::unique_ptr<LiftControl> lift;
+	static std::unique_ptr<IntakeControl> intake;
 	static std::unique_ptr<OI> oi;
 };
 

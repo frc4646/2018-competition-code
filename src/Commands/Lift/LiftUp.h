@@ -2,6 +2,7 @@
 #define LiftUp_H
 
 #include <CommandBase.h>
+#include "Subsystems/Lift/LiftControl.h"
 
 class LiftUp : public CommandBase {
 public:
