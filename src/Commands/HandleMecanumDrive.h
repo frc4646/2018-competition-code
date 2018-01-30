@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #ifndef HandleMecanumDrive_H
 #define HandleMecanumDrive_H
 
@@ -27,7 +26,7 @@ public:
 };
 
 #endif  // HandleMecanumDrive_H
-=======
+
 #ifndef HandleMecanumDrive_H
 #define HandleMecanumDrive_H
 
@@ -67,4 +66,4 @@ public:
 };
 
 #endif  // HandleMecanumDrive_H
->>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
+

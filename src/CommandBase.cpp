@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #include "CommandBase.h"
 
 #include <Commands/Scheduler.h>
@@ -27,7 +27,7 @@ void CommandBase::init() {
 	lift.reset(new LiftControl(LIFT_INIT_PARAMS));
 	intake.reset(new IntakeControl(INTAKE_INIT_PARAMS));
 }
-=======
+
 #include "CommandBase.h"
 
 #include <Commands/Scheduler.h>
@@ -50,4 +50,4 @@ CommandBase::CommandBase(const std::string &name) :
 void CommandBase::init() {
 	drivetrain.reset(new DRIVETRAIN(DRIVETRAIN_INIT_PARAMS));
 }
->>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
+
