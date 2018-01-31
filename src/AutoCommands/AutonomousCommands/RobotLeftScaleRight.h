@@ -1,7 +1,7 @@
 #ifndef RobotLeftScaleRight_H
 #define RobotLeftScaleRight_H
 
-#include <Commands/CommandGroup.h>
+#include <Commands/2018CommandGroups.h>
 
 class RobotLeftScaleRight : public CommandGroup {
 public:

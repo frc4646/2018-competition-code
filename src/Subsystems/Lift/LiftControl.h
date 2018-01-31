@@ -25,7 +25,6 @@ private:
 public:
 	LiftControl(MotorPin lifter);
 	void InitDefaultCommand();
-
 	void LiftToElevation(double elevation);
 	void SetLiftMaxPower(double power);
 	double GetLiftElevation();

@@ -1,7 +1,7 @@
 #ifndef RobotCenterSwitchCross_H
 #define RobotCenterSwitchCross_H
 
-#include <Commands/CommandGroup.h>
+#include <Commands/2018CommandGroups.h>
 
 class RobotCenterSwitchCross : public CommandGroup {
 public:

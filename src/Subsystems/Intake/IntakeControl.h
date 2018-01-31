@@ -2,13 +2,13 @@
 #define IntakeControl_H
 
 #include <Commands/Subsystem.h>
-<<<<<<< HEAD
+
 #include <Spark.h>
 #include <DigitalInput.h>
 #include <PinEnums.h>
 #include <LOOP/PID.h>
 
-using namespace loop;
+//using namespace loop;
 class IntakeControl : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
@@ -30,7 +30,7 @@ public:
 
 public:
 	IntakeControl();
-	void InitDefaultCommand();
+	//void InitDefaultCommand();
 };
 
 #endif  // IntakeControl_H

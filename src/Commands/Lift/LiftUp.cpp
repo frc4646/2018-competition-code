@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "LiftUp.h"
 #include "Config.h"
 
@@ -33,7 +32,7 @@ void LiftUp::End() {
 void LiftUp::Interrupted() {
 	End();
 }
-=======
+
 #include "LiftUp.h"
 
 LiftUp::LiftUp() {
@@ -66,4 +65,4 @@ void LiftUp::End() {
 void LiftUp::Interrupted() {
 
 }
->>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32
+

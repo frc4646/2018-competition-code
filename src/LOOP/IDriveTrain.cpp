@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "IDriveTrain.h"
 #include <Commands/Subsystem.h>
 #include <ADXRS450_Gyro.h>
@@ -34,17 +33,3 @@ void IDriveTrain::EnableTracking(bool enabled) {
 bool IDriveTrain::BusyTracking() {
 	return track && (GetAngle() < trackingPid.GetSetpoint() - 2 || GetAngle() > trackingPid.GetSetpoint() + 2);
 }
-=======
-#include "IDriveTrain.h"
-#include <Commands/Subsystem.h>
-
-using namespace loop;
-
-IDriveTrain::IDriveTrain(std::string name) : Subsystem(name), gyro() {
-	gyro.Calibrate();
-}
-
-double IDriveTrain::GetAngle() {
-	return gyro.GetAngle();
-}
->>>>>>> 7c4ef7586961181d848fb171a63752b73ecdac32

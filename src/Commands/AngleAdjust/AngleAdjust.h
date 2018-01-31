@@ -1,7 +1,7 @@
 #ifndef AngleAdjust_H
 #define AngleAdjust_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class AngleAdjust : public CommandBase {
 private:

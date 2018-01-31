@@ -1,7 +1,7 @@
 #ifndef AdjustToOuttakeAngle_H
 #define AdjustToOuttakeAngle_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 
 class AdjustToOuttakeAngle : public CommandBase {
 public:
