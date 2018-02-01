@@ -23,6 +23,5 @@ RobotCenterSwitchLeft::RobotCenterSwitchLeft() {
 	// arm.
 	AddSequential(new StrafeToPoint());
 	AddSequential(new DriveToPoint());
-	AddSequential(new IntakeAngleAdjust());
-	AddSequential(new LaunchPowerCube());
+	AddSequential(new Switch());
 }

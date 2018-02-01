@@ -24,7 +24,5 @@ RobotRightScaleRight::RobotRightScaleRight() {
 	// arm.
 	AddSequential(new DriveToPoint());
 	AddSequential(new RotateToPoint(90));
-	AddParallel(new LiftUp());
-	AddSequential(new IntakeAngleAdjust());
-	AddSequential(new LaunchPowerCube());
+	AddSequential(new Scale());
 }

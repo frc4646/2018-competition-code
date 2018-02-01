@@ -14,6 +14,8 @@ private:
 	const double MaxAngle = 100;
 	const int MinValue = 0;
 	const int MaxValue = 1023;
+	double m;
+	double b;
 
 public:
 	AngleSensor(int pin);

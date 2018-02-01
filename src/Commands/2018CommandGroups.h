@@ -21,6 +21,9 @@
 #include "Lift/LiftUp.h"
 #include "Outtake/OuttakeAngleAdjust.h"
 #include "Outtake/OuttakePowerCube.h"
+#include <AutoCommands/TeleopCommands/Portal.h>
+#include <AutoCommands/TeleopCommands/Scale.h>
+#include <AutoCommands/TeleopCommands/Switch.h>
 #include <WPILib.h>
 #include <Commands/CommandGroup.h>
 

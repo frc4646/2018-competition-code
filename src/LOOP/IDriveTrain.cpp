@@ -6,15 +6,15 @@
 using namespace loop;
 
 IDriveTrain::IDriveTrain(std::string name) : Subsystem(name), gyro(), trackingPid(0.045, 0, 0) {
-	gyro.Calibrate();
-	trackingPid.BindInput(GetAngle);
+	//gyro.Calibrate();
+	//trackingPid.BindInput(GetAngle);
 }
 
 void IDriveTrain::Drive(SDriveData driveData) {
-	if (track) {
-		driveData.cartR = trackingPid.GetOutput();
-	}
-	DoDrive(driveData);
+	//if (track) {
+	//	driveData.cartR = trackingPid.GetOutput();
+	//}
+	//DoDrive(driveData);
 }
 
 double IDriveTrain::GetAngle() {
@@ -22,12 +22,12 @@ double IDriveTrain::GetAngle() {
 }
 
 void IDriveTrain::TrackAngle(double angle) {
-	trackingPid.SetInput(GetAngle());
-	trackingPid.SetSetpoint(angle);
+	//trackingPid.SetInput(GetAngle());
+	//trackingPid.SetSetpoint(angle);
 }
 
 void IDriveTrain::EnableTracking(bool enabled) {
-	track = enabled;
+	//track = enabled;
 }
 
 bool IDriveTrain::BusyTracking() {

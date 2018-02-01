@@ -10,14 +10,12 @@ IntakeControl::IntakeControl(MotorPin in, MotorPin tilt, DIOPin limit) :
 		angle(tilt),
 		limitSwitch(limit),
 		anglePid(0.045, 1, 0) {
-	anglePid.BindInput(CommandBase::intakeAngleSensor->GetAngle);
-	anglePid.BindOutput(SetTiltPower);
+
 }
 
 void IntakeControl::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
-	SetDefaultCommand(new Idle());
 }
 
 // Put methods for controlling this subsystem
@@ -40,5 +38,5 @@ void IntakeControl::SetIntakeAngle(double theta) {
 }
 
 bool IntakeControl::IntakeIsAtTarget() {
-	return CommandBase::intakeAngleSensor->GetAngle() > anglePid.GetSetpoint() - 2 && CommandBase::intakeAngleSensor->GetAngle() < anglePid.GetSetpoint() + 2;
+	return false;//MLL - this is a subsystem not a command CommandBase::intakeAngleSensor->GetAngle() > anglePid.GetSetpoint() - 2 && CommandBase::intakeAngleSensor->GetAngle() < anglePid.GetSetpoint() + 2;
 }

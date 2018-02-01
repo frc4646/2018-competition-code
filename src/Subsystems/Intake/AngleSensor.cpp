@@ -2,6 +2,8 @@
 #include <RobotMap.h>
 
 AngleSensor::AngleSensor(int pin) : Subsystem("Intake"), AngleSensorPin(pin) {
+	m = (MinAngle - MaxAngle) / (double)(MinValue - MaxValue);
+		b = MinAngle - ((MinValue)*(m));
 
 }
 
@@ -10,13 +12,9 @@ void AngleSensor::InitDefaultCommand() {
 
 double AngleSensor::GetAngle(){
 	double angle;
-	double m;
-	double b;
 
 	int value = AngleSensorPin.GetValue();
 
-	m = (MinAngle - MaxAngle) / (double)(MinValue - MaxValue);
-	b = MinAngle - ((MinValue)*(m));
 	angle = ((m)*(value)) + b;
 
 	return angle;

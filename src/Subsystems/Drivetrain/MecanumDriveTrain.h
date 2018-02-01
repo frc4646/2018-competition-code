@@ -8,6 +8,7 @@
 #include <LOOP/PID.h>
 #include <LOOP/Binding.h>
 #include <WPILib.h>
+#include <IMU10Axis/ADIS16448_IMU.h>
 
 using namespace loop;
 
@@ -19,9 +20,16 @@ private:
 	Spark fr;
 	Spark bl;
 	Spark br;
+
 	bool doTracking;
 	double trackingAngle;
-	PID pid;
+	bool targetMet;
+	const double defaultP = 0.045;
+	const double defaultMaxCommand = 0.75;
+	const double defaultMinCommand = 0.1;
+	const double deltaDegree = 0.5;
+	ADIS16448_IMU gyro;
+
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 
 public:
@@ -33,6 +41,7 @@ public:
 	void EnableTracking(bool enable);
 	bool TrackingEnabled();
 	void SetAngleTrackingTarget(double angle);
+	bool AngleTrackingTargetMet();
 };
 
 #endif  // MecanumDrive_H

@@ -4,10 +4,7 @@
 #include <Commands/Subsystem.h>
 #include "Spark.h"
 #include "PinEnums.h"
-#include "LOOP/PID.h"
-
-using namespace loop;
-
+#include <WPILib.h>
 /*
  * LiftControl
  * Controls lift elevating and movement... things
@@ -18,9 +15,14 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
-	Spark liftLifter;
-	double lifterTargetElevation, lifterMaxPower;
-	PID liftPid;
+	Spark liftLifter; //MLL Can we rename this to motor controller or something similar?
+	double lifterTargetElevation;
+	const double lifterMaxPower = 1;
+	const double lifterMinPower = 0;
+	const double defaultLifterP = 0.1;
+	const double defaultLifterI = 0;
+	const double defaultLifterD = 0;
+
 
 public:
 	LiftControl(MotorPin lifter);
