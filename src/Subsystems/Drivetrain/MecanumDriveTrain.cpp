@@ -1,11 +1,13 @@
 #include <Commands/HandleMecanumDrive.h>
 #include "MecanumDriveTrain.h"
 #include <PinEnums.h>
-#include "IDriveTrain.h"
+#include "LOOP/IDriveTrain.h"
 #include <cmath>
 #include <LOOP/PID.h>
 #include <WPILib.h>
 #define PI 3.141592
+
+using namespace loop;
 
 MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
 	IDriveTrain("MecanumDrive"),
@@ -51,7 +53,7 @@ void MecanumDriveTrain::Stop() {
 	br.Set(0.0);
 }
 
-void MecanumDriveTrain::Drive(SDriveData driveData) {
+void MecanumDriveTrain::DoDrive(SDriveData driveData) {
 	double p = frc::SmartDashboard::GetNumber("P", defaultP);
 	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
 	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);

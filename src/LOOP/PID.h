@@ -14,6 +14,7 @@
 #include <PIDController.h>
 #include <functional>
 
+namespace loop {
 class PID: public frc::PIDSource, public frc::PIDOutput {
 private:
 	double inputBuffer;
@@ -33,5 +34,6 @@ public:
 	void BindOutput(std::function<void (double)> out);
 	double GetSetpoint();
 };
+}
 
 #endif /* SRC_LOOPCORE_PID_H_ */

@@ -13,6 +13,7 @@
 #include "Subsystems/Drivetrain/MecanumDriveTrain.h"
 #include "Subsystems/Lift/LiftControl.h"
 #include "Subsystems/Intake/IntakeControl.h"
+#include "Subsystems/Lift/LiftStringPot.h"
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -31,6 +32,7 @@ public:
 	static std::unique_ptr<DRIVETRAIN> drivetrain;
 	static std::unique_ptr<LiftControl> lift;
 	static std::unique_ptr<IntakeControl> intake;
+	static std::unique_ptr<LiftStringPot> liftStringPot;
 	static std::unique_ptr<OI> oi;
 };
 

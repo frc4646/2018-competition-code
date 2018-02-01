@@ -1,8 +1,10 @@
-#include "IDriveTrain.h"
+#include "LOOP/IDriveTrain.h"
 #include <Spark.h>
 #include <Subsystems/Drivetrain/TankDriveTrain.h>
 #include "../../PinEnums.h"
 #include "Commands/HandleTankDrive.h"
+
+using namespace loop;
 
 TankDriveTrain::TankDriveTrain(MotorPin leftPin, MotorPin rightPin) :
 	IDriveTrain("TankDrive"),

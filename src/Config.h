@@ -39,6 +39,10 @@ const double liftMovementFactor = 0.1;
 const MotorPin intakeIn = M6;
 const DIOPin intakeLimit = D0;
 
+#define LIFT_STRING_POT_INIT_PARAMS stringPotPin
+
+const AnalogPin stringPotPin = A0;
+
 #endif /* Config_H */
 
 /*

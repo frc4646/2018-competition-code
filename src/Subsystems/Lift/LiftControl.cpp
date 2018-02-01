@@ -1,11 +1,16 @@
 #include "LiftControl.h"
 #include "LOOP/Idle.h"
 #include "CommandBase.h"
+#include "LOOP/PID.h"
+#include "LiftStringPot.h"
 
 using namespace loop;
 
 LiftControl::LiftControl(MotorPin lifter) : Subsystem("LiftControl"),
-		liftLifter(lifter){
+		liftLifter(lifter),
+		lifterPid(frc::SmartDashboard::GetNumber("Lifter P", defaultLifterP),
+				frc::SmartDashboard::GetNumber("Lifter I", defaultLifterI),
+				frc::SmartDashboard::GetNumber("Lifter D", defaultLifterD)){
 
 }
 
@@ -31,7 +36,7 @@ double LiftControl::GetTiltAngle() {
 }*/
 
 void LiftControl::LiftToElevation(double elevation) {
-	lifterTargetElevation = std::min(std::max(0.0, elevation), 4.0);
+	lifterPid.SetSetpoint(std::min(std::max(elevation, CommandBase::liftStringPot->GetMinHeight()), CommandBase::liftStringPot->GetMaxHeight()));
 	//MLL - we should probably get our min and max values from the string pot class and not magic numbers.
 }
 

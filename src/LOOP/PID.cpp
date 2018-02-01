@@ -7,6 +7,8 @@
 
 #include "PID.h"
 
+using namespace loop;
+
 PID::PID(double p, double i, double d) :
 	PIDSource(),
 	PIDOutput(),

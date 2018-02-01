@@ -5,6 +5,9 @@
 #include "Spark.h"
 #include "PinEnums.h"
 #include <WPILib.h>
+#include "LOOP/PID.h"
+
+
 /*
  * LiftControl
  * Controls lift elevating and movement... things
@@ -22,7 +25,7 @@ private:
 	const double defaultLifterP = 0.1;
 	const double defaultLifterI = 0;
 	const double defaultLifterD = 0;
-
+	loop::PID lifterPid;
 
 public:
 	LiftControl(MotorPin lifter);
