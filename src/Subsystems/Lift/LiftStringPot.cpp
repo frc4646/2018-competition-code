@@ -21,3 +21,11 @@ double LiftStringPot::GetHeight() {
 
 	return height;
 }
+
+double LiftStringPot::GetMaxHeight() {
+	return MaxHeight;
+}
+
+double LiftStringPot::GetMinHeight() {
+	return MinHeight;
+}

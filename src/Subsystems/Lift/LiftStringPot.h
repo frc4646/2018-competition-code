@@ -17,6 +17,8 @@ public:
 	LiftStringPot(int pin);
 	void InitDefaultCommand();
 	double GetHeight();
+	double GetMaxHeight();
+	double GetMinHeight();
 };
 
 #endif  // LiftStringPot_H
