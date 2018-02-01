@@ -1,6 +1,7 @@
 #include "LiftControl.h"
 #include "LOOP/Idle.h"
 #include "CommandBase.h"
+#include "LiftStringPot.h"
 
 using namespace loop;
 

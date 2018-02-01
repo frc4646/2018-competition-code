@@ -4,6 +4,7 @@
 #include <Subsystems/Drivetrain/MecanumDriveTrain.h>
 #include <Subsystems/Lift/LiftControl.h>
 #include <Subsystems/Intake/IntakeControl.h>
+#include <Subsystems/Lift/UltraSonic.h>
 
 #include "PinEnums.h"
 #include "Config.h"
@@ -13,6 +14,7 @@
 std::unique_ptr<DRIVETRAIN> CommandBase::drivetrain = NULL;
 std::unique_ptr<LiftControl> CommandBase::lift = NULL;
 std::unique_ptr<IntakeControl> CommandBase::intake = NULL;
+std::unique_ptr<UltraSonic> CommandBase::ultrasonic = NULL;
 
 std::unique_ptr<OI> CommandBase::oi = std::make_unique<OI>();
 
@@ -25,4 +27,5 @@ void CommandBase::init() {
 	drivetrain.reset(new DRIVETRAIN(DRIVETRAIN_INIT_PARAMS));
 	lift.reset(new LiftControl(LIFT_INIT_PARAMS));
 	intake.reset(new IntakeControl(INTAKE_INIT_PARAMS));
+	ultrasonic.reset(new UltraSonic(ULTRASONIC_INIT_PARAMS));
 }

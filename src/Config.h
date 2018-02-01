@@ -39,6 +39,10 @@ const double liftMovementFactor = 0.1;
 const MotorPin intakeIn = M6;
 const DIOPin intakeLimit = D0;
 
+#define ULTRASONIC_INIT_PARAMS ultrasonicPin
+
+const AnalogPin ultrasonicPin = A1;
+
 #endif /* Config_H */
 
 /*
