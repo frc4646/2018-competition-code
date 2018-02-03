@@ -5,7 +5,6 @@
 #include <LOOP/Binding.h>
 #include "Commands/HandleMecanumDrive.h"
 #include "Commands/Outtake/OuttakePowerCube.h"
-#include "Commands/Intake/AdjustToIntakeAngle.h"
 
 using namespace loop;
 

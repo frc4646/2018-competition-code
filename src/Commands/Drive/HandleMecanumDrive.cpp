@@ -21,8 +21,8 @@ void HandleMecanumDrive::Initialize() {
 void HandleMecanumDrive::Execute() {
 	//build drive data
 	SDriveData driveData;
-	driveData.cartX = oi->GetMechanismX();
-	driveData.cartY = oi->GetMechanismY();
+	driveData.cartX = oi->GetRightJoystickX();
+	driveData.cartY = oi->GetRightJoystickY();
 	driveData.cartR = oi->GetLeftJoystickX();
 
 	//get more values from SD

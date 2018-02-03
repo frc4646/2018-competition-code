@@ -13,12 +13,8 @@
 #include "Drive/DriveToPoint.h"
 #include "Drive/RotateToPoint.h"
 #include "Drive/StrafeToPoint.h"
-#include "Intake/IntakeAngleAdjust.h"
-#include "Launch/LaunchAngleAdjust.h"
-#include "Launch/LaunchPowerCube.h"
 #include "Lift/LiftDown.h"
 #include "Lift/LiftUp.h"
-#include "Outtake/OuttakeAngleAdjust.h"
 #include "Outtake/OuttakePowerCube.h"
 #include <AutoCommands/TeleopCommands/Portal.h>
 #include <AutoCommands/TeleopCommands/Scale.h>

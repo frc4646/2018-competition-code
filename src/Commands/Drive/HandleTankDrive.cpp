@@ -1,5 +1,5 @@
-#include "HandleTankDrive.h"
 #include <config.h>
+#include <Commands/Drive/HandleTankDrive.h>
 
 #if (DRIVETRAIN == TankDriveTrain)
 HandleTankDrive::HandleTankDrive() {
