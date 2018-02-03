@@ -1,12 +1,14 @@
 #ifndef IntakeControl_H
 #define IntakeControl_H
 
+
 #include <Commands/Subsystem.h>
 
 #include <Spark.h>
 #include <DigitalInput.h>
 #include <PinEnums.h>
 #include <LOOP/PID.h>
+
 
 //using namespace loop;
 class IntakeControl : public Subsystem {

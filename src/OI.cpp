@@ -53,6 +53,12 @@ double OI::GetLeftJoystickX() {
 #endif
 }
 
+bool OI::GetMechanismTrigger(){
+#ifndef GAMEPAD
+return mechanism.GetTrigger();
+#endif
+}
+
 double OI::GetLeftJoystickY() {
 #ifndef GAMEPAD
 	return left.GetRawAxis(1) * -1.0;

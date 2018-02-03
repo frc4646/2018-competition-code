@@ -30,13 +30,15 @@ const MotorPin backRightPin = M3;
 //#define LIFT_INIT_PARAMS liftTilterPin, liftLifterPin
 #define LIFT_INIT_PARAMS liftLifterPin
 
-const MotorPin liftTilterPin = M4;
+
 const MotorPin liftLifterPin = M5;
 const double liftMovementFactor = 0.1;
 
-#define INTAKE_INIT_PARAMS intakeIn, intakeIn, intakeLimit
+#define INTAKE_INIT_PARAMS intakePin, intakeTilterPin, intakeLimit
 
-const MotorPin intakeIn = M6;
+
+const MotorPin intakeTilterPin = M4;
+const MotorPin intakePin = M6;
 const DIOPin intakeLimit = D0;
 
 #define ULTRASONIC_INIT_PARAMS ultrasonicPin

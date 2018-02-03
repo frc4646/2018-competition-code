@@ -1,6 +1,7 @@
 #include "IntakeControl.h"
 #include "LOOP/Idle.h"
 #include "LOOP/PID.h"
+#include <Commands/Intake/IntakeGroup.h>
 
 using namespace loop;
 
@@ -16,6 +17,7 @@ IntakeControl::IntakeControl(MotorPin in, MotorPin tilt, DIOPin limit) :
 void IntakeControl::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new IntakeGroup());
 }
 
 // Put methods for controlling this subsystem
