@@ -14,7 +14,6 @@
 #include "Drive/RotateToPoint.h"
 #include "Drive/StrafeToPoint.h"
 #include "Intake/IntakeAngleAdjust.h"
-#include "Intake/IntakePowerCube.h"
 #include "Launch/LaunchAngleAdjust.h"
 #include "Launch/LaunchPowerCube.h"
 #include "Lift/LiftDown.h"

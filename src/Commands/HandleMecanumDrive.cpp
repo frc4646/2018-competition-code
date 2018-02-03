@@ -1,8 +1,9 @@
 #include "HandleMecanumDrive.h"
 #include <LOOP/IDriveTrain.h>
+#include <config.h>
 
 using namespace loop;
-
+#if (DRIVETRAIN == MecanumDriveTrain)
 HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), joyDB(0.1), joytar(false) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -58,5 +59,5 @@ void HandleMecanumDrive::End() {
 void HandleMecanumDrive::Interrupted() {
 	End();
 }
-
+#endif
 

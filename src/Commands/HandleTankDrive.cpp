@@ -1,5 +1,7 @@
 #include "HandleTankDrive.h"
+#include <config.h>
 
+#if (DRIVETRAIN == TankDriveTrain)
 HandleTankDrive::HandleTankDrive() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -34,3 +36,4 @@ void HandleTankDrive::End() {
 void HandleTankDrive::Interrupted() {
 	End();
 }
+#endif

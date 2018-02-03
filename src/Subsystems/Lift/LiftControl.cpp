@@ -6,7 +6,8 @@
 using namespace loop;
 
 LiftControl::LiftControl(MotorPin lifter) : Subsystem("LiftControl"),
-		liftLifter(lifter){
+		liftLifter(lifter),
+		lifterTargetElevation(){
 
 }
 

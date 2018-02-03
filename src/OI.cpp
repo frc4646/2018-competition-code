@@ -4,7 +4,6 @@
 #include "Config.h"
 #include <LOOP/Binding.h>
 #include "Commands/HandleMecanumDrive.h"
-#include "Commands/Intake/IntakePowerCube.h"
 #include "Commands/Outtake/OuttakePowerCube.h"
 #include "Commands/Intake/AdjustToIntakeAngle.h"
 
@@ -39,9 +38,9 @@ OI::OI() :
 		1,
 		CommandBase::drivetrain.get()
 	));*/
-	intake.WhenPressed(new AdjustToIntakeAngle());
-	intake.WhileHeld(new IntakePowerCube());
-	outtake.WhileHeld(new OuttakePowerCube());
+	//intake.WhenPressed(new AdjustToIntakeAngle());
+	//intake.WhileHeld(new IntakePowerCube());
+	//outtake.WhileHeld(new OuttakePowerCube());
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering
@@ -55,7 +54,7 @@ double OI::GetLeftJoystickX() {
 
 bool OI::GetMechanismTrigger(){
 #ifndef GAMEPAD
-return mechanism.GetTrigger();
+	return mechanism.GetTrigger();
 #endif
 }
 

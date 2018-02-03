@@ -1,18 +1,18 @@
-#include <Commands/Intake/IntakePowerSet.h>
+#include <Commands/Intake/IntakeTiltSet.h>
 
-IntakePowerSet::IntakePowerSet() {
+IntakeTiltSet::IntakeTiltSet() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(intake.get());
 }
 
 // Called just before this Command runs the first time
-void IntakePowerSet::Initialize() {
+void IntakeTiltSet::Initialize() {
 	intake->SetIntakePower(0);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void IntakePowerSet::Execute() {
+void IntakeTiltSet::Execute() {
 	if (oi->GetMechanismTrigger()){
 		intake->SetIntakePower(oi->GetMechanismY());
 	}
@@ -22,17 +22,17 @@ void IntakePowerSet::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool IntakePowerSet::IsFinished() {
+bool IntakeTiltSet::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void IntakePowerSet::End() {
+void IntakeTiltSet::End() {
 	intake->SetIntakePower(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void IntakePowerSet::Interrupted() {
+void IntakeTiltSet::Interrupted() {
 
 }

@@ -17,6 +17,7 @@ IntakeGroup::IntakeGroup() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddParallel(new IntakePowerSet());
+	AddParallel(new IntakeTiltSet());
+	AddParallel(new IntakeMotorSet());
 
 }

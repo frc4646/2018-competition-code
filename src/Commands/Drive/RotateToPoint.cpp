@@ -36,3 +36,4 @@ void RotateToPoint::End() {
 void RotateToPoint::Interrupted() {
 
 }
+

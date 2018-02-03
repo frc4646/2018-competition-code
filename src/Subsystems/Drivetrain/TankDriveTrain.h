@@ -15,14 +15,13 @@ private:
 	// for methods that implement subsystem capabilities
 
 	// Only one Spark object is needed per side. It just seems y'all have never head of PWM splitters.
-	Spark left, right;
-protected:
-	void DoDrive(SDriveData driveData);
+	Spark frontLeft, frontRight, backLeft, backRight;
 
 public:
-	TankDriveTrain(MotorPin leftPin, MotorPin rightPin);
+	TankDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin);
 	void InitDefaultCommand();
 	void Stop();
+	void Drive(SDriveData driveData);
 };
 
 #endif  // TankDrive_H

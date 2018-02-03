@@ -1,13 +1,15 @@
 #include "IDriveTrain.h"
 #include <Spark.h>
 #include <Subsystems/Drivetrain/TankDriveTrain.h>
-#include "../../PinEnums.h"
-#include "Commands/HandleTankDrive.h"
+#include <PinEnums.h>
+#include <Commands/HandleTankDrive.h>
 
-TankDriveTrain::TankDriveTrain(MotorPin leftPin, MotorPin rightPin) :
+TankDriveTrain::TankDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
 	IDriveTrain("TankDrive"),
-	left(leftPin),
-	right(rightPin) {
+	frontLeft(frontLeftPin),
+	frontRight(backRightPin),
+	backLeft(backLeftPin),
+	backRight(backRightPin){
 
 }
 
@@ -21,12 +23,16 @@ void TankDriveTrain::InitDefaultCommand() {
 // here. Call these from Commands.
 
 void TankDriveTrain::Stop() {
-	left.Set(0);
-	right.Set(0);
+	frontLeft.Set(0);
+	frontRight.Set(0);
+	backLeft.Set(0);
+	backRight.Set(0);
 }
 
-void TankDriveTrain::DoDrive(SDriveData driveData) {
-	left.Set(driveData.lTank);
-	right.Set(driveData.rTank);
+void TankDriveTrain::Drive(SDriveData driveData) {
+	frontLeft.Set(driveData.lTank);
+	frontRight.Set(driveData.rTank);
+	backLeft.Set(driveData.lTank);
+	backRight.Set(driveData.rTank);
 }
 

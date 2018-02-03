@@ -2,7 +2,8 @@
 #define IntakeGroup_H
 
 #include <Commands/CommandGroup.h>
-#include "IntakePowerSet.h"
+#include <Commands/Intake/IntakeTiltSet.h>
+#include "IntakeMotorSet.h"
 
 class IntakeGroup : public CommandGroup {
 public:

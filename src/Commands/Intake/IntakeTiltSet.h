@@ -4,9 +4,9 @@
 #include <CommandBase.h>
 #include <OI.h>
 
-class IntakePowerSet : public CommandBase {
+class IntakeTiltSet : public CommandBase {
 public:
-	IntakePowerSet();
+	IntakeTiltSet();
 	void Initialize();
 	void Execute();
 	bool IsFinished();
