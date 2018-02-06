@@ -13,10 +13,14 @@ void IntakeMotorSet::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void IntakeMotorSet::Execute() {
+	// If trigger on mechanism joystick is being pressed...
 	if (!oi->GetMechanismTrigger()){
-		intake->SetIntakePower(oi->GetMechanismY());
+		// Set intake power to whatever the mechanism joysticks Y value is at, times -1 because the joystick is reversed.
+		intake->SetIntakePower((oi->GetMechanismY()*-1));
 	}
+	// If not...
 	else{
+		// Set intake power to zero.
 		intake->SetIntakePower(0);
 	}
 }

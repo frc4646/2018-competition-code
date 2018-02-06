@@ -3,7 +3,7 @@
 #include <WPILib.h>
 #include "Config.h"
 #include <LOOP/Binding.h>
-#include "Commands/HandleMecanumDrive.h"
+#include "Commands/Drive/HandleMecanumDrive.h"
 #include "Commands/Outtake/OuttakePowerCube.h"
 
 using namespace loop;

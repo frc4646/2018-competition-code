@@ -20,6 +20,7 @@ void IntakeControl::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
+// Sets intake power to argument "power".
 void IntakeControl::SetIntakePower(double power) {
 	intake.Set(power);
 }

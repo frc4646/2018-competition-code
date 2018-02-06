@@ -9,8 +9,6 @@
 #include <PinEnums.h>
 #include <LOOP/PID.h>
 
-
-//using namespace loop;
 class IntakeControl : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
