@@ -1,8 +1,6 @@
 #include "RobotCenterSwitchRight.h"
 #include <Commands/Drive/DriveToPoint.h>
 #include <Commands/Drive/StrafeToPoint.h>
-#include <Commands/Intake/IntakeAngleAdjust.h>
-#include <Commands/Launch/LaunchPowerCube.h>
 
 RobotCenterSwitchRight::RobotCenterSwitchRight() {
 	// Add Commands here:

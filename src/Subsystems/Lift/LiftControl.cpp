@@ -10,7 +10,8 @@ LiftControl::LiftControl(MotorPin lifter) : Subsystem("LiftControl"),
 		liftLifter(lifter),
 		lifterPid(frc::SmartDashboard::GetNumber("Lifter P", defaultLifterP),
 				frc::SmartDashboard::GetNumber("Lifter I", defaultLifterI),
-				frc::SmartDashboard::GetNumber("Lifter D", defaultLifterD)){
+				frc::SmartDashboard::GetNumber("Lifter D", defaultLifterD)),
+		lifterTargetElevation(){
 
 }
 

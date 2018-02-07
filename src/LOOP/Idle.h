@@ -1,7 +1,7 @@
 #ifndef Idle_H
 #define Idle_H
 
-#include "../CommandBase.h"
+#include <CommandBase.h>
 /*
 class Idle : public CommandBase {
 public:

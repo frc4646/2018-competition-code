@@ -1,8 +1,9 @@
 #include "HandleMecanumDrive.h"
 #include <LOOP/IDriveTrain.h>
+#include <config.h>
 
 using namespace loop;
-
+#if (DRIVETRAIN == MecanumDriveTrain)
 HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), joyDB(0.1), joytar(false) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
@@ -20,8 +21,8 @@ void HandleMecanumDrive::Initialize() {
 void HandleMecanumDrive::Execute() {
 	//build drive data
 	SDriveData driveData;
-	driveData.cartX = oi->GetMechanismX();
-	driveData.cartY = oi->GetMechanismY();
+	driveData.cartX = oi->GetRightJoystickX();
+	driveData.cartY = oi->GetRightJoystickY();
 	driveData.cartR = oi->GetLeftJoystickX();
 
 	//get more values from SD
@@ -58,5 +59,5 @@ void HandleMecanumDrive::End() {
 void HandleMecanumDrive::Interrupted() {
 	End();
 }
-
+#endif
 

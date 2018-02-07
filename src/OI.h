@@ -11,6 +11,7 @@ public:
 	double GetLeftJoystickY();
 	double GetRightJoystickX();
 	double GetRightJoystickY();
+	bool GetMechanismTrigger();
 #ifndef GAMEPAD
 	double GetMechanismX();
 	double GetMechanismY();
