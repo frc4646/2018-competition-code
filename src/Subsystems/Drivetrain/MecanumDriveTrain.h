@@ -9,6 +9,8 @@
 #include <LOOP/Binding.h>
 #include <WPILib.h>
 #include <IMU10Axis/ADIS16448_IMU.h>
+#include <Encoder.h>
+#include <Subsystems/EncoderChannels.h>
 
 using namespace loop;
 
@@ -29,13 +31,14 @@ private:
 	const double defaultMinCommand = 0.1;
 	const double deltaDegree = 0.5;
 	ADIS16448_IMU gyro;
+	Encoder flEnc, frEnc, blEnc, brEnc;
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 protected:
 	void DoDrive(SDriveData driveData) override;
 
 public:
-	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin);
+	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin, EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
 	void InitDefaultCommand() override;
 	void Stop();
 

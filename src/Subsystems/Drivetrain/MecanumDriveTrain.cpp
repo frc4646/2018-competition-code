@@ -5,16 +5,22 @@
 #include <cmath>
 #include <LOOP/PID.h>
 #include <WPILib.h>
+#include <Encoder.h>
+#include <Subsystems/EncoderChannels.h>
 #define PI 3.141592
 
 using namespace loop;
 
-MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin) :
+MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin, EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder) :
 	IDriveTrain("MecanumDrive"),
 	fl(frontLeftPin),
 	fr(frontRightPin),
 	bl(backLeftPin),
-	br(backRightPin){
+	br(backRightPin),
+	flEnc(frontLeftEncoder.a, frontLeftEncoder.b, false, Encoder::EncodingType::k4X),
+	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Encoder::EncodingType::k4X),
+	blEnc(backLeftEncoder.a, backLeftEncoder.a, false, Encoder::EncodingType::k4X),
+	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X){
 
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
@@ -125,5 +131,8 @@ bool MecanumDriveTrain::AngleTrackingTargetMet() {
 }
 
 void MecanumDriveTrain::ResetEncoders() {
-
+	flEnc.Reset();
+	frEnc.Reset();
+	blEnc.Reset();
+	brEnc.Reset();
 }
