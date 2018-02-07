@@ -19,13 +19,13 @@ private:
 	// for methods that implement subsystem capabilities
 
 	Spark liftLifter; //MLL Can we rename this to motor controller or something similar?
-	double lifterTargetElevation;
 	const double lifterMaxPower = 1;
 	const double lifterMinPower = 0;
 	const double defaultLifterP = 0.1;
 	const double defaultLifterI = 0;
 	const double defaultLifterD = 0;
 	loop::PID lifterPid;
+	double lifterTargetElevation;
 
 public:
 	LiftControl(MotorPin lifter);

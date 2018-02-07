@@ -43,6 +43,7 @@ public:
 	bool TrackingEnabled();
 	void SetAngleTrackingTarget(double angle);
 	bool AngleTrackingTargetMet();
+	void ResetEncoders();
 };
 
 #endif  // MecanumDrive_H

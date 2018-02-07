@@ -37,6 +37,19 @@ OI::OI() :
 		1,
 		CommandBase::drivetrain.get()
 	));*/
+	frc::SmartDashboard::PutData("Reset Encoders", new Binding(
+		[]() {
+			CommandBase::drivetrain->ResetEncoders();
+		},
+		[]() {
+
+		},
+		[]() {
+
+		},
+		1,
+		CommandBase::drivetrain.get()
+	));
 	//intake.WhenPressed(new AdjustToIntakeAngle());
 	//intake.WhileHeld(new IntakePowerCube());
 	//outtake.WhileHeld(new OuttakePowerCube());

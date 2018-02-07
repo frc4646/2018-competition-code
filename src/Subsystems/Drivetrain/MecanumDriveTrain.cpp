@@ -107,24 +107,23 @@ void MecanumDriveTrain::DoDrive(SDriveData driveData) {
 }
 
 
-void MecanumDriveTrain::EnableTracking(bool enable)
-{
+void MecanumDriveTrain::EnableTracking(bool enable) {
 	doTracking = enable;
 }
 
-bool MecanumDriveTrain::TrackingEnabled()
-{
+bool MecanumDriveTrain::TrackingEnabled() {
 	return doTracking;
 }
 
-void MecanumDriveTrain::SetAngleTrackingTarget(double angle)
-{
+void MecanumDriveTrain::SetAngleTrackingTarget(double angle) {
 	trackingAngle = angle;
 	targetMet = false;
 }
 
-bool MecanumDriveTrain::AngleTrackingTargetMet()
-{
+bool MecanumDriveTrain::AngleTrackingTargetMet() {
 	return targetMet;
 }
 
+void MecanumDriveTrain::ResetEncoders() {
+
+}
