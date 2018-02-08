@@ -6,13 +6,14 @@
 
 using namespace loop;
 
-LiftControl::LiftControl(MotorPin lifter) : Subsystem("LiftControl"),
-		liftLifter(lifter),
-		lifterPid(frc::SmartDashboard::GetNumber("Lifter P", defaultLifterP),
-				frc::SmartDashboard::GetNumber("Lifter I", defaultLifterI),
-				frc::SmartDashboard::GetNumber("Lifter D", defaultLifterD)),
-		lifterTargetElevation(){
-
+LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftControl"),
+		liftMotor(lifter),
+		ratchetButtonServo(ratchet)
+		{
+			frc::SmartDashboard::PutNumber("Lifter P", defaultLiftUpP);
+					frc::SmartDashboard::PutNumber("Lifter I", defaultLiftUpI);
+					frc::SmartDashboard::PutNumber("Lifter D", defaultLiftUpD);
+		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
 void LiftControl::InitDefaultCommand() {
@@ -23,38 +24,45 @@ void LiftControl::InitDefaultCommand() {
 // Put methods for controlling this subsystem
 // here. Call these from Commands.
 
-/*void LiftControl::TiltToAngle(double angle) {
-	tilterTargetAngle = std::min(std::max(0, angle), 120);
-	tiltPid.SetSetpoint(angle);
-}
-
-void LiftControl::SetTiltMaxPower(double power) {
-	tilterMaxPower = std::min(std::max(-1, power), 1);
-}
-
-double LiftControl::GetTiltAngle() {
-	return tilterTargetAngle;
-}*/
-
 void LiftControl::LiftToElevation(double elevation) {
-	lifterPid.SetSetpoint(std::min(std::max(elevation, CommandBase::liftStringPot->GetMinHeight()), CommandBase::liftStringPot->GetMaxHeight()));
-	//MLL - we should probably get our min and max values from the string pot class and not magic numbers.
-}
-
-void LiftControl::SetLiftMaxPower(double power) {
-	//lifterMaxPower = std::min(std::max(-1.0, power), 1.0); MLL- Not sure what this is doing
+	lifterTargetElevation = (std::min(std::max(elevation, CommandBase::liftStringPot->GetMinHeight()), CommandBase::liftStringPot->GetMaxHeight()));
 }
 
 double LiftControl::GetLiftElevation() {
-	//return lifterTargetElevation; MLL- This is handled by the string pot. Maybe this function just needs to be renamed
-	return 0;
+	return CommandBase::liftStringPot->GetHeight();
 }
 
 void LiftControl::StopLift() {
-	// SetLiftPower(0); MLL - The lift needs to maintain its position by continuing to run the PID, gravity is working against this
+	lifterTargetElevation = GetLiftElevation();
+
 }
 
 void LiftControl::SetLiftPower(double power) {
-	liftLifter.Set(std::min(std::max(-lifterMaxPower, power), lifterMaxPower));
-	//MLL - We may want to handle the minimum lifter power, and it may different up and down because gravity
+	if (power > 0) {
+		liftMotor.Set(std::min(std::max(lifterMinPowerUp, power), lifterMaxPowerUp));
+	}
+
+	else if(power < 0) {
+		liftMotor.Set(std::min(std::max(lifterMinPowerDown, power), lifterMaxPowerDown));
+	}
+
+	else {
+		StopLift();
+	}
+
+}
+
+void LiftControl::Lift() {
+
+}
+
+void LiftControl::SetRatchetEngage(bool on) {
+	//when the ratchet is engaged, the button is not pressed
+	if (on == true) {
+		ratchetButtonServo.SetAngle(ratchetOnAngle);
+	}
+
+	else {
+		ratchetButtonServo.SetAngle(ratchetOffAngle);
+	}
 }

@@ -18,7 +18,7 @@ private:
 	Spark intake;
 
 public:
-	IntakeControl(MotorPin in, MotorPin tilt, DIOPin limit);
+	IntakeControl(MotorPin in, DIOPin limit);
 	void InitDefaultCommand();
 	void SetIntakePower(double power);
 

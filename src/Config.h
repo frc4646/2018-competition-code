@@ -43,18 +43,17 @@ const EncoderChannels backRightEncoders = {
 	D7
 };
 
-//#define LIFT_INIT_PARAMS liftTilterPin, liftLifterPin
-#define LIFT_INIT_PARAMS liftLifterPin
+#define LIFT_INIT_PARAMS liftMotorPin, ratchetMotorPin
 
 
-const MotorPin liftLifterPin = M6;
-const double liftMovementFactor = 0.1;
+const MotorPin liftMotorPin = M6;
+const MotorPin ratchetMotorPin = M7;
 
-#define INTAKE_INIT_PARAMS intakePin, intakeTilterPin, intakeLimit
 
-const MotorPin intakeTilterPin = M4;
+#define INTAKE_INIT_PARAMS intakePin,  intakeLimit
+
 const MotorPin intakePin = M5;
-const DIOPin intakeLimit = D0;
+const DIOPin intakeLimit = D8;
 
 #define LIFT_STRING_POT_INIT_PARAMS stringPotPin
 

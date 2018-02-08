@@ -27,8 +27,8 @@ CommandBase::CommandBase(const std::string &name) :
 
 void CommandBase::init() {
 	drivetrain.reset(new DRIVETRAIN(DRIVETRAIN_INIT_PARAMS));
-	lift.reset(new LiftControl(LIFT_INIT_PARAMS));
-	intake.reset(new IntakeControl(INTAKE_INIT_PARAMS));
 	liftStringPot.reset(new LiftStringPot(LIFT_STRING_POT_INIT_PARAMS));
 	ultrasonic.reset(new UltraSonic(ULTRASONIC_INIT_PARAMS));
+	lift.reset(new LiftControl(LIFT_INIT_PARAMS));
+	intake.reset(new IntakeControl(INTAKE_INIT_PARAMS));
 }

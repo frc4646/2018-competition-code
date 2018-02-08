@@ -5,7 +5,7 @@
 
 using namespace loop;
 
-IntakeControl::IntakeControl(MotorPin in, MotorPin tilt, DIOPin limit) :
+IntakeControl::IntakeControl(MotorPin in, DIOPin limit) :
 		Subsystem("IntakeControl"),
 		intake(in) {
 

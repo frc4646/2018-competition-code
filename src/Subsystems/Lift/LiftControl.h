@@ -6,6 +6,7 @@
 #include "PinEnums.h"
 #include <WPILib.h>
 #include "LOOP/PID.h"
+#include <Servo.h>
 
 
 /*
@@ -18,23 +19,37 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
-	Spark liftLifter; //MLL Can we rename this to motor controller or something similar?
-	const double lifterMaxPower = 1;
-	const double lifterMinPower = 0;
-	const double defaultLifterP = 0.1;
-	const double defaultLifterI = 0;
-	const double defaultLifterD = 0;
-	loop::PID lifterPid;
+	Spark liftMotor;
+	const double lifterMaxPowerUp = 1;
+	const double lifterMinPowerUp = 0.01;
+	const double lifterMaxPowerDown = -1;
+	const double lifterMinPowerDown = -0.01;
+
+	const double defaultLiftUpP = 0.1;
+	const double defaultLiftUpI = 0;
+	const double defaultLiftUpD = 0;
+
+	const double defaultLiftDownP = 0.1;
+	const double defaultLiftDownI = 0;
+	const double defaultLiftDownD = 0;
+
 	double lifterTargetElevation;
 
+	Servo ratchetButtonServo;
+	//angles are just place holders
+	const double ratchetOnAngle = 0;
+	const double ratchetOffAngle = 90;
+
+
 public:
-	LiftControl(MotorPin lifter);
+	LiftControl(MotorPin lifter, MotorPin ratchet);
 	void InitDefaultCommand();
 	void LiftToElevation(double elevation);
-	void SetLiftMaxPower(double power);
 	double GetLiftElevation();
 	void StopLift();
 	void SetLiftPower(double power);
+	void Lift();
+	void SetRatchetEngage(bool on);
 };
 
 #endif  // LiftControl_H
