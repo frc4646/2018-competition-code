@@ -45,7 +45,6 @@ const EncoderChannels backRightEncoders = {
 
 #define LIFT_INIT_PARAMS liftMotorPin, ratchetMotorPin
 
-
 const MotorPin liftMotorPin = M6;
 const MotorPin ratchetMotorPin = M7;
 
