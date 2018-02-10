@@ -39,7 +39,9 @@ void HandleMecanumDrive::Execute() {
 		drivetrain->SetAngleTrackingTarget(tar);
 		frc::SmartDashboard::PutNumber("Target", tar);
 	}
-
+	driveData.cartX = (driveData.cartX*(oi->GetRightJoystickThrottle()*-1));
+	driveData.cartY = (driveData.cartY*(oi->GetRightJoystickThrottle()*-1));
+	driveData.cartR = (driveData.cartR*(oi->GetLeftJoystickThrottle()*-1));
 	drivetrain->Drive(driveData);
 
 }

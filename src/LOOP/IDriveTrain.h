@@ -29,7 +29,7 @@ namespace loop {
 		ADXRS450_Gyro gyro;
 		PID trackingPid;
 		bool track;
-		virtual void DoDrive(SDriveData driveData) = 0;
+		//virtual void DoDrive(SDriveData driveData) = 0;
 
 	public:
 		IDriveTrain(std::string name);

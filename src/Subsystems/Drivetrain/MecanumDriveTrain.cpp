@@ -59,7 +59,7 @@ void MecanumDriveTrain::Stop() {
 	br.Set(0.0);
 }
 
-void MecanumDriveTrain::DoDrive(SDriveData driveData) {
+void MecanumDriveTrain::Drive(SDriveData driveData) {
 	double p = frc::SmartDashboard::GetNumber("P", defaultP);
 	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
 	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);

@@ -34,8 +34,7 @@ private:
 	Encoder flEnc, frEnc, blEnc, brEnc;
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheRobotForThe2018SeasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
-protected:
-	void DoDrive(SDriveData driveData) override;
+
 
 public:
 	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin, EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
@@ -47,6 +46,7 @@ public:
 	void SetAngleTrackingTarget(double angle);
 	bool AngleTrackingTargetMet();
 	void ResetEncoders();
+	void Drive(SDriveData driveData);
 };
 
 #endif  // MecanumDrive_H
