@@ -11,8 +11,8 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 		ratchetButtonServo(ratchet)
 		{
 			frc::SmartDashboard::PutNumber("Lifter P", defaultLiftUpP);
-					frc::SmartDashboard::PutNumber("Lifter I", defaultLiftUpI);
-					frc::SmartDashboard::PutNumber("Lifter D", defaultLiftUpD);
+			frc::SmartDashboard::PutNumber("Lifter I", defaultLiftUpI);
+			frc::SmartDashboard::PutNumber("Lifter D", defaultLiftUpD);
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
@@ -53,7 +53,7 @@ void LiftControl::SetLiftPower(double power) {
 }
 
 void LiftControl::Lift() {
-
+	//pid
 }
 
 void LiftControl::SetRatchetEngage(bool on) {
