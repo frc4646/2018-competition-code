@@ -37,7 +37,8 @@ private:
 
 
 public:
-	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin, EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
+	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin,
+			EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
 	void InitDefaultCommand() override;
 	void Stop();
 
@@ -47,6 +48,19 @@ public:
 	bool AngleTrackingTargetMet();
 	void ResetEncoders();
 	void Drive(SDriveData driveData);
+
+	//MLL - Here are some ideas for what we can do for encoders
+	//Set Strafe distance
+	//Set Drive distance
+	//Account for wheel slip by adjustng motor commands
+	//Control velocity
+
+	//The best way to get started is to get all 4 encoders installed, place the counts (and reset) in smartdashboard
+	// then drive a KNOWN distance with the encoders, see what the counts get to, do it 2 or 3 times to get an average,
+	// do the same thing with strafe.
+
+	//The next thng to do would be to drive at a known power for a known time and see the distance and encoder counts you get.
+	//Hopefully this gve you enough breadcrumbs to get started.
 };
 
 #endif  // MecanumDrive_H

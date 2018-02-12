@@ -3,9 +3,9 @@
 
 #include <Commands/2018CommandGroups.h>
 
-class RobotLeftScaleLeft : public CommandGroup {
+class RobotScaleFront : public CommandGroup {
 public:
-	RobotLeftScaleLeft();
+	RobotScaleFront();
 };
 
 #endif  // RobotLeftScaleLeft_H

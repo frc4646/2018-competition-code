@@ -54,6 +54,9 @@ void LiftControl::SetLiftPower(double power) {
 
 void LiftControl::Lift() {
 	//pid
+
+	//TODO MLL This will need to always maintain the target position. I wrote a PID control that should
+	// allow you to do it all. You can use it, or write your own.
 }
 
 void LiftControl::SetRatchetEngage(bool on) {

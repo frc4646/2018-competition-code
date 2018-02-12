@@ -1,6 +1,4 @@
 #include "RobotCenterSwitchRight.h"
-#include <Commands/Drive/DriveToPoint.h>
-#include <Commands/Drive/StrafeToPoint.h>
 
 RobotCenterSwitchRight::RobotCenterSwitchRight() {
 	// Add Commands here:
@@ -19,7 +17,7 @@ RobotCenterSwitchRight::RobotCenterSwitchRight() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new StrafeToPoint());
-	AddSequential(new DriveToPoint());
+	AddSequential(new StrafeToPoint(0)); //TODO MLL-get correct distance
+	AddSequential(new DriveToPoint(0)); //TODO MLL-get correct distance
 	AddSequential(new Switch());
 }

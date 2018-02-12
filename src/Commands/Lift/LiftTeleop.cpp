@@ -1,36 +1,36 @@
-#include "DriveToPoint.h"
+#include <Commands/Lift/LiftTeleop.h>
+#include "Config.h"
 
-DriveToPoint::DriveToPoint(double distance) {
+LiftTeleop::LiftTeleop() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(lift.get());
 }
 
 // Called just before this Command runs the first time
-void DriveToPoint::Initialize() {
- //TODO
+void LiftTeleop::Initialize() {
+
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveToPoint::Execute() {
+void LiftTeleop::Execute() {
 
-	 //TODO MLL - Use Drive + Encoders to figure out how far you have gone. May
-	// need more setters/getters in Drive subsystem
+	//Need to consder lift up, lift down, holding the lift in place, and turning on the ratchet to climb
+
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveToPoint::IsFinished() {
-	 //TODO
+bool LiftTeleop::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void DriveToPoint::End() {
-	 //TODO
-
+void LiftTeleop::End() {
+	lift->StopLift();
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveToPoint::Interrupted() {
+void LiftTeleop::Interrupted() {
 	End();
 }

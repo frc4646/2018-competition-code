@@ -5,7 +5,7 @@
 
 class DriveToPoint : public CommandBase {
 public:
-	DriveToPoint();
+	DriveToPoint(double distance);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

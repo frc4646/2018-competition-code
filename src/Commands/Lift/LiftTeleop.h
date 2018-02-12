@@ -3,9 +3,9 @@
 
 #include <CommandBase.h>
 
-class LiftDown : public CommandBase {
+class LiftTeleop : public CommandBase {
 public:
-	LiftDown();
+	LiftTeleop();
 	void Initialize();
 	void Execute();
 	bool IsFinished();

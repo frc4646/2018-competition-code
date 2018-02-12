@@ -1,8 +1,8 @@
-#include "RobotCenterSwitchCross.h"
+#include <AutoCommands/AutonomousCommands/RobotCross.h>
 #include <Commands/Drive/DriveToPoint.h>
 
 
-RobotCenterSwitchCross::RobotCenterSwitchCross() {
+RobotCross::RobotCross() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -19,5 +19,5 @@ RobotCenterSwitchCross::RobotCenterSwitchCross() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new DriveToPoint());
+	AddSequential(new DriveToPoint(0)); //TODO Figure out right distance
 }

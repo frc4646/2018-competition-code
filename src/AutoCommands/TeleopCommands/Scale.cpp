@@ -1,6 +1,4 @@
 #include "Scale.h"
-#include <Commands/Lift/LiftToScale.h>
-#include <Commands/Outtake/OuttakePowerCube.h>
 
 Scale::Scale() {
 	// Add Commands here:
@@ -20,5 +18,6 @@ Scale::Scale() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	AddSequential(new LiftToScale());
+	AddParallel(new HoldLift());
 	AddSequential(new OuttakePowerCube());
 }

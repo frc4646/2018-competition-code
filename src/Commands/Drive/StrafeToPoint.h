@@ -5,7 +5,7 @@
 
 class StrafeToPoint : public CommandBase {
 public:
-	StrafeToPoint();
+	StrafeToPoint(double distance);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

@@ -3,9 +3,9 @@
 
 #include <Commands/2018CommandGroups.h>
 
-class RobotCenterSwitchCross : public CommandGroup {
+class RobotCross : public CommandGroup {
 public:
-	RobotCenterSwitchCross();
+	RobotCross();
 };
 
 #endif  // RobotCenterSwitchCross_H

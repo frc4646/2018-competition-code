@@ -4,7 +4,7 @@
 #include "Config.h"
 #include <LOOP/Binding.h>
 #include "Commands/Drive/HandleMecanumDrive.h"
-#include "Commands/Outtake/OuttakePowerCube.h"
+#include "Commands/Intake/OuttakePowerCube.h"
 
 using namespace loop;
 

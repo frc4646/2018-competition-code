@@ -1,9 +1,6 @@
-#include "RobotLeftScaleLeft.h"
-#include <Commands/Drive/DriveToPoint.h>
-#include <Commands/Drive/RotateToPoint.h>
-#include <Commands/Lift/LiftUp.h>
+#include <AutoCommands/AutonomousCommands/RobotScaleFront.h>
 
-RobotLeftScaleLeft::RobotLeftScaleLeft() {
+RobotScaleFront::RobotScaleFront() {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -20,7 +17,7 @@ RobotLeftScaleLeft::RobotLeftScaleLeft() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-		AddSequential(new DriveToPoint());
+		AddSequential(new DriveToPoint(0)); //TODO MLL-get correct distance
 		AddSequential(new RotateToPoint(90));
 		AddSequential(new Scale());
 }

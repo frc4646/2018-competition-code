@@ -37,9 +37,11 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frc::SmartDashboard::PutNumber("Target", 0);
 	frc::SmartDashboard::PutBoolean("Joystick Targeting Control", true);
 
-	doTracking = true;
+	doTracking = false;
 	trackingAngle = 0;
 	targetMet = true;
+
+	//MLL - Should we make sure all of our encoders are reset?
 
 }
 

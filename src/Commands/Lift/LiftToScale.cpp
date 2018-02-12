@@ -21,7 +21,7 @@ void LiftToScale::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void LiftToScale::Execute() {
 
-	double distanceToScale = 600; //unit??
+	double distanceToScale = 600; //unit?? MLL - is this for the ultrasonic or string pot?
 	double liftPower = 1.0; //TO DO change to reasonable number
 	double ultraSonicToCube = 2.0; //TO DO (also unit) the distance from the ultra sonic to the bottom of block
 	//3. add height from Ultra Sensor to bottom of block
@@ -38,6 +38,8 @@ void LiftToScale::Execute() {
 			if (ultrasonic->GetDistance() > distanceToScale || ultrasonic->GetDistance() < 0){
 				//run lift up
 				lift->SetLiftPower(liftPower);
+				//MLL - we could also set the target height to max height, then just keep calling lift
+				// and it will run the PID, then we won't have to guess on lift power!
 			} else {
 				state = 2;
 			}
@@ -49,6 +51,7 @@ void LiftToScale::Execute() {
 			//we've seen the scale, so go higher to pass the border on the scale
 			if (ultrasonic->GetDistance() <= distanceToScale) {
 				lift->SetLiftPower(liftPower);
+				//MLL - same comment as above
 			} else {
 				state = 3;
 			}
@@ -62,6 +65,11 @@ void LiftToScale::Execute() {
 			double finalHeight = currentHeight + ultraSonicToCube;
 
 			CommandBase::lift->LiftToElevation(finalHeight);
+
+			//MLL - I think this is really close to what we want to do, but we need to stay in this
+			//state until we actually get to the final height. Right now we will just be in here for
+			// one time step.
+
 			state = 4;
 		}
 			break;
@@ -86,15 +94,18 @@ bool LiftToScale::IsFinished() {
 	}
 
 	return false;
+
+	//MLL this can be replaced with return (state == 4) if you want, but you also might
+	//want to consder ending early f we see joystck motiion
 }
 
 // Called once after isFinished returns true
 void LiftToScale::End() {
-
+	//TODO we should add seomthing here (probably stopping the lift)
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LiftToScale::Interrupted() {
-
+	End();
 }

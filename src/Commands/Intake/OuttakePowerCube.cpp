@@ -1,36 +1,34 @@
-#include "DriveToPoint.h"
 
-DriveToPoint::DriveToPoint(double distance) {
+#include "OuttakePowerCube.h"
+
+OuttakePowerCube::OuttakePowerCube() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(intake.get());
 }
 
 // Called just before this Command runs the first time
-void DriveToPoint::Initialize() {
- //TODO
+void OuttakePowerCube::Initialize() {
+	intake->SetIntakePower(-1);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveToPoint::Execute() {
+void OuttakePowerCube::Execute() {
 
-	 //TODO MLL - Use Drive + Encoders to figure out how far you have gone. May
-	// need more setters/getters in Drive subsystem
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool DriveToPoint::IsFinished() {
-	 //TODO
+bool OuttakePowerCube::IsFinished() {
 	return false;
 }
 
 // Called once after isFinished returns true
-void DriveToPoint::End() {
-	 //TODO
-
+void OuttakePowerCube::End() {
+	intake->SetIntakePower(0);
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void DriveToPoint::Interrupted() {
+void OuttakePowerCube::Interrupted() {
 	End();
 }

@@ -1,34 +1,33 @@
-#include "LiftDown.h"
-#include "Config.h"
+#include "HoldLift.h"
 
-LiftDown::LiftDown() {
+HoldLift::HoldLift() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	Requires(lift.get());
 }
 
 // Called just before this Command runs the first time
-void LiftDown::Initialize() {
+void HoldLift::Initialize() {
 
 }
 
 // Called repeatedly when this Command is scheduled to run
-void LiftDown::Execute() {
+void HoldLift::Execute() {
 
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool LiftDown::IsFinished() {
+bool HoldLift::IsFinished() {
 	return false;
+	//This should probably end when we see joystck moton
 }
 
 // Called once after isFinished returns true
-void LiftDown::End() {
-	lift->StopLift();
+void HoldLift::End() {
+
 }
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void LiftDown::Interrupted() {
-	End();
+void HoldLift::Interrupted() {
+
 }
