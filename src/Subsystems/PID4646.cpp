@@ -108,8 +108,8 @@ double PID4646::UpdateControl(double signal)
 		/*Derivative Control
 		  ---------------------
 		  The rate of change between the target and current signal
-		  To avoid having a D term of 0 too often, adjust the D time rate to be AT LEAST
-		  as long as the update rate of the feedback signal.
+		  To have a smooth D term, adjust the D time period to be AT LEAST
+		  as long as the update period of the feedback signal.
 		  D_cmd = D * Rate of Error Change*/
 		if(timeList.size() > 0)
 		{
@@ -140,7 +140,7 @@ double PID4646::UpdateControl(double signal)
 			D_cmd = 0;
 		}
 		timeList.push(currentTime);
-		errorList.push(signal);
+		errorList.push(error);
 
 		/*Feed-Forward Control
 		 -------------------
@@ -176,7 +176,6 @@ double PID4646::UpdateControl(double signal)
 void PID4646::SetTarget(double setpoint)
 {
 	target = setpoint;
-	ResetControl();
 }
 void PID4646::SetTolerance(double tolerance)
 {
