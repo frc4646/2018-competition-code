@@ -1,7 +1,7 @@
 #include "LiftControl.h"
 #include "LOOP/Idle.h"
 #include "CommandBase.h"
-#include "PID4646.h"
+#include "Subsystems/PID4646.h"
 #include "LiftStringPot.h"
 #include "Commands/Lift/HoldLift.h"
 
@@ -12,10 +12,16 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 		ratchetButtonServo(ratchet),
 		liftHeightPID()
 		{
-			frc::SmartDashboard::PutNumber("Lifter P", defaultLiftUpP);
-			frc::SmartDashboard::PutNumber("Lifter I", defaultLiftUpI);
-			frc::SmartDashboard::PutNumber("Lifter D", defaultLiftUpD);
-			liftHeightPID.SetController_Positive(defaultLiftUpPIDTunings);
+			frc::SmartDashboard::PutNumber("Lifter P (up)", defaultLiftUpP);
+			frc::SmartDashboard::PutNumber("Lifter I (up)", defaultLiftUpI);
+			frc::SmartDashboard::PutNumber("Lifter D (up)", defaultLiftUpD);
+			liftHeightPID.SetController_Positive(PID4646::Controller{
+				frc::SmartDashboard::GetNumber("Lifter P (up)", defaultLiftUpP),
+				frc::SmartDashboard::GetNumber("Lifter I (up)", defaultLiftUpI),
+				frc::SmartDashboard::GetNumber("Lifter D (up)", defaultLiftUpD),
+				lifterMinPowerUp,
+				lifterMaxPowerUp
+			});
 			liftHeightPID.SetController_Negative(defaultLiftDownPIDTunings);
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
