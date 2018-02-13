@@ -29,16 +29,19 @@ void HandleMecanumDrive::Execute() {
 	drivetrain->EnableTracking(frc::SmartDashboard::GetBoolean("Heading Targeting", false));
 	joytar = frc::SmartDashboard::GetBoolean("Joystick Targeting Control", false);
 	joyDB = frc::SmartDashboard::GetNumber("Joystick Deadband", defaultJoyDB);
-	double tar = frc::SmartDashboard::GetNumber("Target", 0);
+	double target = frc::SmartDashboard::GetNumber("Target", 0);
 
 	//deadband rotation joystick and change error variable if necessary
 	if ((oi->GetLeftJoystickX() > joyDB || oi->GetLeftJoystickX() < -joyDB) && joytar){
-		tar -= (oi->GetLeftJoystickX() * ((3.0)/(1+joyDB)));
+		target -= (oi->GetLeftJoystickX() * ((3.0)/(1+joyDB)));
 		// * 4 is for 180 degree rotation per second.
 		//Only update these numbers if there has been a change
-		drivetrain->SetAngleTrackingTarget(tar);
-		frc::SmartDashboard::PutNumber("Target", tar);
+		drivetrain->SetAngleTrackingTarget(target);
+		frc::SmartDashboard::PutNumber("Target", target);
 	}
+
+	// When setting driveData, multiply it by the appropriate throttle axis on each of the joysticks so we can
+	// set specific speeds.
 	driveData.cartX = (driveData.cartX*(oi->GetRightJoystickThrottle()*-1));
 	driveData.cartY = (driveData.cartY*(oi->GetRightJoystickThrottle()*-1));
 	driveData.cartR = (driveData.cartR*(oi->GetLeftJoystickThrottle()*-1));
