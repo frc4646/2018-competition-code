@@ -42,6 +42,12 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	targetMet = true;
 
 	//MLL - Should we make sure all of our encoders are reset?
+	// Done. -Christopher; (2/12/18)
+
+	flEnc.Reset();
+	frEnc.Reset();
+	blEnc.Reset();
+	brEnc.Reset();
 
 }
 

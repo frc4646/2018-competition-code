@@ -1,24 +1,31 @@
 #include "LiftControl.h"
 #include "LOOP/Idle.h"
 #include "CommandBase.h"
-#include "LOOP/PID.h"
+#include "PID4646.h"
 #include "LiftStringPot.h"
+#include "Commands/Lift/HoldLift.h"
 
 using namespace loop;
 
 LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftControl"),
 		liftMotor(lifter),
-		ratchetButtonServo(ratchet)
+		ratchetButtonServo(ratchet),
+		liftHeightPID()
 		{
 			frc::SmartDashboard::PutNumber("Lifter P", defaultLiftUpP);
 			frc::SmartDashboard::PutNumber("Lifter I", defaultLiftUpI);
 			frc::SmartDashboard::PutNumber("Lifter D", defaultLiftUpD);
+			liftHeightPID.SetController_Positive(defaultLiftUpPIDTunings);
+			liftHeightPID.SetController_Negative(defaultLiftDownPIDTunings);
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
 void LiftControl::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	// Is this the right command? I see HoldLift and LiftTeleop.
+	// -Christopher; (2/12/18)
+	SetDefaultCommand(new HoldLift());
 }
 
 // Put methods for controlling this subsystem
@@ -26,6 +33,7 @@ void LiftControl::InitDefaultCommand() {
 
 void LiftControl::LiftToElevation(double elevation) {
 	lifterTargetElevation = (std::min(std::max(elevation, CommandBase::liftStringPot->GetMinHeight()), CommandBase::liftStringPot->GetMaxHeight()));
+	liftHeightPID.SetTarget(lifterTargetElevation);
 }
 
 double LiftControl::GetLiftElevation() {
@@ -33,8 +41,12 @@ double LiftControl::GetLiftElevation() {
 }
 
 void LiftControl::StopLift() {
-	lifterTargetElevation = GetLiftElevation();
+	// This method does its job, but may be mistaken for something that cuts motor power.
+	// We may want to have an emergency StopLift that shuts off the motor in case the PID
+	// goes awry. -Christopher; (2/12/18)
 
+	//lifterTargetElevation = GetLiftElevation();
+	LiftToElevation(GetLiftElevation());
 }
 
 void LiftControl::SetLiftPower(double power) {
@@ -53,7 +65,8 @@ void LiftControl::SetLiftPower(double power) {
 }
 
 void LiftControl::Lift() {
-	//pid
+	//pid? pid.
+	SetLiftPower(liftHeightPID.UpdateControl(GetLiftElevation()));
 
 	//TODO MLL This will need to always maintain the target position. I wrote a PID control that should
 	// allow you to do it all. You can use it, or write your own.

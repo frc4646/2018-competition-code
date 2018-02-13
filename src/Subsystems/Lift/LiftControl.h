@@ -5,7 +5,7 @@
 #include "Spark.h"
 #include "PinEnums.h"
 #include <WPILib.h>
-#include "LOOP/PID.h"
+#include "PID4646.h"
 #include <Servo.h>
 
 
@@ -28,10 +28,12 @@ private:
 	const double defaultLiftUpP = 0.1;
 	const double defaultLiftUpI = 0;
 	const double defaultLiftUpD = 0;
+	const PID4646::Controller defaultLiftUpPIDTunings = PID4646::Controller{defaultLiftUpP, defaultLiftUpI, defaultLiftUpD, lifterMinPowerUp, lifterMaxPowerUp};
 
 	const double defaultLiftDownP = 0.1;
 	const double defaultLiftDownI = 0;
 	const double defaultLiftDownD = 0;
+	const PID4646::Controller defaultLiftDownPIDTunings = PID4646::Controller{defaultLiftDownP, defaultLiftDownI, defaultLiftDownD, lifterMinPowerDown, lifterMaxPowerDown};
 
 	double lifterTargetElevation;
 
@@ -39,6 +41,8 @@ private:
 	//angles are just place holders
 	const double ratchetOnAngle = 0;
 	const double ratchetOffAngle = 90;
+
+	PID4646 liftHeightPID;
 
 
 public:
