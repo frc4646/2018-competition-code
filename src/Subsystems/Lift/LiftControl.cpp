@@ -32,6 +32,7 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 				lifterMinPowerDown,
 				lifterMaxPowerDown
 			});
+			liftHeightPID.SetDUpdateRate(0.1);
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
