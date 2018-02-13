@@ -19,6 +19,10 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
+	const llvm::StringRef dasboard_Lifter_P_up = "Lifter P (up)";
+	const llvm::StringRef dashboard_Lifter_I_up = "Lifter I (up)";
+	const llvm::StringRef dashboard_Lifter_D_up = "Lifter D (up)";
+
 	Spark liftMotor;
 	const double lifterMaxPowerUp = 1;
 	const double lifterMinPowerUp = 0.01;

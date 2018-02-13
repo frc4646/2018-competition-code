@@ -15,6 +15,9 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 			frc::SmartDashboard::PutNumber("Lifter P (up)", defaultLiftUpP);
 			frc::SmartDashboard::PutNumber("Lifter I (up)", defaultLiftUpI);
 			frc::SmartDashboard::PutNumber("Lifter D (up)", defaultLiftUpD);
+			frc::SmartDashboard::PutNumber("Lifter P (down)", defaultLiftDownP);
+			frc::SmartDashboard::PutNumber("Lifter I (down)", defaultLiftDownI);
+			frc::SmartDashboard::PutNumber("Lifter D (down)", defaultLiftDownD);
 			liftHeightPID.SetController_Positive(PID4646::Controller{
 				frc::SmartDashboard::GetNumber("Lifter P (up)", defaultLiftUpP),
 				frc::SmartDashboard::GetNumber("Lifter I (up)", defaultLiftUpI),
@@ -22,7 +25,13 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 				lifterMinPowerUp,
 				lifterMaxPowerUp
 			});
-			liftHeightPID.SetController_Negative(defaultLiftDownPIDTunings);
+			liftHeightPID.SetController_Negative(PID4646::Controller{
+				frc::SmartDashboard::GetNumber("Lifter P (down)", defaultLiftDownP),
+				frc::SmartDashboard::GetNumber("Lifter I (down)", defaultLiftDownI),
+				frc::SmartDashboard::GetNumber("Lifter D (down)", defaultLiftDownD),
+				lifterMinPowerDown,
+				lifterMaxPowerDown
+			});
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
