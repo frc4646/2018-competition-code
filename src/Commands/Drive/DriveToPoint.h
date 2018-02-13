@@ -11,6 +11,7 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
 };
 
 #endif  // DriveToPoint_H

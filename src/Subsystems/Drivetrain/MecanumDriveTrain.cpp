@@ -144,3 +144,7 @@ void MecanumDriveTrain::ResetEncoders() {
 	blEnc.Reset();
 	brEnc.Reset();
 }
+
+double MecanumDriveTrain::GetEncoderDistance(Encoder whichEncoder){
+	return whichEncoder.GetDistance();
+}
