@@ -20,15 +20,21 @@ private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
 
-	const llvm::StringRef dasboard_Lifter_P_up = "Lifter P (up)";
+	const llvm::StringRef dashboard_Lifter_P_up = "Lifter P (up)";
 	const llvm::StringRef dashboard_Lifter_I_up = "Lifter I (up)";
 	const llvm::StringRef dashboard_Lifter_D_up = "Lifter D (up)";
+	const llvm::StringRef dashboard_Lifter_P_down = "Lifter P (down)";
+	const llvm::StringRef dashboard_Lifter_I_down = "Lifter I (down)";
+	const llvm::StringRef dashboard_Lifter_D_down = "Lifter D (down)";
+	const llvm::StringRef dashboard_Lifter_D_update_rate = "Lifter D update rate";
 
 	Spark liftMotor;
 	const double lifterMaxPowerUp = 1;
 	const double lifterMinPowerUp = 0.01;
 	const double lifterMaxPowerDown = -1;
 	const double lifterMinPowerDown = -0.01;
+
+	const double defaultLiftDUpdateRate = 0.1;
 
 	const double defaultLiftUpP = 0.1;
 	const double defaultLiftUpI = 0;
@@ -59,6 +65,7 @@ public:
 	void SetLiftPower(double power);
 	void Lift();
 	void SetRatchetEngage(bool on);
+	void ResetLiftPIDControl();
 };
 
 #endif  // LiftControl_H

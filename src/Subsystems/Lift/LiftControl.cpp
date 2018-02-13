@@ -12,27 +12,28 @@ LiftControl::LiftControl(MotorPin lifter, MotorPin ratchet) : Subsystem("LiftCon
 		ratchetButtonServo(ratchet),
 		liftHeightPID()
 		{
-			frc::SmartDashboard::PutNumber("Lifter P (up)", defaultLiftUpP);
-			frc::SmartDashboard::PutNumber("Lifter I (up)", defaultLiftUpI);
-			frc::SmartDashboard::PutNumber("Lifter D (up)", defaultLiftUpD);
-			frc::SmartDashboard::PutNumber("Lifter P (down)", defaultLiftDownP);
-			frc::SmartDashboard::PutNumber("Lifter I (down)", defaultLiftDownI);
-			frc::SmartDashboard::PutNumber("Lifter D (down)", defaultLiftDownD);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_P_up, defaultLiftUpP);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_I_up, defaultLiftUpI);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_D_up, defaultLiftUpD);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_P_down, defaultLiftDownP);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_I_down, defaultLiftDownI);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_D_down, defaultLiftDownD);
+			frc::SmartDashboard::PutNumber(dashboard_Lifter_D_update_rate, defaultLiftDUpdateRate);
 			liftHeightPID.SetController_Positive(PID4646::Controller{
-				frc::SmartDashboard::GetNumber("Lifter P (up)", defaultLiftUpP),
-				frc::SmartDashboard::GetNumber("Lifter I (up)", defaultLiftUpI),
-				frc::SmartDashboard::GetNumber("Lifter D (up)", defaultLiftUpD),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_P_up, defaultLiftUpP),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_I_up, defaultLiftUpI),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_D_up, defaultLiftUpD),
 				lifterMinPowerUp,
 				lifterMaxPowerUp
 			});
 			liftHeightPID.SetController_Negative(PID4646::Controller{
-				frc::SmartDashboard::GetNumber("Lifter P (down)", defaultLiftDownP),
-				frc::SmartDashboard::GetNumber("Lifter I (down)", defaultLiftDownI),
-				frc::SmartDashboard::GetNumber("Lifter D (down)", defaultLiftDownD),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_P_down, defaultLiftDownP),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_I_down, defaultLiftDownI),
+				frc::SmartDashboard::GetNumber(dashboard_Lifter_D_down, defaultLiftDownD),
 				lifterMinPowerDown,
 				lifterMaxPowerDown
 			});
-			liftHeightPID.SetDUpdateRate(0.1);
+			liftHeightPID.SetDUpdateRate(frc::SmartDashboard::GetNumber(dashboard_Lifter_D_update_rate, defaultLiftDUpdateRate));
 		lifterTargetElevation = CommandBase::liftStringPot->GetMinHeight();
 }
 
@@ -97,4 +98,8 @@ void LiftControl::SetRatchetEngage(bool on) {
 	else {
 		ratchetButtonServo.SetAngle(ratchetOffAngle);
 	}
+}
+
+void LiftControl::ResetLiftPIDControl() {
+	liftHeightPID.ResetControl();
 }
