@@ -18,8 +18,8 @@ OI::OI() :
 	gamepad(0),
 #endif
 	straightDrive(&right, 1),
-	intake(&mechanism, 1),
-	outtake(&mechanism, 2)
+	intake(&mechanism, 11),
+	outtake(&mechanism, 9)
 	{
 	// Process operator interface input here.
 	// Anonymous implementation of straight drive.
