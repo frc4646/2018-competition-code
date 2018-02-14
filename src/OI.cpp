@@ -71,12 +71,12 @@ double OI::GetLeftJoystickX() {
 }
 double OI::GetRightJoystickThrottle() {
 #ifndef GAMEPAD
-	return right.GetThrottle();
+	return right.GetRawAxis(2);
 #endif
 }
 double OI::GetLeftJoystickThrottle() {
 #ifndef GAMEPAD
-	return left.GetThrottle();
+	return left.GetRawAxis(2);
 #endif
 }
 bool OI::GetMechanismTrigger(){
