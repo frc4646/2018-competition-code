@@ -7,6 +7,7 @@
 class OI {
 public:
 	OI();
+	void Init();
 	double GetLeftJoystickX();
 	double GetLeftJoystickY();
 	double GetRightJoystickX();
