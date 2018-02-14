@@ -72,7 +72,7 @@ void LiftControl::SetLiftPower(double power) {
 	}
 
 	else if(power < 0) {
-		liftMotor.Set(std::min(std::max(lifterMinPowerDown, power), lifterMaxPowerDown));
+		liftMotor.Set(std::max(std::min(lifterMinPowerDown, power), lifterMaxPowerDown));
 	}
 
 	else {
