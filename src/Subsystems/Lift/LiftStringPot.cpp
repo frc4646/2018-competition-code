@@ -1,7 +1,7 @@
 #include "LiftStringPot.h"
 #include <RobotMap.h>
 
-LiftStringPot::LiftStringPot(int pin) : Subsystem("ExampleSubsystem"), LiftStringPotPin(pin) {
+LiftStringPot::LiftStringPot(int pin) : Subsystem("LiftStringPot"), LiftStringPotPin(pin) {
 	//LiftStringPotPin = new AnalogInput(pin);
 }
 
