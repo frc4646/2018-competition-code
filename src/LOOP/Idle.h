@@ -2,7 +2,7 @@
 #define Idle_H
 
 #include <CommandBase.h>
-/*
+
 class Idle : public CommandBase {
 public:
 	Idle(int numRequires, ...);
@@ -12,5 +12,5 @@ public:
 	void End();
 	void Interrupted();
 };
-*/
+
 #endif  // Idle_H

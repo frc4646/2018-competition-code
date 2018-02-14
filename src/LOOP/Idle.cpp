@@ -3,8 +3,8 @@
 #include <functional>
 
 using namespace loop;
-/*
-Idle::Idle(int numRequires, ...) : Command("Idle") {
+
+Idle::Idle(int numRequires, ...) : CommandBase("Idle") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	va_list arguments;
@@ -40,4 +40,4 @@ void Idle::End() {
 void Idle::Interrupted() {
 
 }
-*/
+
