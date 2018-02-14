@@ -13,6 +13,7 @@ IntakeControl::IntakeControl(MotorPin in, DIOPin limit) :
 void IntakeControl::InitDefaultCommand() {
 	// Set the default command for a subsystem here.
 	// SetDefaultCommand(new MySpecialCommand());
+	SetDefaultCommand(new Idle());
 }
 
 // Put methods for controlling this subsystem
