@@ -5,6 +5,7 @@
 #include <LOOP/Binding.h>
 #include "Commands/Drive/HandleMecanumDrive.h"
 #include "Commands/Intake/OuttakePowerCube.h"
+#include "Commands/Intake/IntakePowerCube.h"
 
 using namespace loop;
 
@@ -50,9 +51,11 @@ OI::OI() :
 		1,
 		CommandBase::drivetrain.get()
 	));
-	//intake.WhenPressed(new AdjustToIntakeAngle());
-	//intake.WhileHeld(new IntakePowerCube());
-	//outtake.WhileHeld(new OuttakePowerCube());
+	/*intake.WhenPressed(new AdjustToIntakeAngle());
+	intake.WhileHeld(new IntakePowerCube());
+	outtake.WhileHeld(new OuttakePowerCube());*/
+	intake.WhileHeld(new IntakePowerCube());
+	outtake.WhileHeld(new OuttakePowerCube());
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering
