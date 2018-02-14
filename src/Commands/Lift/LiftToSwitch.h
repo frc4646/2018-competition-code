@@ -11,6 +11,9 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
+
+private:
+	int state;
 };
 
 #endif  // LiftToSwitch_H

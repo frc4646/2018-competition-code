@@ -1,8 +1,10 @@
 #include "DriveToPoint.h"
+#include <Encoder.h>
 
 DriveToPoint::DriveToPoint(double distance) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
+	Requires(drivetrain.get());
 }
 
 // Called just before this Command runs the first time
@@ -20,6 +22,7 @@ void DriveToPoint::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool DriveToPoint::IsFinished() {
 	 //TODO
+	//will return true once drivetopoint is done
 	return false;
 }
 

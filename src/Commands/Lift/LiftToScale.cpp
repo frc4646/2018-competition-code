@@ -16,15 +16,14 @@ LiftToScale::LiftToScale() {
 // Called just before this Command runs the first time
 void LiftToScale::Initialize() {
 	state = 1;
+	lift->LiftToElevation(CommandBase::liftStringPot->GetMaxHeight());
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LiftToScale::Execute() {
 
-	double distanceToScale = 600; //unit?? MLL - is this for the ultrasonic or string pot?
-	double liftPower = 1.0; //TO DO change to reasonable number
-	double ultraSonicToCube = 2.0; //TO DO (also unit) the distance from the ultra sonic to the bottom of block
-	//3. add height from Ultra Sensor to bottom of block
+	double distanceToScale = 600; //in millimeters. distance from the ultrasonic to the scale, horizontally
+	double ultraSonicToCube = 2.0; //TODO (also unit) the distance from the ultra sonic to the bottom of block
 
 	//always check if the lift is higher than max height
 	if(CommandBase::liftStringPot->GetHeight() >= CommandBase::liftStringPot->GetMaxHeight()) {
@@ -37,9 +36,8 @@ void LiftToScale::Execute() {
 			//we are not high enough to the scale, so keep going up
 			if (ultrasonic->GetDistance() > distanceToScale || ultrasonic->GetDistance() < 0){
 				//run lift up
-				lift->SetLiftPower(liftPower);
-				//MLL - we could also set the target height to max height, then just keep calling lift
-				// and it will run the PID, then we won't have to guess on lift power!
+				lift->Lift();
+
 			} else {
 				state = 2;
 			}
@@ -50,8 +48,7 @@ void LiftToScale::Execute() {
 		{
 			//we've seen the scale, so go higher to pass the border on the scale
 			if (ultrasonic->GetDistance() <= distanceToScale) {
-				lift->SetLiftPower(liftPower);
-				//MLL - same comment as above
+				lift->Lift();
 			} else {
 				state = 3;
 			}
@@ -69,8 +66,12 @@ void LiftToScale::Execute() {
 			//MLL - I think this is really close to what we want to do, but we need to stay in this
 			//state until we actually get to the final height. Right now we will just be in here for
 			// one time step.
+			//1 is delta
+			if ((CommandBase::liftStringPot->GetHeight() + 1) > finalHeight && (CommandBase::liftStringPot->GetHeight() - 1) < finalHeight)
+			{
+				state = 4;
+			}
 
-			state = 4;
 		}
 			break;
 
@@ -88,9 +89,9 @@ void LiftToScale::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToScale::IsFinished() {
-	//4. stop when hit target height or reach max height
+	//stop when hit target/final height
 	if (state == 4) {
-		return true; //double check this
+		return true;
 	}
 
 	return false;
@@ -101,7 +102,9 @@ bool LiftToScale::IsFinished() {
 
 // Called once after isFinished returns true
 void LiftToScale::End() {
-	//TODO we should add seomthing here (probably stopping the lift)
+	//TODO we should add somthing here (probably stopping the lift)
+	//done 2/12/2018 Stella
+	CommandBase::lift->StopLift();
 }
 
 // Called when another command which requires one or more of the same
