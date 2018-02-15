@@ -25,6 +25,8 @@
 #include "Config.h"
 
 #include <map>
+#include <utility>
+#include <string>
 
 using namespace loop;
 
@@ -41,17 +43,18 @@ public:
 		m_location_chooser.AddObject("Right", Location::RIGHT);
 		frc::SmartDashboard::PutData("Robot location", &m_location_chooser);
 		//autoLut.insert("LLL", rlscl);
-		autoLut.insert(std::pair<std::string, frc::Command>("LLR", rlscr));
-		autoLut.insert(std::pair<std::string, frc::Command>("LRR", rlscr));
-		autoLut.insert(std::pair<std::string, frc::Command>("LRL", rscf));
-		autoLut.insert(std::pair<std::string, frc::Command>("RLL", rrscl));
-		autoLut.insert(std::pair<std::string, frc::Command>("RLR", rscf));
-		autoLut.insert(std::pair<std::string, frc::Command>("RRR", rscf));
-		autoLut.insert(std::pair<std::string, frc::Command>("RRL", rrscl));
-		autoLut.insert(std::pair<std::string, frc::Command>("CLL", rcswl));
-		autoLut.insert(std::pair<std::string, frc::Command>("CLR", rcswr));
-		autoLut.insert(std::pair<std::string, frc::Command>("CRR", rcswr));
-		autoLut.insert(std::pair<std::string, frc::Command>("CRL", rcswl));
+		//autoLut["LLR"] = rlscr;
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LLR"), &rlscr));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LRR"), &rlscr));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LRL"), &rscf));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("RLL"), &rrscl));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("RLR"), &rscf));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("RRR"), &rscf));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("RRL"), &rrscl));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CLL"), &rcswl));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CLR"), &rcswr));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CRR"), &rcswr));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CRL"), &rcswl));
 	}
 
 	/**
@@ -91,7 +94,7 @@ public:
 			loc = Location::RIGHT;
 		}
 
-		m_autonomousCommand = autoLut[robotLocation[0] + frc::DriverStation::GetInstance().GetGameSpecificMessage()[0] + frc::DriverStation::GetInstance().GetGameSpecificMessage()[1]];
+		m_autonomousCommand = autoLut[robotLocation.substr(0, 1) + frc::DriverStation::GetInstance().GetGameSpecificMessage().substr(0, 2)];
 		m_autonomousCommand->Start();
 		//TODO MLL - Fgure out which autonomus commands we want to run!
 	}
@@ -122,7 +125,7 @@ private:
 		RIGHT
 	};
 	Location loc;
-	std::map<std::string, frc::Command> autoLut;
+	std::map<std::string, frc::Command*> autoLut;
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;

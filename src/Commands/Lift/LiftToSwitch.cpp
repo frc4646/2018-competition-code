@@ -75,10 +75,10 @@ bool LiftToSwitch::IsFinished() {
 		return true;
 	}
 	//end early if a button is pressed
-	else if()
+	/*else if()
 	{
 		return true;
-	}
+	}*/
 
 	return false;
 }
@@ -91,5 +91,5 @@ void LiftToSwitch::End() {
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
 void LiftToSwitch::Interrupted() {
-
+	End();
 }

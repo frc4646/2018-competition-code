@@ -23,6 +23,9 @@ private:
 	Spark bl;
 	Spark br;
 
+	bool doAngleHold;
+	double angleHoldTarget;
+	double lastCartR;
 	bool doTracking;
 	double trackingAngle;
 	bool targetMet;
@@ -30,9 +33,9 @@ private:
 	const double defaultMaxCommand = 0.75;
 	const double defaultMinCommand = 0.1;
 	const double deltaDegree = 0.5;
+	const double cartRDeadband = 0.1;
 	Encoder flEnc, frEnc, blEnc, brEnc;
 	ADIS16448_IMU gyro;
-
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheBellRingerRobotForTheTwoThousandAndSeventeenToTwoThousandAndEighteenOffseasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 

@@ -38,6 +38,9 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frc::SmartDashboard::PutNumber("Target", 0);
 	frc::SmartDashboard::PutBoolean("Joystick Targeting Control", true);
 
+	doAngleHold = false;
+	angleHoldTarget = 0;
+	lastCartR = 0;
 	doTracking = false;
 	trackingAngle = 0;
 	targetMet = true;
@@ -74,16 +77,30 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
 	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);
 	double delta = frc::SmartDashboard::GetNumber("Delta Degree", deltaDegree);
-	double error = (gyro.GetAngleZ() - trackingAngle);
+	if (std::fabs(driveData.cartR) > cartRDeadband && std::fabs(lastCartR) <= cartRDeadband) {
+		doAngleHold = false;
+	} else if (std::fabs(driveData.cartR) <= cartRDeadband && std::fabs(lastCartR) > cartRDeadband) {
+		doAngleHold = true;
+		angleHoldTarget = gyro.GetAngleZ();
+	}
+	double error = 0;//(gyro.GetAngleZ() - trackingAngle);
+	if (doTracking) {
+		error = (gyro.GetAngleZ() - trackingAngle);
+	} else if (doAngleHold) {
+		error = (gyro.GetAngleZ() - angleHoldTarget);
+	}
 	double motorCommand;
 	double r = hypot(driveData.cartX, driveData.cartY);
 	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
 
 	//if targeting is on, run P loop math
-	if (doTracking) {
+	if (doTracking || doAngleHold) {
 		//Get updated values from the dashboard if needed.
 
-		if (std::abs(error) < delta){
+		// During Stronghold season, at CowTown, we found that std::abs is for
+		// integers, so it messed up our autonomous. We fixed it by changing it
+		// to std::fabs.
+		if (std::fabs(error) < delta){
 			//close enough to target so turn off command
 			motorCommand = 0;
 			targetMet = true;
@@ -120,6 +137,8 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
 	bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
 	br.Set(r * sin(theta + (PI / 4)) - driveData.cartR);
+
+	lastCartR = driveData.cartR;
 }
 
 
