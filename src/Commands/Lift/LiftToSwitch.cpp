@@ -49,6 +49,7 @@ void LiftToSwitch::Execute() {
 
 			CommandBase::lift->LiftToElevation(finalHeight);
 
+			//check if the height is close to finalHeight, delta is 1 for now
 			if ((CommandBase::liftStringPot->GetHeight() + 1) > finalHeight && (CommandBase::liftStringPot->GetHeight() - 1) < finalHeight)
 			{
 				state = 3;
@@ -71,6 +72,11 @@ void LiftToSwitch::Execute() {
 bool LiftToSwitch::IsFinished() {
 	//stop when hit target/final height
 	if (state == 3) {
+		return true;
+	}
+	//end early if a button is pressed
+	else if()
+	{
 		return true;
 	}
 

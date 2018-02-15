@@ -63,9 +63,6 @@ void LiftToScale::Execute() {
 
 			CommandBase::lift->LiftToElevation(finalHeight);
 
-			//MLL - I think this is really close to what we want to do, but we need to stay in this
-			//state until we actually get to the final height. Right now we will just be in here for
-			// one time step.
 			//1 is delta
 			if ((CommandBase::liftStringPot->GetHeight() + 1) > finalHeight && (CommandBase::liftStringPot->GetHeight() - 1) < finalHeight)
 			{
@@ -90,11 +87,19 @@ void LiftToScale::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToScale::IsFinished() {
 	//stop when hit target/final height
+	/*
 	if (state == 4) {
+		return true;
+	}
+	//end early if a button is pressed
+	else if()
+	{
 		return true;
 	}
 
 	return false;
+	*/
+	return (state == 4);
 
 	//MLL this can be replaced with return (state == 4) if you want, but you also might
 	//want to consder ending early f we see joystck motiion
