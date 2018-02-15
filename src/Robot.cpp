@@ -14,9 +14,17 @@
 
 #include "Commands/ExampleCommand.h"
 #include "Commands/MyAutoCommand.h"
+#include "AutoCommands/AutonomousCommands/RobotCenterSwitchLeft.h"
+#include "AutoCommands/AutonomousCommands/RobotCenterSwitchRight.h"
+#include "AutoCommands/AutonomousCommands/RobotCross.h"
+#include "AutoCommands/AutonomousCommands/RobotLeftScaleRight.h"
+#include "AutoCommands/AutonomousCommands/RobotRightScaleLeft.h"
+#include "AutoCommands/AutonomousCommands/RobotScaleFront.h"
 #include "CommandBase.h"
 
 #include "Config.h"
+
+#include <map>
 
 using namespace loop;
 
@@ -28,6 +36,22 @@ public:
 		m_chooser.AddObject("My Auto", &m_myAuto);
 		frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 		frc::SmartDashboard::PutString("Drive train", "DRIVETRAIN");
+		m_location_chooser.AddDefault("Center", Location::CENTER);
+		m_location_chooser.AddObject("Left", Location::LEFT);
+		m_location_chooser.AddObject("Right", Location::RIGHT);
+		frc::SmartDashboard::PutData("Robot location", &m_location_chooser);
+		//autoLut.insert("LLL", rlscl);
+		autoLut.insert(std::pair<std::string, frc::Command>("LLR", rlscr));
+		autoLut.insert(std::pair<std::string, frc::Command>("LRR", rlscr));
+		autoLut.insert(std::pair<std::string, frc::Command>("LRL", rscf));
+		autoLut.insert(std::pair<std::string, frc::Command>("RLL", rrscl));
+		autoLut.insert(std::pair<std::string, frc::Command>("RLR", rscf));
+		autoLut.insert(std::pair<std::string, frc::Command>("RRR", rscf));
+		autoLut.insert(std::pair<std::string, frc::Command>("RRL", rrscl));
+		autoLut.insert(std::pair<std::string, frc::Command>("CLL", rcswl));
+		autoLut.insert(std::pair<std::string, frc::Command>("CLR", rcswr));
+		autoLut.insert(std::pair<std::string, frc::Command>("CRR", rcswr));
+		autoLut.insert(std::pair<std::string, frc::Command>("CRL", rcswl));
 	}
 
 	/**
@@ -58,19 +82,17 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		std::string autoSelected = frc::SmartDashboard::GetString(
-				"Auto Selector", "Default");
-		if (autoSelected == "My Auto") {
-			m_autonomousCommand = &m_myAuto;
+		std::string robotLocation = frc::SmartDashboard::GetString("Robot location", "Center");
+		if (robotLocation == "Left") {
+			loc = Location::LEFT;
+		} else if (robotLocation == "Center") {
+			loc = Location::CENTER;
 		} else {
-			m_autonomousCommand = &m_defaultAuto;
+			loc = Location::RIGHT;
 		}
 
-		m_autonomousCommand = m_chooser.GetSelected();
-
-		if (m_autonomousCommand != nullptr) {
-			m_autonomousCommand->Start();
-		}
+		m_autonomousCommand = autoLut[robotLocation[0] + frc::DriverStation::GetInstance().GetGameSpecificMessage()[0] + frc::DriverStation::GetInstance().GetGameSpecificMessage()[1]];
+		m_autonomousCommand->Start();
 		//TODO MLL - Fgure out which autonomus commands we want to run!
 	}
 
@@ -94,12 +116,26 @@ public:
 	void TestPeriodic() override {}
 
 private:
+	enum Location {
+		LEFT,
+		CENTER,
+		RIGHT
+	};
+	Location loc;
+	std::map<std::string, frc::Command> autoLut;
 	// Have it null by default so that if testing teleop it
 	// doesn't have undefined behavior and potentially crash.
 	frc::Command* m_autonomousCommand = nullptr;
 	ExampleCommand m_defaultAuto;
 	MyAutoCommand m_myAuto;
+	RobotCenterSwitchLeft rcswl;
+	RobotCenterSwitchRight rcswr;
+	RobotCross rcr;
+	RobotLeftScaleRight rlscr;
+	RobotRightScaleLeft rrscl;
+	RobotScaleFront rscf;
 	frc::SendableChooser<frc::Command*> m_chooser;
+	frc::SendableChooser<Location> m_location_chooser;
 };
 
 START_ROBOT_CLASS(Robot)

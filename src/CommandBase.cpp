@@ -31,5 +31,10 @@ void CommandBase::init() {
 	ultrasonic.reset(new UltraSonic(ULTRASONIC_INIT_PARAMS));
 	lift.reset(new LiftControl(LIFT_INIT_PARAMS));
 	intake.reset(new IntakeControl(INTAKE_INIT_PARAMS));
+
+	// THIS GOES LAST OR EVERYTHING HALTS AND CATCHES FIRE
+	// OI's constructor requires the subsystems to be non-null
+	// So it is put in Init.
+	// tl;dr KEEP THIS HERE
 	oi->Init();
 }

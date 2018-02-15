@@ -2,7 +2,7 @@
 
 #include <WPILib.h>
 #include "Config.h"
-#include <LOOP/Binding.h>
+#include "LOOP/Binding.h"
 #include "Commands/Drive/HandleMecanumDrive.h"
 #include "Commands/Intake/OuttakePowerCube.h"
 #include "Commands/Intake/IntakePowerCube.h"
@@ -30,35 +30,22 @@ OI::OI() :
 
 void OI::Init() {
 	// Anything that requires a subystem goes here.
-		// Anonymous implementation of straight drive.
-		// Works fine for tele-op, but not for auto.
-		/*straightDrive.WhenPressed(new Binding(
-			[]() {
-				HandleMecanumDrive::target = CommandBase::drivetrain->GetAngle();
-				HandleMecanumDrive::trackTarget = true;
-			},
-			[]() {
+	// Anonymous implementation of straight drive.
+	// Works fine for tele-op, but not for auto.
 
-			},
-			[]() {
-				HandleMecanumDrive::trackTarget = false;
-			},
-			1,
-			CommandBase::drivetrain.get()
-		));*/
-		frc::SmartDashboard::PutData("Reset Encoders", new Binding(
-			[]() {
-				CommandBase::drivetrain->ResetEncoders();
-			},
-			[]() {
+	frc::SmartDashboard::PutData("Reset Encoders", new Binding(
+		[]() {
+			CommandBase::drivetrain->ResetEncoders();
+		},
+		[]() {
 
-			},
-			[]() {
+		},
+		[]() {
 
-			},
-			1,
-			CommandBase::drivetrain.get()
-		));
+		},
+		1,
+		CommandBase::drivetrain.get()
+	));
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering

@@ -37,5 +37,8 @@ It allows one ``Drive()`` method to be defined for both holonomic and tank-based
 ###### For more information:
 * [IDriveTrain](src/Subsystems/IDriveTrain.h)
 
+Brackets are for std libs.
+Quotations for everything else.
+
 ---
 ###### LOOP framework v0
