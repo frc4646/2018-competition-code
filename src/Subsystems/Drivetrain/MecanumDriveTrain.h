@@ -30,8 +30,8 @@ private:
 	const double defaultMaxCommand = 0.75;
 	const double defaultMinCommand = 0.1;
 	const double deltaDegree = 0.5;
-	ADIS16448_IMU gyro;
 	Encoder flEnc, frEnc, blEnc, brEnc;
+	ADIS16448_IMU gyro;
 
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheBellRingerRobotForTheTwoThousandAndSeventeenToTwoThousandAndEighteenOffseasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;

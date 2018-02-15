@@ -1,6 +1,7 @@
 #include "HandleMecanumDrive.h"
 #include <LOOP/IDriveTrain.h>
 #include <config.h>
+#include <iostream>
 
 using namespace loop;
 #if (DRIVETRAIN == MecanumDriveTrain)

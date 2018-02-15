@@ -20,7 +20,8 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	flEnc(frontLeftEncoder.a, frontLeftEncoder.b, false, Encoder::EncodingType::k4X),
 	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Encoder::EncodingType::k4X),
 	blEnc(backLeftEncoder.a, backLeftEncoder.a, false, Encoder::EncodingType::k4X),
-	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X){
+	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X),
+	gyro(){
 
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
@@ -48,6 +49,7 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frEnc.Reset();
 	blEnc.Reset();
 	brEnc.Reset();
+	gyro.Reset();
 
 }
 

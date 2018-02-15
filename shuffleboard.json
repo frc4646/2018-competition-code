@@ -7,6 +7,7 @@
       "autoPopulatePrefix": "SmartDashboard/",
       "widgetPane": {
         "gridSize": 128.0,
+        "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
@@ -289,6 +290,61 @@
               "_source0": "network_table:///SmartDashboard/Lifter P",
               "_title": "Lifter P"
             }
+          },
+          "1,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lifter P (up)",
+              "_title": "Lifter P (up)"
+            }
+          },
+          "2,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lifter I (up)",
+              "_title": "Lifter I (up)"
+            }
+          },
+          "3,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lifter D (up)",
+              "_title": "Lifter D (up)"
+            }
+          },
+          "4,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lifter P (down)",
+              "_title": "Lifter P (down)"
+            }
+          },
+          "5,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Lifter I (down)",
+              "_title": "Lifter I (down)"
+            }
           }
         }
       }
@@ -299,6 +355,7 @@
       "autoPopulatePrefix": "LiveWindow/",
       "widgetPane": {
         "gridSize": 128.0,
+        "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
@@ -462,6 +519,17 @@
               "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]/Distance",
               "_title": "Ungrouped/Encoder[0]/Distance"
             }
+          },
+          "2,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Encoder",
+              "_source0": "network_table:///LiveWindow/Ungrouped/Encoder[0]",
+              "_title": "Ungrouped/Encoder[0]"
+            }
           }
         }
       }
@@ -472,6 +540,7 @@
       "autoPopulatePrefix": "",
       "widgetPane": {
         "gridSize": 128.0,
+        "showGrid": true,
         "hgap": 16.0,
         "vgap": 16.0,
         "tiles": {
