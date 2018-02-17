@@ -18,8 +18,6 @@
 using namespace loop;
 
 class MecanumDriveTrain : public IDriveTrain {
-	// C++1y requires an explicit type for forward declaration of enums,
-	// so the following line needs to stay here.
 	public: enum EncoderIndex : int;
 private:
 	// It's desirable that everything possible under private except
