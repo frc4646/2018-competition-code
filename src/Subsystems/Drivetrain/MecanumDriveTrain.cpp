@@ -7,6 +7,10 @@
 #include <WPILib.h>
 #include <Encoder.h>
 #include <Subsystems/EncoderChannels.h>
+#include <Subsystems/PID4646.h>
+#include <Config.h>
+#include <iterator>
+#include <list>
 #define PI 3.141592
 
 using namespace loop;
@@ -21,7 +25,12 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Encoder::EncodingType::k4X),
 	blEnc(backLeftEncoder.a, backLeftEncoder.a, false, Encoder::EncodingType::k4X),
 	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X),
-	gyro(){
+	gyro(),
+	flEncPID(),
+	frEncPID(),
+	blEncPID(),
+	brEncPID(),
+	runMotorsToTarget(false) {
 
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
@@ -52,8 +61,20 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frEnc.Reset();
 	blEnc.Reset();
 	brEnc.Reset();
+	flEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	frEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	blEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	brEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	flEnc.SetReverseDirection(Config::encoderReversalMap & 0b1000);
+	frEnc.SetReverseDirection(Config::encoderReversalMap & 0b0100);
+	blEnc.SetReverseDirection(Config::encoderReversalMap & 0b0010);
+	brEnc.SetReverseDirection(Config::encoderReversalMap & 0b0001);
 	gyro.Reset();
 
+	flEncPID.SetController(defaultFlTunings);
+	frEncPID.SetController(defaultFrTunings);
+	blEncPID.SetController(defaultBlTunings);
+	brEncPID.SetController(defaultBrTunings);
 }
 
 void MecanumDriveTrain::InitDefaultCommand() {
@@ -133,10 +154,17 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	frc::SmartDashboard::PutData("Gyro Data", &gyro);
 	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
 
-	fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
-	fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
-	bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
-	br.Set(r * sin(theta + (PI / 4)) - driveData.cartR);
+	if (runMotorsToTarget) {
+		fl.Set(flEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_LEFT) + driveData.cartR));
+		fr.Set(frEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_RIGHT) - driveData.cartR));
+		bl.Set(blEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_LEFT) + driveData.cartR));
+		br.Set(brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT) - driveData.cartR));
+	} else {
+		fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
+		fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
+		bl.Set(r * cos(theta + (PI / 4)) + driveData.cartR);
+		br.Set(r * sin(theta + (PI / 4)) - driveData.cartR);
+	}
 
 	lastCartR = driveData.cartR;
 }
@@ -166,6 +194,93 @@ void MecanumDriveTrain::ResetEncoders() {
 	brEnc.Reset();
 }
 
-double MecanumDriveTrain::GetEncoderDistance(Encoder whichEncoder){
-	return whichEncoder.GetDistance();
+double MecanumDriveTrain::GetEncoderDistance(EncoderIndex whichEncoder){
+	switch (whichEncoder) {
+		case EncoderIndex::FRONT_LEFT:
+			return flEnc.GetDistance();
+		case EncoderIndex::FRONT_RIGHT:
+			return frEnc.GetDistance();
+		case EncoderIndex::BACK_LEFT:
+			return blEnc.GetDistance();
+		case EncoderIndex::BACK_RIGHT:
+			return brEnc.GetDistance();
+		default:
+			return 0;
+	}
+}
+
+void MecanumDriveTrain::SetEncoderTarget(EncoderIndex whichEncoder, double target) {
+	int i = 0;
+	for (std::list<PID4646*>::iterator it = PIDForIndex(whichEncoder); i < 3; ++it) {
+		(*it)->SetTarget(target);
+		i++;
+	}
+}
+
+double MecanumDriveTrain::GetEncoderTarget(EncoderIndex whichEncoder) {
+	return (*PIDForIndex(whichEncoder))->GetTarget();
+}
+
+void MecanumDriveTrain::EnableRunToPosition(bool enable) {
+	runMotorsToTarget = enable;
+}
+
+bool MecanumDriveTrain::RunToPositionEnabled() {
+	return runMotorsToTarget;
+}
+
+bool MecanumDriveTrain::EncodersAtTarget(EncoderIndex whichEncoder) {
+	bool ret = true;
+	int i = 0;
+	std::list<PID4646*>::iterator pids = PIDForIndex(whichEncoder);
+	std::list<Encoder*>::iterator encs = EncoderForIndex(whichEncoder);
+	while (i < 3 && ret) {
+		ret &= (*encs)->GetDistance() > (*pids)->GetTarget() - (0.5 * Config::drivetrainEncoderTargetPositionTolerance)
+				&& (*encs)->GetDistance() < (*pids)->GetTarget() + (0.5 * Config::drivetrainEncoderTargetPositionTolerance);
+		i++;
+		++pids;
+		++encs;
+	}
+	return ret;
+}
+
+std::list<Encoder*>::iterator MecanumDriveTrain::EncoderForIndex(EncoderIndex whichEncoder) {
+	std::list<Encoder*> l;
+	if (whichEncoder & EncoderIndex::FRONT_LEFT) {
+		l.push_back(&flEnc);
+	}
+	if (whichEncoder & EncoderIndex::FRONT_RIGHT) {
+		l.push_back(&frEnc);
+	}
+	if (whichEncoder & EncoderIndex::BACK_LEFT) {
+		l.push_back(&blEnc);
+	}
+	if (whichEncoder & EncoderIndex::BACK_RIGHT) {
+		l.push_back(&brEnc);
+	}
+	return l.begin();
+}
+
+std::list<PID4646*>::iterator MecanumDriveTrain::PIDForIndex(EncoderIndex whichEncoder) {
+	std::list<PID4646*> l;
+	if (whichEncoder & EncoderIndex::FRONT_LEFT) {
+		l.push_back(&flEncPID);
+	}
+	if (whichEncoder & EncoderIndex::FRONT_RIGHT) {
+		l.push_back(&frEncPID);
+	}
+	if (whichEncoder & EncoderIndex::BACK_LEFT) {
+		l.push_back(&blEncPID);
+	}
+	if (whichEncoder & EncoderIndex::BACK_RIGHT) {
+		l.push_back(&brEncPID);
+	}
+	return l.begin();
+}
+
+void MecanumDriveTrain::ResetEncoderPIDs() {
+	flEncPID.ResetControl();
+	frEncPID.ResetControl();
+	blEncPID.ResetControl();
+	brEncPID.ResetControl();
 }

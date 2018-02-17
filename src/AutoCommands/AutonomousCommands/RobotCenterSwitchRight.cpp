@@ -18,6 +18,6 @@ RobotCenterSwitchRight::RobotCenterSwitchRight() {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	AddSequential(new StrafeToPoint(0)); //TODO MLL-get correct distance
-	AddSequential(new DriveToPoint(0)); //TODO MLL-get correct distance
+	AddSequential(new DriveToPoint(0, 0)); //TODO MLL-get correct distance
 	AddSequential(new Switch());
 }

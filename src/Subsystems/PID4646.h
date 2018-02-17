@@ -40,6 +40,8 @@ public:
 	void ResetControl();
 	void DumpIntegrator();
 
+	double GetTarget();
+
 private:
 	Controller PositivePIDF;
 	Controller NegativePIDF;
