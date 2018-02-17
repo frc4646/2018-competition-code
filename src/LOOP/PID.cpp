@@ -6,6 +6,9 @@
  */
 
 #include "PID.h"
+#include <PIDController.h>
+#include <PIDSource.h>
+#include <PIDOutput.h>
 
 using namespace loop;
 
@@ -56,4 +59,8 @@ void PID::BindOutput(std::function<void (double)> out) {
 
 double PID::GetSetpoint() {
 	return controller.GetSetpoint();
+}
+
+void PID::ResetIntegral() {
+	controller.Reset();
 }

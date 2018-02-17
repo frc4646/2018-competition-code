@@ -182,3 +182,7 @@ void PID4646::DumpIntegrator()
 	lastError_I = 0;
 	accumulatedError = 0;
 }
+
+double PID4646::GetTarget() {
+	return target;
+}

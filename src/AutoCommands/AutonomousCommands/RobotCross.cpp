@@ -19,5 +19,5 @@ RobotCross::RobotCross() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	AddSequential(new DriveToPoint(0)); //TODO Figure out right distance
+	AddSequential(new DriveToPoint(0, 0)); //TODO Figure out right distance
 }

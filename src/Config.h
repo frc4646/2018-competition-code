@@ -62,4 +62,18 @@ const AnalogPin stringPotPin = A0;
 
 const AnalogPin ultrasonicPin = A1;
 
+namespace Config {
+
+const int encoderTicksPerRevolution = 7;
+
+// Diameter of the drivetrain wheels, in inches
+const double drivetrainWheelDiameter = 6;
+
+const double drivetrainDistancePerEncoderTick = drivetrainWheelDiameter / ((double) encoderTicksPerRevolution);
+const unsigned char encoderReversalMap = (char) 0b0101;
+
+const double drivetrainEncoderTargetPositionTolerance = 1;
+
+};
+
 #endif /* Config_H */

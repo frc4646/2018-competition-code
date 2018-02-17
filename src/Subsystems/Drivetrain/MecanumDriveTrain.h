@@ -11,10 +11,14 @@
 #include <IMU10Axis/ADIS16448_IMU.h>
 #include <Encoder.h>
 #include <Subsystems/EncoderChannels.h>
+#include <Subsystems/PID4646.h>
+#include <iterator>
+#include <list>
 
 using namespace loop;
 
 class MecanumDriveTrain : public IDriveTrain {
+	public: enum EncoderIndex : int;
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
@@ -35,12 +39,57 @@ private:
 	const double deltaDegree = 0.5;
 	const double cartRDeadband = 0.1;
 	Encoder flEnc, frEnc, blEnc, brEnc;
-	ADIS16448_IMU gyro;
+
+	const PID4646::Controller defaultFlTunings = PID4646::Controller {
+		0.1,
+		0,
+		0,
+		0,
+		-1,
+		1
+	};
+	const PID4646::Controller defaultFrTunings = PID4646::Controller {
+		0.1,
+		0,
+		0,
+		0,
+		-1,
+		1
+	};
+	const PID4646::Controller defaultBlTunings = PID4646::Controller {
+		0.1,
+		0,
+		0,
+		0,
+		-1,
+		1
+	};
+	const PID4646::Controller defaultBrTunings = PID4646::Controller {
+		0.1,
+		0,
+		0,
+		0,
+		-1,
+		1
+	};
+	PID4646 flEncPID, frEncPID, blEncPID, brEncPID;
+	bool runMotorsToTarget;
+
+	std::list<Encoder*>::iterator EncoderForIndex(EncoderIndex whichEncoder);
+	std::list<PID4646*>::iterator PIDForIndex(EncoderIndex whichEncoder);
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheBellRingerRobotForTheTwoThousandAndSeventeenToTwoThousandAndEighteenOffseasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
 
 
 public:
+	// For purposes explained above, please leave the : int where it is. Thanks
+	enum EncoderIndex : int {
+		FRONT_LEFT = 0b0001,
+		FRONT_RIGHT = 0b0010,
+		BACK_LEFT = 0b0100,
+		BACK_RIGHT = 0b1000
+	};
+	ADIS16448_IMU gyro;
 	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin,
 			EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
 	void InitDefaultCommand() override;
@@ -52,7 +101,15 @@ public:
 	bool AngleTrackingTargetMet();
 	void ResetEncoders();
 	void Drive(SDriveData driveData);
-	double GetEncoderDistance(Encoder whichEncoder);
+
+	double GetEncoderDistance(EncoderIndex whichEncoder);
+	void SetEncoderTarget(EncoderIndex whichEncoder, double target);
+	double GetEncoderTarget(EncoderIndex whichEncoder);
+	void EnableRunToPosition(bool enable);
+	bool RunToPositionEnabled();
+	bool EncodersAtTarget(EncoderIndex whichEncoder);
+
+	void ResetEncoderPIDs();
 
 	/*MLL - Here are some ideas for what we can do for encoders
 	Set Strafe distance

@@ -33,6 +33,7 @@ public:
 	void BindInput(std::function<double (void)> inp);
 	void BindOutput(std::function<void (double)> out);
 	double GetSetpoint();
+	void ResetIntegral();
 };
 }
 

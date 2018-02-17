@@ -17,7 +17,7 @@ RobotScaleFront::RobotScaleFront() {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-		AddSequential(new DriveToPoint(0)); //TODO MLL-get correct distance
+		AddSequential(new DriveToPoint(0, 0)); //TODO MLL-get correct distance
 		AddSequential(new RotateToPoint(90));
 		AddSequential(new Scale());
 }
