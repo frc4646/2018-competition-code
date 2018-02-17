@@ -22,10 +22,10 @@
 // This might be merged into a single #define that is the entire constructor statement.
 #define DRIVETRAIN MecanumDriveTrain
 #define DRIVETRAIN_INIT_PARAMS frontLeftPin, frontRightPin, backLeftPin, backRightPin, frontLeftEncoders, frontRightEncoders, backLeftEncoders, backRightEncoders
-const MotorPin frontLeftPin = M2;
-const MotorPin frontRightPin = M0;
-const MotorPin backLeftPin = M3;
-const MotorPin backRightPin = M1;
+const MotorPin frontLeftPin = M0;
+const MotorPin frontRightPin = M1;
+const MotorPin backLeftPin = M2;
+const MotorPin backRightPin = M3;
 const EncoderChannels frontLeftEncoders = {
 	D0,
 	D1
