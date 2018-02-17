@@ -71,16 +71,15 @@ void LiftToSwitch::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool LiftToSwitch::IsFinished() {
 	//stop when hit target/final height
-	if (state == 3) {
+	/*if (state == 3) {
 		return true;
 	}
 	//end early if a button is pressed
-	/*else if()
+	else if()
 	{
 		return true;
 	}*/
-
-	return false;
+	return (state == 3);
 }
 
 // Called once after isFinished returns true
