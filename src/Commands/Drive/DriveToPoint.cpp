@@ -32,6 +32,13 @@ void DriveToPoint::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveToPoint::Execute() {
+	llvm::StringRef value;
+	if (state == State::TURNING_TO_THETA) {
+		value = "Turning to theta";
+	} else {
+		value = "Driving to distance";
+	}
+	frc::SmartDashboard::PutString("DTP state", value);
 	if (state == State::TURNING_TO_THETA) {
 		if (drivetrain->AngleTrackingTargetMet()) {
 			state = State::DRIVING_TO_DIST;
