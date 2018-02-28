@@ -31,6 +31,7 @@ private:
 	JoystickButton straightDrive;
 	JoystickButton intake;
 	JoystickButton outtake;
+	JoystickButton driveToPoint;
 };
 
 #endif  // OI_H

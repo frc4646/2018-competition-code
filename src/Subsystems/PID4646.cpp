@@ -131,7 +131,11 @@ double PID4646::UpdateControl(double signal)
 		 Gain that is a command, most likely not needed in most circumstances*/
 		F_cmd = applicablePIDF.F_Gain;
 
-		cmd = std::min(std::max(P_cmd + I_cmd + D_cmd + F_cmd, applicablePIDF.Min_Cmd), applicablePIDF.Max_Cmd);
+		if (error > 0) {
+			cmd = std::min(std::max(P_cmd + I_cmd + D_cmd + F_cmd, applicablePIDF.Min_Cmd), applicablePIDF.Max_Cmd);
+		} else {
+			cmd = std::max(std::min(P_cmd + I_cmd + D_cmd + F_cmd, applicablePIDF.Min_Cmd), applicablePIDF.Max_Cmd);
+		}
 	}
 	else
 	{

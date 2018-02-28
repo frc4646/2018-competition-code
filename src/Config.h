@@ -70,7 +70,7 @@ const int encoderTicksPerRevolution = 4096;
 const double drivetrainWheelDiameter = 6;
 
 const double drivetrainDistancePerEncoderTick = drivetrainWheelDiameter / ((double) encoderTicksPerRevolution);
-const unsigned char encoderReversalMap = (char) 0b0101;
+const unsigned char encoderReversalMap = (char) 0b1010;
 
 const double drivetrainEncoderTargetPositionTolerance = 1;
 

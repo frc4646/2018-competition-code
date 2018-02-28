@@ -6,7 +6,7 @@
 #include "Commands/Drive/HandleMecanumDrive.h"
 #include "Commands/Intake/OuttakePowerCube.h"
 #include "Commands/Intake/IntakePowerCube.h"
-#include "Commands/TestCommands/TestDriveToPoint.h"
+#include "Commands/Drive/DriveToPoint.h"
 
 using namespace loop;
 
@@ -20,7 +20,8 @@ OI::OI() :
 #endif
 	straightDrive(&right, 1),
 	intake(&mechanism, 11),
-	outtake(&mechanism, 9)
+	outtake(&mechanism, 9),
+	driveToPoint(&mechanism, 12)
 	{
 }
 
@@ -30,7 +31,8 @@ void OI::Init() {
 	// Works fine for tele-op, but not for auto.
 
 	//frc::SmartDashboard::PutData("Reset Encoders", new ResetDrivetrainEncoders());
-	frc::SmartDashboard::PutData("Drive to point", new TestDriveToPoint(frc::Vector2d(0, 60)));
+	//frc::SmartDashboard::PutData("Drive to point", new TestDriveToPoint(frc::Vector2d(0, 60)));
+	driveToPoint.WhenPressed(new DriveToPoint(0, 60));
 	intake.WhileHeld(new IntakePowerCube());
 	outtake.WhileHeld(new OuttakePowerCube());
 }
