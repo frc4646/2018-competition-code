@@ -23,9 +23,8 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	br(backRightPin),
 	flEnc(frontLeftEncoder.a, frontLeftEncoder.b, false, Encoder::EncodingType::k4X),
 	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Encoder::EncodingType::k4X),
-	blEnc(backLeftEncoder.a, backLeftEncoder.a, false, Encoder::EncodingType::k4X),
-	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X),
-	gyro(),
+	blEnc(backLeftEncoder.a, backLeftEncoder.b, false, Encoder::EncodingType::k4X),
+	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X),gyro(),
 	flEncPID(),
 	frEncPID(),
 	blEncPID(),
@@ -283,4 +282,11 @@ void MecanumDriveTrain::ResetEncoderPIDs() {
 	frEncPID.ResetControl();
 	blEncPID.ResetControl();
 	brEncPID.ResetControl();
+}
+
+void MecanumDriveTrain::DumpEncoderValues() {
+	frc::SmartDashboard::PutNumber("FLR", flEnc.GetRaw());
+	frc::SmartDashboard::PutNumber("FRR", frEnc.GetRaw());
+	frc::SmartDashboard::PutNumber("BLR", blEnc.GetRaw());
+	frc::SmartDashboard::PutNumber("BRR", brEnc.GetRaw());
 }

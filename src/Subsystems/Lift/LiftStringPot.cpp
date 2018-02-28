@@ -12,7 +12,7 @@ double LiftStringPot::GetHeight() {
 	double m;
 	double b;
 
-	int value = LiftStringPotPin.GetValue();
+	int value = LiftStringPotPin.GetValue(); // @suppress("Invalid arguments")
 
 	m = (MinHeight - MaxHeight) / (double)(MinValue - MaxValue);
 	b = MinHeight - ((MinValue)*(m));

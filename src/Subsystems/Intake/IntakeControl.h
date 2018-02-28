@@ -15,7 +15,7 @@ class IntakeControl : public Subsystem {
 private:
 	// It's desirable that everything possible under private except
 	// for methods that implement subsystem capabilities
-	Spark intake;
+	Spark intakeMotor;
 
 public:
 	IntakeControl(MotorPin in, DIOPin limit);

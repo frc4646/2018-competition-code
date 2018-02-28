@@ -6,7 +6,7 @@ using namespace loop;
 
 IntakeControl::IntakeControl(MotorPin in, DIOPin limit) :
 		Subsystem("IntakeControl"),
-		intake(in) {
+		intakeMotor(in) {
 
 }
 
@@ -21,5 +21,5 @@ void IntakeControl::InitDefaultCommand() {
 
 // Sets intake power to argument "power".
 void IntakeControl::SetIntakePower(double power) {
-	intake.Set(power);
+	intakeMotor.Set(power);
 }

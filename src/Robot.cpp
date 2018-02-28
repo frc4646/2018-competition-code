@@ -44,6 +44,12 @@ public:
 		frc::SmartDashboard::PutData("Robot location", &m_location_chooser);
 		//autoLut.insert("LLL", rlscl);
 		//autoLut["LLR"] = rlscr;
+		/*rlscr = *(new RobotLeftScaleRight());
+		rscf = *(new RobotScaleFront());
+		rrscl = *(new RobotRightScaleLeft());
+		rcswl = *(new RobotCenterSwitchLeft());
+		rcswr();
+		rcr();
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LLR"), &rlscr));
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LRR"), &rlscr));
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("LRL"), &rscf));
@@ -54,7 +60,7 @@ public:
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CLL"), &rcswl));
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CLR"), &rcswr));
 		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CRR"), &rcswr));
-		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CRL"), &rcswl));
+		autoLut.insert(std::pair<std::string, frc::Command*>(std::string("CRL"), &rcswl));*/
 	}
 
 	/**
@@ -94,8 +100,8 @@ public:
 			loc = Location::RIGHT;
 		}
 
-		m_autonomousCommand = autoLut[robotLocation.substr(0, 1) + frc::DriverStation::GetInstance().GetGameSpecificMessage().substr(0, 2)];
-		m_autonomousCommand->Start();
+		//m_autonomousCommand = autoLut[robotLocation.substr(0, 1) + frc::DriverStation::GetInstance().GetGameSpecificMessage().substr(0, 2)];
+		//m_autonomousCommand->Start();
 		//TODO MLL - Fgure out which autonomus commands we want to run!
 	}
 
@@ -131,12 +137,12 @@ private:
 	frc::Command* m_autonomousCommand = nullptr;
 	ExampleCommand m_defaultAuto;
 	MyAutoCommand m_myAuto;
-	RobotCenterSwitchLeft rcswl;
-	RobotCenterSwitchRight rcswr;
-	RobotCross rcr;
-	RobotLeftScaleRight rlscr;
-	RobotRightScaleLeft rrscl;
-	RobotScaleFront rscf;
+//	RobotCenterSwitchLeft rcswl;
+//	RobotCenterSwitchRight rcswr;
+//	RobotCross rcr;
+//	RobotLeftScaleRight rlscr;
+//	RobotRightScaleLeft rrscl;
+//	RobotScaleFront rscf;
 	frc::SendableChooser<frc::Command*> m_chooser;
 	frc::SendableChooser<Location> m_location_chooser;
 };

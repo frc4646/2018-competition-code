@@ -40,40 +40,42 @@ private:
 	const double cartRDeadband = 0.1;
 	Encoder flEnc, frEnc, blEnc, brEnc;
 
-	const PID4646::Controller defaultFlTunings = PID4646::Controller {
-		0.1,
-		0,
-		0,
-		0,
-		-1,
-		1
-	};
-	const PID4646::Controller defaultFrTunings = PID4646::Controller {
-		0.1,
-		0,
-		0,
-		0,
-		-1,
-		1
-	};
-	const PID4646::Controller defaultBlTunings = PID4646::Controller {
-		0.1,
-		0,
-		0,
-		0,
-		-1,
-		1
-	};
-	const PID4646::Controller defaultBrTunings = PID4646::Controller {
-		0.1,
-		0,
-		0,
-		0,
-		-1,
-		1
-	};
 	PID4646 flEncPID, frEncPID, blEncPID, brEncPID;
 	bool runMotorsToTarget;
+	ADIS16448_IMU gyro;
+
+	const PID4646::Controller defaultFlTunings = PID4646::Controller {
+		0.2,
+		0,
+		0,
+		0,
+		-0.5,
+		0.5
+	};
+	const PID4646::Controller defaultFrTunings = PID4646::Controller {
+		0.2,
+		0,
+		0,
+		0,
+		-0.5,
+		0.5
+	};
+	const PID4646::Controller defaultBlTunings = PID4646::Controller {
+		0.2,
+		0,
+		0,
+		0,
+		-0.5,
+		0.5
+	};
+	const PID4646::Controller defaultBrTunings = PID4646::Controller {
+		0.2,
+		0,
+		0,
+		0,
+		-0.5,
+		0.5
+	};
 
 	std::list<Encoder*>::iterator EncoderForIndex(EncoderIndex whichEncoder);
 	std::list<PID4646*>::iterator PIDForIndex(EncoderIndex whichEncoder);
@@ -89,7 +91,6 @@ public:
 		BACK_LEFT = 0b0100,
 		BACK_RIGHT = 0b1000
 	};
-	ADIS16448_IMU gyro;
 	MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightPin, MotorPin backLeftPin, MotorPin backRightPin,
 			EncoderChannels frontLeftEncoder, EncoderChannels frontRightEncoder, EncoderChannels backLeftEncoder, EncoderChannels backRightEncoder);
 	void InitDefaultCommand() override;
@@ -110,6 +111,7 @@ public:
 	bool EncodersAtTarget(EncoderIndex whichEncoder);
 
 	void ResetEncoderPIDs();
+	void DumpEncoderValues();
 
 	/*MLL - Here are some ideas for what we can do for encoders
 	Set Strafe distance

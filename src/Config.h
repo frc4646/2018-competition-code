@@ -45,13 +45,13 @@ const EncoderChannels backRightEncoders = {
 
 #define LIFT_INIT_PARAMS liftMotorPin, ratchetMotorPin
 
-const MotorPin liftMotorPin = M6;
-const MotorPin ratchetMotorPin = M7;
+const MotorPin liftMotorPin = M5;
+const MotorPin ratchetMotorPin = M6;
 
 
 #define INTAKE_INIT_PARAMS intakePin,  intakeLimit
 
-const MotorPin intakePin = M5;
+const MotorPin intakePin = M4;
 const DIOPin intakeLimit = D8;
 
 #define LIFT_STRING_POT_INIT_PARAMS stringPotPin
@@ -64,7 +64,7 @@ const AnalogPin ultrasonicPin = A1;
 
 namespace Config {
 
-const int encoderTicksPerRevolution = 7;
+const int encoderTicksPerRevolution = 4096;
 
 // Diameter of the drivetrain wheels, in inches
 const double drivetrainWheelDiameter = 6;

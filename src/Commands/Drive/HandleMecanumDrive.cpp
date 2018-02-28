@@ -14,12 +14,19 @@ HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), joyDB(0.1
 
 // Called just before this Command runs the first time
 void HandleMecanumDrive::Initialize() {
-	//gyro.Reset();
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 
 void HandleMecanumDrive::Execute() {
+
+	frc::SmartDashboard::PutNumber("FL", drivetrain->GetEncoderDistance(MecanumDriveTrain::EncoderIndex::FRONT_LEFT));
+	frc::SmartDashboard::PutNumber("FR", drivetrain->GetEncoderDistance(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT));
+	frc::SmartDashboard::PutNumber("BL", drivetrain->GetEncoderDistance(MecanumDriveTrain::EncoderIndex::BACK_LEFT));
+	frc::SmartDashboard::PutNumber("BR", drivetrain->GetEncoderDistance(MecanumDriveTrain::EncoderIndex::BACK_RIGHT));
+	drivetrain->DumpEncoderValues();
+
 	//build drive data
 	SDriveData driveData;
 	driveData.cartX = oi->GetRightJoystickX();

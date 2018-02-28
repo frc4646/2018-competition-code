@@ -2,10 +2,11 @@
 
 #include <WPILib.h>
 #include "Config.h"
-#include "LOOP/Binding.h"
+#include "Commands/Drive/ResetDrivetrainEncoders.h"
 #include "Commands/Drive/HandleMecanumDrive.h"
 #include "Commands/Intake/OuttakePowerCube.h"
 #include "Commands/Intake/IntakePowerCube.h"
+#include "Commands/TestCommands/TestDriveToPoint.h"
 
 using namespace loop;
 
@@ -21,11 +22,6 @@ OI::OI() :
 	intake(&mechanism, 11),
 	outtake(&mechanism, 9)
 	{
-	/*intake.WhenPressed(new AdjustToIntakeAngle());
-	intake.WhileHeld(new IntakePowerCube());
-	outtake.WhileHeld(new OuttakePowerCube());*/
-	intake.WhileHeld(new IntakePowerCube());
-	outtake.WhileHeld(new OuttakePowerCube());
 }
 
 void OI::Init() {
@@ -33,19 +29,10 @@ void OI::Init() {
 	// Anonymous implementation of straight drive.
 	// Works fine for tele-op, but not for auto.
 
-	frc::SmartDashboard::PutData("Reset Encoders", new Binding(
-		[]() {
-			CommandBase::drivetrain->ResetEncoders();
-		},
-		[]() {
-
-		},
-		[]() {
-
-		},
-		1,
-		CommandBase::drivetrain.get()
-	));
+	//frc::SmartDashboard::PutData("Reset Encoders", new ResetDrivetrainEncoders());
+	frc::SmartDashboard::PutData("Drive to point", new TestDriveToPoint(frc::Vector2d(0, 60)));
+	intake.WhileHeld(new IntakePowerCube());
+	outtake.WhileHeld(new OuttakePowerCube());
 }
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering

@@ -15,7 +15,7 @@ bool close_enough(int threshold, int numConditions, ...) {
 	va_list conditions;
 	va_start(conditions, numConditions);
 	for (int i = 0; i < numConditions; i++) {
-		count += va_arg(conditions, bool);
+		count += va_arg(conditions, int);
 	}
 	va_end(conditions);
 	return count >= threshold;

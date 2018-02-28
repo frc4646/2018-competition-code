@@ -22,6 +22,8 @@ DriveToPoint::DriveToPoint(double x, double y) : CommandBase("DriveToPoint"),
 // Called just before this Command runs the first time
 void DriveToPoint::Initialize() {
 	// Clean up any mess previous commands may have left
+	drivetrain->ResetEncoders();
+	drivetrain->ResetEncoderPIDs();
 	drivetrain->EnableRunToPosition(false);
 
 	drivetrain->SetAngleTrackingTarget(theta);
@@ -35,7 +37,7 @@ void DriveToPoint::Execute() {
 			state = State::DRIVING_TO_DIST;
 			drivetrain->ResetEncoders();
 			drivetrain->ResetEncoderPIDs();
-			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::FRONT_LEFT, dist);
+			//drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::FRONT_LEFT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::BACK_LEFT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::BACK_RIGHT, dist);
@@ -52,7 +54,6 @@ void DriveToPoint::Execute() {
 // Make this return true when this Command no longer needs to run execute()
 bool DriveToPoint::IsFinished() {
 	return (state == State::DRIVING_TO_DIST) && drivetrain->EncodersAtTarget((MecanumDriveTrain::EncoderIndex) (
-			MecanumDriveTrain::EncoderIndex::FRONT_LEFT |
 			MecanumDriveTrain::EncoderIndex::FRONT_RIGHT |
 			MecanumDriveTrain::EncoderIndex::BACK_LEFT |
 			MecanumDriveTrain::EncoderIndex::BACK_RIGHT
