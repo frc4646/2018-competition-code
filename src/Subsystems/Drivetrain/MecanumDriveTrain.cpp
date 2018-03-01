@@ -61,10 +61,10 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frEnc.Reset();
 	blEnc.Reset();
 	brEnc.Reset();
-	flEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
-	frEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
-	blEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
-	brEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	flEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFLBR);
+	frEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFRBL);
+	blEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFRBL);
+	brEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFLBR);
 	flEnc.SetReverseDirection(Config::encoderReversalMap & 0b1000);
 	frEnc.SetReverseDirection(Config::encoderReversalMap & 0b0100);
 	blEnc.SetReverseDirection(Config::encoderReversalMap & 0b0010);
@@ -101,7 +101,7 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	if (std::fabs(driveData.cartR) > cartRDeadband && std::fabs(lastCartR) <= cartRDeadband) {
 		doAngleHold = false;
 	} else if (std::fabs(driveData.cartR) <= cartRDeadband && std::fabs(lastCartR) > cartRDeadband) {
-		doAngleHold = true;
+		doAngleHold = false;
 		angleHoldTarget = gyro.GetAngleZ();
 	}
 	double error = 0;//(gyro.GetAngleZ() - trackingAngle);
@@ -157,15 +157,12 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
 
 	if (runMotorsToTarget) {
-		std::cout << "8" << std::endl;
-		fl.Set(flEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_LEFT) + driveData.cartR));
-		std::cout << "7" <<std::endl;
-		fr.Set(frEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_RIGHT) - driveData.cartR));
-		std::cout << "6" << std::endl;
-		bl.Set(blEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_LEFT) + driveData.cartR));
-		std::cout << "5" << std::endl;
-		br.Set(brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT) - driveData.cartR));
-		std::cout << "4" << std::endl;
+
+		double temp = GetEncoderDistance(EncoderIndex::BACK_RIGHT);
+		fl.Set(-flEncPID.UpdateControl(temp /*GetEncoderDistance(EncoderIndex::FRONT_LEFT)*/ + driveData.cartR));
+		fr.Set(-frEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_RIGHT) - driveData.cartR));
+		bl.Set(-blEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_LEFT) + driveData.cartR));
+		br.Set(-brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT) - driveData.cartR));
 	} else {
 		fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
 		fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);

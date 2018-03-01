@@ -13,6 +13,7 @@
 
 #include "PinEnums.h"
 #include "Subsystems/EncoderChannels.h"
+#define PI 3.141592
 
 // Uncomment to enable gamepad control
 //#define GAMEPAD
@@ -69,8 +70,13 @@ const int encoderTicksPerRevolution = 4096;
 // Diameter of the drivetrain wheels, in inches
 const double drivetrainWheelDiameter = 6;
 
-const double drivetrainDistancePerEncoderTick = drivetrainWheelDiameter / ((double) encoderTicksPerRevolution);
-const unsigned char encoderReversalMap = (char) 0b1010;
+//const double drivetrainDistancePerEncoderTick = drivetrainWheelDiameter / ((double) encoderTicksPerRevolution);
+//big numbers from testing, 60 inches is the distance (5 ft) we tested with
+//Units very important!!!
+const double drivetrainDistancePerEncoderTickFLBR = 60/(25000.0);
+const double drivetrainDistancePerEncoderTickFRBL = 60/(30000.0);
+
+const unsigned char encoderReversalMap = (char) 0b0101;
 
 const double drivetrainEncoderTargetPositionTolerance = 1;
 

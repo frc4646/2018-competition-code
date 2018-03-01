@@ -10,6 +10,7 @@
 #include <Subsystems/PID4646.h>
 #include <Timer.h>
 #include <math.h>
+#include <iostream>
 
 PID4646::Controller defaultPID =
 {
@@ -142,6 +143,8 @@ double PID4646::UpdateControl(double signal)
 		cmd = 0;
 		atTarget = true;
 	}
+
+	std::cout << cmd << std::endl;
 	return cmd;
 }
 

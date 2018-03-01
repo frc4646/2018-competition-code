@@ -49,7 +49,7 @@ private:
 		0,
 		0,
 		0,
-		-0.5,
+		.2,
 		0.5
 	};
 	const PID4646::Controller defaultFrTunings = PID4646::Controller {
@@ -57,7 +57,7 @@ private:
 		0,
 		0,
 		0,
-		-0.5,
+		.2,
 		0.5
 	};
 	const PID4646::Controller defaultBlTunings = PID4646::Controller {
@@ -65,7 +65,7 @@ private:
 		0,
 		0,
 		0,
-		-0.5,
+		.2,
 		0.5
 	};
 	const PID4646::Controller defaultBrTunings = PID4646::Controller {
@@ -73,7 +73,7 @@ private:
 		0,
 		0,
 		0,
-		-0.5,
+		.2,
 		0.5
 	};
 
