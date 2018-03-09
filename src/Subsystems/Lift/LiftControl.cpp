@@ -3,7 +3,7 @@
 #include "CommandBase.h"
 #include "Subsystems/PID4646.h"
 #include "LiftStringPot.h"
-#include "Commands/Lift/HoldLift.h"
+#include "Commands/Lift/LiftTeleop.h"
 
 using namespace loop;
 
@@ -42,7 +42,7 @@ void LiftControl::InitDefaultCommand() {
 	// SetDefaultCommand(new MySpecialCommand());
 	// Is this the right command? I see HoldLift and LiftTeleop.
 	// -Christopher; (2/12/18)
-	SetDefaultCommand(new HoldLift());
+	SetDefaultCommand(new LiftTeleop());
 }
 
 // Put methods for controlling this subsystem
@@ -76,7 +76,8 @@ void LiftControl::SetLiftPower(double power) {
 	}
 
 	else {
-		StopLift();
+		//StopLift();
+		liftMotor.Set(0);
 	}
 
 }

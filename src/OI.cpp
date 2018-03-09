@@ -97,5 +97,9 @@ double OI::GetMechanismY() {
 double OI::GetMechanismZ() {
 	return mechanism.GetRawAxis(2) * -1.0;
 }
+
+Joystick& OI::GetMechanism() {
+	return mechanism;
+}
 #endif
 

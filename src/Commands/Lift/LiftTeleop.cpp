@@ -16,6 +16,12 @@ void LiftTeleop::Initialize() {
 void LiftTeleop::Execute() {
 
 	//Need to consder lift up, lift down, holding the lift in place, and turning on the ratchet to climb
+	if (oi->GetMechanism().GetRawButton(1)){
+		lift->SetLiftPower(oi->GetMechanismY());
+	}
+	else {
+		lift->SetLiftPower(0.15);
+	}
 
 }
 

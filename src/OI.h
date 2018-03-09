@@ -19,6 +19,7 @@ public:
 	double GetMechanismX();
 	double GetMechanismY();
 	double GetMechanismZ();
+	Joystick& GetMechanism();
 #endif
 private:
 #ifndef GAMEPAD
