@@ -8,28 +8,29 @@ LiftToSwitch::LiftToSwitch() {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(lift.get());
-	Requires(ultrasonic.get());
+	//Requires(ultrasonic.get());
 
-	state = 1;
+	//state = 1;
 }
 
 // Called just before this Command runs the first time
 void LiftToSwitch::Initialize() {
-	state = 1;
-	lift->LiftToElevation(CommandBase::liftStringPot->GetMaxHeight());
+	//state = 1;
+	lift->LiftToElevation(CommandBase::liftStringPot->GetSwitchHeight());
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LiftToSwitch::Execute() {
-	double distanceToSwitch = 500; //in millimeters. distance from the ultrasonic to the scale, horizontally
-	double ultraSonicToCube = 2.0; //TODO (also unit) the distance from the ultra sonic to the bottom of block
+	//double distanceToSwitch = 500; //in millimeters. distance from the ultrasonic to the scale, horizontally
+	//double ultraSonicToCube = 2.0; //TODO (also unit) the distance from the ultra sonic to the bottom of block
 
 	//always check if the lift is higher than max height
-	if(CommandBase::liftStringPot->GetHeight() >= CommandBase::liftStringPot->GetMaxHeight()) {
-		state = 3;
+	if(true) {
+		//state = 3;
 	}
+	lift->Lift();
 
-	switch(state){
+	/*switch(state){
 		case 1:
 		{
 			//the ultrasonic should already be in front of the switch, so lift up until it can't see it anymore
@@ -65,7 +66,7 @@ void LiftToSwitch::Execute() {
 			state = 3;
 		}
 			break;
-	}
+	}*/
 }
 
 // Make this return true when this Command no longer needs to run execute()
@@ -79,12 +80,12 @@ bool LiftToSwitch::IsFinished() {
 	{
 		return true;
 	}*/
-	return (state == 3);
+	return (CommandBase::liftStringPot->GetHeight() >= CommandBase::liftStringPot->GetSwitchHeight());
 }
 
 // Called once after isFinished returns true
 void LiftToSwitch::End() {
-	CommandBase::lift->StopLift();
+	lift->StopLift();
 }
 
 // Called when another command which requires one or more of the same

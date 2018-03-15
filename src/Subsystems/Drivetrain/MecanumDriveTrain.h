@@ -35,14 +35,14 @@ private:
 	bool targetMet;
 	const double defaultP = 0.045;
 	const double defaultMaxCommand = 0.75;
-	const double defaultMinCommand = 0.1;
+	const double defaultMinCommand = 0.03;
 	const double deltaDegree = 0.5;
 	const double cartRDeadband = 0.1;
 	Encoder flEnc, frEnc, blEnc, brEnc;
 
+	ADIS16448_IMU gyro;
 	PID4646 flEncPID, frEncPID, blEncPID, brEncPID;
 	bool runMotorsToTarget;
-	ADIS16448_IMU gyro;
 
 	const PID4646::Controller defaultFlTunings = PID4646::Controller {
 		0.2,
@@ -81,6 +81,7 @@ private:
 	std::list<PID4646*>::iterator PIDForIndex(EncoderIndex whichEncoder);
 
 	//Spark revRoboticsBrandSparkPulseWidthModulationMotorControllerThatControlsTheCIMMotorThatIsOnPortZeroAndIsLocatedOnTheFrontLeftCornerOfTheBellRingerRobotForTheTwoThousandAndSeventeenToTwoThousandAndEighteenOffseasonAndIsConnectedToAPulseWidthModulationWireThatIsLabeledAs2YetIsConnectedToTheNationalInstrumentsRoboRIODigitalOutputPortZeroAndThisSparkController;
+	bool angleHoldOverride;
 
 
 public:
@@ -109,9 +110,12 @@ public:
 	void EnableRunToPosition(bool enable);
 	bool RunToPositionEnabled();
 	bool EncodersAtTarget(EncoderIndex whichEncoder);
+	void EnableAngleHold(bool enabled);
 
 	void ResetEncoderPIDs();
 	void DumpEncoderValues();
+
+	void ResetGyro();
 
 	/*MLL - Here are some ideas for what we can do for encoders
 	Set Strafe distance

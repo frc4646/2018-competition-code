@@ -1,5 +1,6 @@
 #include "HandleMecanumDrive.h"
 #include <LOOP/IDriveTrain.h>
+#include <LOOP/Utils.h>
 #include <config.h>
 #include <iostream>
 
@@ -10,6 +11,9 @@ HandleMecanumDrive::HandleMecanumDrive() : CommandBase("HandleDrive"), joyDB(0.1
 	// eg. Requires(Robot::chassis.get());
 	Requires((frc::Subsystem*) drivetrain.get());
 	frc::SmartDashboard::PutNumber("Joystick Deadband", defaultJoyDB);
+	if (!frc::Preferences::GetInstance()->ContainsKey("HMD-cartRDeadband")) {
+		frc::Preferences::GetInstance()->PutDouble("HMD-cartRDeadband", 0.1);
+	}
 }
 
 // Called just before this Command runs the first time
@@ -38,9 +42,10 @@ void HandleMecanumDrive::Execute() {
 	joytar = frc::SmartDashboard::GetBoolean("Joystick Targeting Control", false);
 	joyDB = frc::SmartDashboard::GetNumber("Joystick Deadband", defaultJoyDB);
 	double target = frc::SmartDashboard::GetNumber("Target", 0);
+	double cartRDeadband = frc::Preferences::GetInstance()->GetDouble("HMD-cartRDeadband");
 
 	//deadband rotation joystick and change error variable if necessary
-	if ((oi->GetLeftJoystickX() > joyDB || oi->GetLeftJoystickX() < -joyDB) && joytar){
+	if ((oi->GetLeftJoystickX() * (oi->GetLeftJoystickThrottle() * -1.0) > joyDB || oi->GetLeftJoystickX() * (oi->GetLeftJoystickThrottle() * -1.0) < -joyDB) && joytar){
 		target -= (oi->GetLeftJoystickX() * ((3.0)/(1+joyDB)));
 		// * 4 is for 180 degree rotation per second.
 		//Only update these numbers if there has been a change
@@ -52,7 +57,12 @@ void HandleMecanumDrive::Execute() {
 	// set specific speeds.
 	driveData.cartX = (driveData.cartX*(oi->GetRightJoystickThrottle()*-1));
 	driveData.cartY = (driveData.cartY*(oi->GetRightJoystickThrottle()*-1));
-	driveData.cartR = (driveData.cartR*(oi->GetLeftJoystickThrottle()*-1));
+	if (driveData.cartX > 0.1) {
+		drivetrain->EnableAngleHold(true);
+	} else {
+		drivetrain->EnableAngleHold(false);
+	}
+	driveData.cartR = loop::applyDeadband((driveData.cartR * (oi->GetLeftJoystickThrottle() * -1.0)), cartRDeadband);
 	drivetrain->Drive(driveData);
 
 }

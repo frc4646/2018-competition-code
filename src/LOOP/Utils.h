@@ -11,6 +11,7 @@
 namespace loop {
 
 bool close_enough(int threshold, int numConditions, ...);
+double applyDeadband(double value, double deadband);
 
 };
 

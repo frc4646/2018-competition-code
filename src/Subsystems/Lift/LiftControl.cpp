@@ -4,6 +4,7 @@
 #include "Subsystems/PID4646.h"
 #include "LiftStringPot.h"
 #include "Commands/Lift/LiftTeleop.h"
+#include <OI.h>
 
 using namespace loop;
 
@@ -66,13 +67,23 @@ void LiftControl::StopLift() {
 	LiftToElevation(GetLiftElevation());
 }
 
-void LiftControl::SetLiftPower(double power) {
-	if (power > 0) {
-		liftMotor.Set(std::min(std::max(lifterMinPowerUp, power), lifterMaxPowerUp));
+void LiftControl::SetLiftPower(double power, bool override) {
+	double holdPower = frc::Preferences::GetInstance()->GetDouble("lift-hold-command");
+	double p = power;
+	if (!override){
+		if (CommandBase::liftStringPot->GetHeight() <= CommandBase::liftStringPot->GetMinHeight()) {
+			p = (p < 0) ? holdPower : p;
+		}
+		if (CommandBase::liftStringPot->GetHeight() >= CommandBase::liftStringPot->GetMaxHeight()) {
+			p = (p > 0) ? holdPower : p;
+		}
+	}
+	if (p > 0) {
+		liftMotor.Set(std::min(std::max(lifterMinPowerUp, p), lifterMaxPowerUp));
 	}
 
-	else if(power < 0) {
-		liftMotor.Set(std::max(std::min(lifterMinPowerDown, power), lifterMaxPowerDown));
+	else if(p < 0) {
+		liftMotor.Set(std::max(std::min(lifterMinPowerDown, p), lifterMaxPowerDown));
 	}
 
 	else {

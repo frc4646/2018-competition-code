@@ -14,12 +14,11 @@
 
 #include "Commands/ExampleCommand.h"
 #include "Commands/MyAutoCommand.h"
-#include "AutoCommands/AutonomousCommands/RobotCenterSwitchLeft.h"
-#include "AutoCommands/AutonomousCommands/RobotCenterSwitchRight.h"
-#include "AutoCommands/AutonomousCommands/RobotCross.h"
 #include "AutoCommands/AutonomousCommands/RobotLeftScaleRight.h"
 #include "AutoCommands/AutonomousCommands/RobotRightScaleLeft.h"
 #include "AutoCommands/AutonomousCommands/RobotScaleFront.h"
+#include "AutoCommands/AutonomousCommands/Kickstand.h"
+#include "AutoCommands/AutonomousCommands/DriveForwardForTime.h"
 #include "CommandBase.h"
 
 #include "Config.h"
@@ -32,6 +31,11 @@ using namespace loop;
 
 class Robot : public frc::TimedRobot {
 public:
+	enum Location {
+		LEFT,
+		CENTER,
+		RIGHT
+	};
 	void RobotInit() override {
 		CommandBase::init();
 		m_chooser.AddDefault("Default Auto", &m_defaultAuto);
@@ -42,6 +46,15 @@ public:
 		m_location_chooser.AddObject("Left", Location::LEFT);
 		m_location_chooser.AddObject("Right", Location::RIGHT);
 		frc::SmartDashboard::PutData("Robot location", &m_location_chooser);
+		if (!frc::Preferences::GetInstance()->ContainsKey("intake-power")){
+			frc::Preferences::GetInstance()->PutDouble("intake-power", 0.3);
+		}
+		if (!frc::Preferences::GetInstance()->ContainsKey("outtake-power")){
+			frc::Preferences::GetInstance()->PutDouble("outtake-power", 0.5);
+		}
+		if (!frc::Preferences::GetInstance()->ContainsKey("lift-hold-command")){
+			frc::Preferences::GetInstance()->PutDouble("lift-hold-command", 0.15);
+		}
 		//autoLut.insert("LLL", rlscl);
 		//autoLut["LLR"] = rlscr;
 		/*rlscr = *(new RobotLeftScaleRight());
@@ -103,6 +116,9 @@ public:
 		//m_autonomousCommand = autoLut[robotLocation.substr(0, 1) + frc::DriverStation::GetInstance().GetGameSpecificMessage().substr(0, 2)];
 		//m_autonomousCommand->Start();
 		//TODO MLL - Fgure out which autonomus commands we want to run!
+		//new RobotCross();
+		m_autonomousCommand = new DriveForwardForTime(3);
+		m_autonomousCommand->Start();
 	}
 
 	void AutonomousPeriodic() override {
@@ -125,11 +141,6 @@ public:
 	void TestPeriodic() override {}
 
 private:
-	enum Location {
-		LEFT,
-		CENTER,
-		RIGHT
-	};
 	Location loc;
 	std::map<std::string, frc::Command*> autoLut;
 	// Have it null by default so that if testing teleop it

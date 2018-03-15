@@ -46,7 +46,7 @@ void DriveToPoint::Execute() {
 	frc::SmartDashboard::PutString("DTP state", value);
 	std::cout << "State: " << value << std::endl;
 	if (state == State::TURNING_TO_THETA) {
-		if (true || drivetrain->AngleTrackingTargetMet()) {
+		if (drivetrain->AngleTrackingTargetMet()) {
 			state = State::DRIVING_TO_DIST;
 			drivetrain->ResetEncoders();
 			drivetrain->ResetEncoderPIDs();
@@ -55,7 +55,6 @@ void DriveToPoint::Execute() {
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::BACK_LEFT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::BACK_RIGHT, dist);
 			drivetrain->EnableRunToPosition(true);
-			drivetrain->EnableTracking(false);
 		}
 	}
 

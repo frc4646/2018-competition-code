@@ -9,12 +9,12 @@ OuttakePowerCube::OuttakePowerCube() {
 
 // Called just before this Command runs the first time
 void OuttakePowerCube::Initialize() {
-	intake->SetIntakePower(-1);
+	intake->SetIntakePower(-frc::Preferences::GetInstance()->GetDouble("outtake-power", 0.5));
 }
 
 // Called repeatedly when this Command is scheduled to run
 void OuttakePowerCube::Execute() {
-	intake->SetIntakePower(-1);
+	intake->SetIntakePower(-frc::Preferences::GetInstance()->GetDouble("outtake-power", 0.5));
 }
 
 // Make this return true when this Command no longer needs to run execute()

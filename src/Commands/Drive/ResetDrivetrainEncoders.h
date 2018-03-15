@@ -1,7 +1,7 @@
 #ifndef ResetDrivetrainEncoders_H
 #define ResetDrivetrainEncoders_H
 
-#include "CommandBase.h"
+#include <CommandBase.h>
 
 class ResetDrivetrainEncoders : public CommandBase {
 public:

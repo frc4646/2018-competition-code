@@ -21,4 +21,11 @@ bool close_enough(int threshold, int numConditions, ...) {
 	return count >= threshold;
 }
 
+double applyDeadband(double value, double deadband) {
+	if (value < deadband && value > -deadband) {
+		return 0;
+	}
+	return value;
+}
+
 };

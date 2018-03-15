@@ -19,5 +19,5 @@ RobotScaleFront::RobotScaleFront() {
 	// arm.
 		AddSequential(new DriveToPoint(0, 0)); //TODO MLL-get correct distance
 		AddSequential(new RotateToPoint(90));
-		AddSequential(new Scale());
+		AddSequential(new LiftToScale());
 }

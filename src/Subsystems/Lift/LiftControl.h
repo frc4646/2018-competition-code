@@ -29,9 +29,9 @@ private:
 	const llvm::StringRef dashboard_Lifter_D_update_rate = "Lifter D update rate";
 
 	Spark liftMotor;
-	const double lifterMaxPowerUp = 1;
+	const double lifterMaxPowerUp = .5;
 	const double lifterMinPowerUp = 0.01;
-	const double lifterMaxPowerDown = -1;
+	const double lifterMaxPowerDown = -.2;
 	const double lifterMinPowerDown = -0.01;
 
 	const double defaultLiftDUpdateRate = 0.1;
@@ -62,7 +62,7 @@ public:
 	void LiftToElevation(double elevation);
 	double GetLiftElevation();
 	void StopLift();
-	void SetLiftPower(double power);
+	void SetLiftPower(double power, bool override = false);
 	void Lift();
 	void SetRatchetEngage(bool on);
 	void ResetLiftPIDControl();

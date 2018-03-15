@@ -7,10 +7,11 @@
 
 class LiftStringPot : public Subsystem {
 private:
-	const double MinHeight = 0;
-	const double MaxHeight = 4;
-	const int MinValue = 0;
-	const int MaxValue = 1023;
+	const double MinHeight = 0.0;
+	const double MaxHeight = 74.0;
+	const double SwitchHeight = 24;
+	const int MinValue = 1.42;//0;
+	const int MaxValue = 4.11;//1023;
 	AnalogInput LiftStringPotPin;
 
 public:
@@ -19,6 +20,7 @@ public:
 	double GetHeight();
 	double GetMaxHeight();
 	double GetMinHeight();
+	double GetSwitchHeight();
 };
 
 #endif  // LiftStringPot_H

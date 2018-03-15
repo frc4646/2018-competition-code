@@ -12,6 +12,7 @@
 #include <iterator>
 #include <list>
 #include <iostream>
+#include <Config.h>
 #define PI 3.141592
 
 using namespace loop;
@@ -22,15 +23,17 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fr(frontRightPin),
 	bl(backLeftPin),
 	br(backRightPin),
-	flEnc(frontLeftEncoder.a, frontLeftEncoder.b, false, Encoder::EncodingType::k4X),
-	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Encoder::EncodingType::k4X),
-	blEnc(backLeftEncoder.a, backLeftEncoder.b, false, Encoder::EncodingType::k4X),
-	brEnc(backRightEncoder.a, backRightEncoder.b, false, Encoder::EncodingType::k4X),gyro(),
+	flEnc(frontLeftEncoder.a, frontLeftEncoder.b, false, Config::drivetrainEncodingType),
+	frEnc(frontRightEncoder.a, frontRightEncoder.b, false, Config::drivetrainEncodingType),
+	blEnc(backLeftEncoder.a, backLeftEncoder.b, false, Config::drivetrainEncodingType),
+	brEnc(backRightEncoder.a, backRightEncoder.b, false, Config::drivetrainEncodingType),
+	gyro(),
 	flEncPID(),
 	frEncPID(),
 	blEncPID(),
 	brEncPID(),
-	runMotorsToTarget(false) {
+	runMotorsToTarget(false),
+	angleHoldOverride(false) {
 
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
@@ -39,7 +42,9 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	fl.SetInverted(true);
 	bl.SetInverted(true);
 
-	frc::SmartDashboard::PutNumber("P", defaultP);
+	if (!frc::Preferences::GetInstance()->ContainsKey("MDT-P")) {
+		frc::Preferences::GetInstance()->PutDouble("MDT-P", defaultP);
+	}
 	frc::SmartDashboard::PutNumber("Max Command", defaultMaxCommand);
 	frc::SmartDashboard::PutNumber("Min Command", defaultMinCommand);
 	frc::SmartDashboard::PutNumber("Delta Degree", deltaDegree);
@@ -61,10 +66,10 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	frEnc.Reset();
 	blEnc.Reset();
 	brEnc.Reset();
-	flEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFLBR);
-	frEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFRBL);
-	blEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFRBL);
-	brEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTickFLBR);
+	frEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	flEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	blEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
+	brEnc.SetDistancePerPulse(Config::drivetrainDistancePerEncoderTick);
 	flEnc.SetReverseDirection(Config::encoderReversalMap & 0b1000);
 	frEnc.SetReverseDirection(Config::encoderReversalMap & 0b0100);
 	blEnc.SetReverseDirection(Config::encoderReversalMap & 0b0010);
@@ -94,16 +99,24 @@ void MecanumDriveTrain::Stop() {
 }
 
 void MecanumDriveTrain::Drive(SDriveData driveData) {
-	double p = frc::SmartDashboard::GetNumber("P", defaultP);
+	double r = hypot(driveData.cartX, driveData.cartY);
+	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
+	double p = frc::Preferences::GetInstance()->GetDouble("P", defaultP);
 	double maxCommand = frc::SmartDashboard::GetNumber("Max Command", defaultMaxCommand);
 	double minCommand = frc::SmartDashboard::GetNumber("Min Command", defaultMinCommand);
 	double delta = frc::SmartDashboard::GetNumber("Delta Degree", deltaDegree);
-	if (std::fabs(driveData.cartR) > cartRDeadband && std::fabs(lastCartR) <= cartRDeadband) {
-		doAngleHold = false;
+	if (std::fabs(driveData.cartR) > cartRDeadband) {
+		if (std::fabs(lastCartR) <= cartRDeadband) {
+			// We're manually rotating the robot, so don't doAngleHold.
+			doAngleHold = false;
+		}
+		gyro.Reset();
 	} else if (std::fabs(driveData.cartR) <= cartRDeadband && std::fabs(lastCartR) > cartRDeadband) {
-		doAngleHold = false;
+		// We're within the deadzone so doAngleHold.
+		doAngleHold = true;
 		angleHoldTarget = gyro.GetAngleZ();
 	}
+
 	double error = 0;//(gyro.GetAngleZ() - trackingAngle);
 	if (doTracking) {
 		error = (gyro.GetAngleZ() - trackingAngle);
@@ -111,11 +124,9 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 		error = (gyro.GetAngleZ() - angleHoldTarget);
 	}
 	double motorCommand;
-	double r = hypot(driveData.cartX, driveData.cartY);
-	double theta = atan2(driveData.cartY, driveData.cartX) + (0.5 * PI);
 
 	//if targeting is on, run P loop math
-	if (doTracking || doAngleHold) {
+	if (doTracking || (doAngleHold && angleHoldOverride)) {
 		//Get updated values from the dashboard if needed.
 
 		// During Stronghold season, at CowTown, we found that std::abs is for
@@ -142,6 +153,7 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 			else if (motorCommand < -maxCommand){
 				motorCommand = -maxCommand;
 			}
+			targetMet = false;
 		}
 		std::cout << "Motor command: " << motorCommand << std::endl;
 
@@ -157,12 +169,16 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
 
 	if (runMotorsToTarget) {
-
-		double temp = GetEncoderDistance(EncoderIndex::BACK_RIGHT);
-		fl.Set(-flEncPID.UpdateControl(temp /*GetEncoderDistance(EncoderIndex::FRONT_LEFT)*/ + driveData.cartR));
+#ifdef PRACTICE_BOT
+		double brPower = -brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT));
+		fl.Set(brPower + driveData.cartR);
+		br.Set(brPower - driveData.cartR);
+#else
+		fl.Set(-flEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_LEFT) + driveData.cartR));
+		br.Set(-brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT) - driveData.cartR));
+#endif
 		fr.Set(-frEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::FRONT_RIGHT) - driveData.cartR));
 		bl.Set(-blEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_LEFT) + driveData.cartR));
-		br.Set(-brEncPID.UpdateControl(GetEncoderDistance(EncoderIndex::BACK_RIGHT) - driveData.cartR));
 	} else {
 		fl.Set(r * sin(theta + (PI / 4)) + driveData.cartR);
 		fr.Set(r * cos(theta + (PI / 4)) - driveData.cartR);
@@ -306,4 +322,12 @@ void MecanumDriveTrain::DumpEncoderValues() {
 	frc::SmartDashboard::PutNumber("FRR", frEnc.GetRaw());
 	frc::SmartDashboard::PutNumber("BLR", blEnc.GetRaw());
 	frc::SmartDashboard::PutNumber("BRR", brEnc.GetRaw());
+}
+
+void MecanumDriveTrain::EnableAngleHold(bool enabled) {
+	angleHoldOverride = enabled;
+}
+
+void MecanumDriveTrain::ResetGyro() {
+	gyro.Reset();
 }

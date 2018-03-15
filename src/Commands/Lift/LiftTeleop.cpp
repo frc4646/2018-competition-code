@@ -17,12 +17,11 @@ void LiftTeleop::Execute() {
 
 	//Need to consder lift up, lift down, holding the lift in place, and turning on the ratchet to climb
 	if (oi->GetMechanism().GetRawButton(1)){
-		lift->SetLiftPower(oi->GetMechanismY());
+		lift->SetLiftPower(oi->GetMechanismY(), oi->GetMechanism().GetRawButton(2));
 	}
 	else {
-		lift->SetLiftPower(0.15);
+		lift->SetLiftPower(frc::Preferences::GetInstance()->GetDouble("lift-hold-command", 0.15), oi->GetMechanism().GetRawButton(2));
 	}
-
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -23,5 +23,5 @@ RobotLeftScaleRight::RobotLeftScaleRight() {
 	AddSequential(new RotateToPoint(90));
 	AddSequential(new DriveToPoint(0, 0)); //TODO MLL-get correct distance
 	AddSequential(new RotateToPoint(0));
-	AddSequential(new Scale());
+	AddSequential(new LiftToScale());
 }

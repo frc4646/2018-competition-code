@@ -12,7 +12,7 @@ double LiftStringPot::GetHeight() {
 	double m;
 	double b;
 
-	int value = LiftStringPotPin.GetValue(); // @suppress("Invalid arguments")
+	int value = LiftStringPotPin.GetVoltage(); // @suppress("Invalid arguments")
 
 	m = (MinHeight - MaxHeight) / (double)(MinValue - MaxValue);
 	b = MinHeight - ((MinValue)*(m));
@@ -20,6 +20,7 @@ double LiftStringPot::GetHeight() {
 	height = ((m)*(value)) + b;
 
 	return height;
+	//return LiftStringPotPin.GetVoltage();
 }
 
 double LiftStringPot::GetMaxHeight() {
@@ -28,4 +29,8 @@ double LiftStringPot::GetMaxHeight() {
 
 double LiftStringPot::GetMinHeight() {
 	return MinHeight;
+}
+
+double LiftStringPot::GetSwitchHeight() {
+	return SwitchHeight;
 }
