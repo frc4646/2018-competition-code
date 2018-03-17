@@ -28,4 +28,8 @@ double applyDeadband(double value, double deadband) {
 	return value;
 }
 
+bool withinRange(double value, double rangeLow, double rangeHigh) {
+	return (value >= rangeLow && value <= rangeHigh);
+}
+
 };

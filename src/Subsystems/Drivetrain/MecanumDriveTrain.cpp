@@ -13,6 +13,7 @@
 #include <list>
 #include <iostream>
 #include <Config.h>
+#include <ADXRS450_Gyro.h>
 #define PI 3.141592
 
 using namespace loop;
@@ -34,6 +35,9 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	brEncPID(),
 	runMotorsToTarget(false),
 	angleHoldOverride(false) {
+#ifdef PRACTICE_BOT
+	gyro.Calibrate();
+#endif
 
 	fl.SetSafetyEnabled(false);
 	fr.SetSafetyEnabled(false);
@@ -114,14 +118,14 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 	} else if (std::fabs(driveData.cartR) <= cartRDeadband && std::fabs(lastCartR) > cartRDeadband) {
 		// We're within the deadzone so doAngleHold.
 		doAngleHold = true;
-		angleHoldTarget = gyro.GetAngleZ();
+		angleHoldTarget = GetGyroAngle();
 	}
 
-	double error = 0;//(gyro.GetAngleZ() - trackingAngle);
+	double error = 0;//(gyro.GetAngle() - trackingAngle);
 	if (doTracking) {
-		error = (gyro.GetAngleZ() - trackingAngle);
+		error = (GetGyroAngle() - trackingAngle);
 	} else if (doAngleHold) {
-		error = (gyro.GetAngleZ() - angleHoldTarget);
+		error = (GetGyroAngle() - angleHoldTarget);
 	}
 	double motorCommand;
 
@@ -162,11 +166,11 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 		frc::SmartDashboard::PutNumber("Err", error);
 	}
 
-	frc::SmartDashboard::PutNumber("X Gyro", gyro.GetAngleX());
-	frc::SmartDashboard::PutNumber("Y Gyro", gyro.GetAngleY());
-	frc::SmartDashboard::PutNumber("Z Gyro", gyro.GetAngleZ());
+	//frc::SmartDashboard::PutNumber("X Gyro", gyro.GetAngleX());
+	//frc::SmartDashboard::PutNumber("Y Gyro", gyro.GetAngleY());
+	frc::SmartDashboard::PutNumber("Z Gyro", GetGyroAngle());
 	frc::SmartDashboard::PutData("Gyro Data", &gyro);
-	frc::SmartDashboard::PutNumber("Gyro heading", gyro.GetAngle());
+	frc::SmartDashboard::PutNumber("Gyro heading", GetGyroAngle());
 
 	if (runMotorsToTarget) {
 #ifdef PRACTICE_BOT
@@ -224,6 +228,21 @@ double MecanumDriveTrain::GetEncoderDistance(EncoderIndex whichEncoder){
 			return blEnc.GetDistance();
 		case EncoderIndex::BACK_RIGHT:
 			return brEnc.GetDistance();
+		default:
+			return 0;
+	}
+}
+
+int MecanumDriveTrain::GetEncoderRaw(EncoderIndex whichEncoder){
+	switch (whichEncoder) {
+		case EncoderIndex::FRONT_LEFT:
+			return flEnc.GetRaw();
+		case EncoderIndex::FRONT_RIGHT:
+			return frEnc.GetRaw();
+		case EncoderIndex::BACK_LEFT:
+			return blEnc.GetRaw();
+		case EncoderIndex::BACK_RIGHT:
+			return brEnc.GetRaw();
 		default:
 			return 0;
 	}
@@ -326,6 +345,14 @@ void MecanumDriveTrain::DumpEncoderValues() {
 
 void MecanumDriveTrain::EnableAngleHold(bool enabled) {
 	angleHoldOverride = enabled;
+}
+
+double MecanumDriveTrain::GetGyroAngle() {
+#ifdef PRACTICE_BOT
+	return -gyro.GetAngle();
+#else
+	return gyro.GetAngleZ();
+#endif
 }
 
 void MecanumDriveTrain::ResetGyro() {

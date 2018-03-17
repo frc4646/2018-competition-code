@@ -23,12 +23,12 @@ DriveAndSwitch::DriveAndSwitch(double driveForwardTime) {
 	// e.g. if Command1 requires chassis, and Command2 requires arm,
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
-	// This is 7 feet
+	// This is in inches
 
 	AddSequential(new DriveToPoint(0, 84));
 	AddParallel(new LiftToSwitch());
 	AddSequential(new DriveSidewaysForDistance(67));
 	AddSequential(new DriveToPoint(0, 84));
 	// *vomits cube*
-	AddSequential(new OuttakePowerCube());
+	AddSequential(new OuttakePowerCube()); //blarghhh
 }

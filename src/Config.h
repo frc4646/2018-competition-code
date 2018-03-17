@@ -86,6 +86,11 @@ const double drivetrainEncoderTargetPositionTolerance = 1;
 
 const Encoder::EncodingType drivetrainEncodingType = Encoder::EncodingType::k2X;
 
+const double strafeFRRatio = -287.6; // ticks per inch
+const double strafeBLRatio = -290;//-327.33;
+const double strafeBRRatio = 294.25;
+//const double strafeFLRatio;
+
 };
 
 #endif /* Config_H */

@@ -14,6 +14,7 @@
 #include <Subsystems/PID4646.h>
 #include <iterator>
 #include <list>
+#include <Config.h>
 
 using namespace loop;
 
@@ -40,7 +41,11 @@ private:
 	const double cartRDeadband = 0.1;
 	Encoder flEnc, frEnc, blEnc, brEnc;
 
+#ifndef PRACTICE_BOT
 	ADIS16448_IMU gyro;
+#else
+	ADXRS450_Gyro gyro;
+#endif
 	PID4646 flEncPID, frEncPID, blEncPID, brEncPID;
 	bool runMotorsToTarget;
 
@@ -105,6 +110,7 @@ public:
 	void Drive(SDriveData driveData);
 
 	double GetEncoderDistance(EncoderIndex whichEncoder);
+	int GetEncoderRaw(EncoderIndex whichEncoder);
 	void SetEncoderTarget(EncoderIndex whichEncoder, double target);
 	double GetEncoderTarget(EncoderIndex whichEncoder);
 	void EnableRunToPosition(bool enable);
@@ -115,6 +121,7 @@ public:
 	void ResetEncoderPIDs();
 	void DumpEncoderValues();
 
+	double GetGyroAngle();
 	void ResetGyro();
 
 	/*MLL - Here are some ideas for what we can do for encoders

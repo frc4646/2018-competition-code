@@ -69,7 +69,7 @@ void LiftControl::StopLift() {
 
 void LiftControl::SetLiftPower(double power, bool override) {
 	double holdPower = frc::Preferences::GetInstance()->GetDouble("lift-hold-command");
-	double p = power;
+	/*double p = power;
 	if (!override){
 		if (CommandBase::liftStringPot->GetHeight() <= CommandBase::liftStringPot->GetMinHeight()) {
 			p = (p < 0) ? holdPower : p;
@@ -90,6 +90,8 @@ void LiftControl::SetLiftPower(double power, bool override) {
 		//StopLift();
 		liftMotor.Set(0);
 	}
+	*/
+	liftMotor.Set(power);
 
 }
 

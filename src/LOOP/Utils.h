@@ -12,6 +12,7 @@ namespace loop {
 
 bool close_enough(int threshold, int numConditions, ...);
 double applyDeadband(double value, double deadband);
+bool withinRange(double value, double rangeHigh, double rangeLow);
 
 };
 
