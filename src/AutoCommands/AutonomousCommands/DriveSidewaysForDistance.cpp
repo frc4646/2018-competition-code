@@ -34,7 +34,7 @@ void DriveSidewaysForDistance::Initialize() {
 void DriveSidewaysForDistance::Execute() {
 	loop::SDriveData data;
 	data.cartX = (dist > 0) ? 0.75 : -0.75;
-	data.cartR = 2;
+	//data.cartR = 2;
 	drivetrain->Drive(data);
 }
 

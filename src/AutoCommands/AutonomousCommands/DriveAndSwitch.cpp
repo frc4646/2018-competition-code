@@ -25,10 +25,10 @@ DriveAndSwitch::DriveAndSwitch(double driveForwardTime) {
 	// arm.
 	// This is in inches
 
-	AddSequential(new DriveToPoint(0, 84));
 	AddParallel(new LiftToSwitch());
+	AddSequential(new DriveToPoint(0, 36));
 	AddSequential(new DriveSidewaysForDistance(67));
-	AddSequential(new DriveToPoint(0, 84));
+	AddSequential(new DriveToPoint(0, 62));
 	// *vomits cube*
 	AddSequential(new OuttakePowerCube()); //blarghhh
 }

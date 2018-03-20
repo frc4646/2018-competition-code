@@ -50,6 +50,7 @@ void DriveToPoint::Execute() {
 			state = State::DRIVING_TO_DIST;
 			drivetrain->ResetEncoders();
 			drivetrain->ResetEncoderPIDs();
+			//drivetrain->EnableTracking(false);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::FRONT_LEFT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT, dist);
 			drivetrain->SetEncoderTarget(MecanumDriveTrain::EncoderIndex::BACK_LEFT, dist);

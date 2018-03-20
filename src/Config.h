@@ -78,7 +78,10 @@ const double drivetrainWheelDiameter = 6;
 //Units very important!!!
 //const double drivetrainDistancePerEncoderTickFLBR = 60/(25000.0);
 //const double drivetrainDistancePerEncoderTickFRBL = 60/(30000.0);
-const double drivetrainDistancePerEncoderTick = (120/(54475.0/2.0));
+const double drivetrainDistancePerEncoderTick = (120.0/54145.75) * 4.0;
+
+const double robotLength = 42; // inches
+const double robotFrontToSwitch = (8.0 * 12.0) + 2.0;
 
 const unsigned char encoderReversalMap = (char) 0b0101;
 

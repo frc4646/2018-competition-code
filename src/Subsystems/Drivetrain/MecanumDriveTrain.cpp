@@ -80,6 +80,28 @@ MecanumDriveTrain::MecanumDriveTrain(MotorPin frontLeftPin, MotorPin frontRightP
 	brEnc.SetReverseDirection(Config::encoderReversalMap & 0b0001);
 	gyro.Reset();
 
+	if (!frc::Preferences::GetInstance()->ContainsKey("MDT-FLP")) {
+		frc::Preferences::GetInstance()->PutDouble("MDT-FLP", defaultFlTunings.P_Gain);
+	}
+	if (!frc::Preferences::GetInstance()->ContainsKey("MDT-FRP")) {
+		frc::Preferences::GetInstance()->PutDouble("MDT-FRP", defaultFrTunings.P_Gain);
+	}
+	if (!frc::Preferences::GetInstance()->ContainsKey("MDT-BLP")) {
+		frc::Preferences::GetInstance()->PutDouble("MDT-BLP", defaultBlTunings.P_Gain);
+	}
+	if (!frc::Preferences::GetInstance()->ContainsKey("MDT-BRP")) {
+		frc::Preferences::GetInstance()->PutDouble("MDT-BRP", defaultBrTunings.P_Gain);
+	}
+	defaultFlTunings.P_Gain = frc::Preferences::GetInstance()->GetDouble("MDT-FLP", defaultFlTunings.P_Gain);
+	defaultFrTunings.P_Gain = frc::Preferences::GetInstance()->GetDouble("MDT-FRP", defaultFrTunings.P_Gain);
+	defaultBlTunings.P_Gain = frc::Preferences::GetInstance()->GetDouble("MDT-BLP", defaultBlTunings.P_Gain);
+	defaultBrTunings.P_Gain = frc::Preferences::GetInstance()->GetDouble("MDT-BRP", defaultBrTunings.P_Gain);
+
+	flEncPID.SetTolerance(4.0);
+	frEncPID.SetTolerance(4.0);
+	blEncPID.SetTolerance(4.0);
+	brEncPID.SetTolerance(4.0);
+
 	flEncPID.SetController(defaultFlTunings);
 	frEncPID.SetController(defaultFrTunings);
 	blEncPID.SetController(defaultBlTunings);

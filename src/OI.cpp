@@ -34,7 +34,7 @@ void OI::Init() {
 	// Works fine for tele-op, but not for auto.
 
 	//frc::SmartDashboard::PutData("Reset Encoders", new ResetDrivetrainEncoders());
-	frc::SmartDashboard::PutData(new DriveToPoint(15, 31));
+	frc::SmartDashboard::PutData(new DriveToPoint(0, 60));
 	frc::SmartDashboard::PutData(new ResetGyro());
 	frc::SmartDashboard::PutData(new DriveSidewaysForDistance(75));
 	//driveToPoint.WhenPressed(new DriveToPoint(0, 60));

@@ -49,7 +49,7 @@ private:
 	PID4646 flEncPID, frEncPID, blEncPID, brEncPID;
 	bool runMotorsToTarget;
 
-	const PID4646::Controller defaultFlTunings = PID4646::Controller {
+	PID4646::Controller defaultFlTunings = PID4646::Controller {
 		0.2,
 		0,
 		0,
@@ -57,7 +57,7 @@ private:
 		.2,
 		0.5
 	};
-	const PID4646::Controller defaultFrTunings = PID4646::Controller {
+	PID4646::Controller defaultFrTunings = PID4646::Controller {
 		0.2,
 		0,
 		0,
@@ -65,7 +65,7 @@ private:
 		.2,
 		0.5
 	};
-	const PID4646::Controller defaultBlTunings = PID4646::Controller {
+	PID4646::Controller defaultBlTunings = PID4646::Controller {
 		0.2,
 		0,
 		0,
@@ -73,7 +73,7 @@ private:
 		.2,
 		0.5
 	};
-	const PID4646::Controller defaultBrTunings = PID4646::Controller {
+	PID4646::Controller defaultBrTunings = PID4646::Controller {
 		0.2,
 		0,
 		0,
