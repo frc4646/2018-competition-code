@@ -16,7 +16,7 @@
 #include <WPILib.h>
 #define PI 3.141592
 
-#define PRACTICE_BOT
+//#define PRACTICE_BOT
 
 // Uncomment to enable gamepad control
 //#define GAMEPAD

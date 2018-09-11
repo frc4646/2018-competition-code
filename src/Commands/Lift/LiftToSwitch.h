@@ -13,7 +13,6 @@ public:
 	void Interrupted();
 
 private:
-	int state;
 };
 
 #endif  // LiftToSwitch_H

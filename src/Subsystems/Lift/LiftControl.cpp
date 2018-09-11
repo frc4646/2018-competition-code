@@ -69,7 +69,7 @@ void LiftControl::StopLift() {
 
 void LiftControl::SetLiftPower(double power, bool override) {
 	double holdPower = frc::Preferences::GetInstance()->GetDouble("lift-hold-command");
-	/*double p = power;
+	double p = power;
 	if (!override){
 		if (CommandBase::liftStringPot->GetHeight() <= CommandBase::liftStringPot->GetMinHeight()) {
 			p = (p < 0) ? holdPower : p;
@@ -78,20 +78,28 @@ void LiftControl::SetLiftPower(double power, bool override) {
 			p = (p > 0) ? holdPower : p;
 		}
 	}
-	if (p > 0) {
-		liftMotor.Set(std::min(std::max(lifterMinPowerUp, p), lifterMaxPowerUp));
+	if (frc::DriverStation::GetInstance().IsAutonomous()) {
+		if (p > 0) {
+			liftMotor.Set(std::min(std::max(lifterMinPowerUp, p), lifterMaxPowerUp));
+		} else if(p < 0) {
+			liftMotor.Set(std::max(std::min(lifterMinPowerDown, p), lifterMaxPowerDown));
+		}
+		else {
+			//StopLift();
+			liftMotor.Set(0);
+		}
+	} else {
+		if (p > 0) {
+			liftMotor.Set(std::min(std::max(lifterMinPowerUp, p), 0.85));
+		} else if(p < 0) {
+			liftMotor.Set(std::max(std::min(lifterMinPowerDown, p), -0.4));
+		} else {
+			//StopLift();
+			liftMotor.Set(0);
+		}
 	}
 
-	else if(p < 0) {
-		liftMotor.Set(std::max(std::min(lifterMinPowerDown, p), lifterMaxPowerDown));
-	}
-
-	else {
-		//StopLift();
-		liftMotor.Set(0);
-	}
-	*/
-	liftMotor.Set(power);
+	//liftMotor.Set(power);
 
 }
 

@@ -22,13 +22,10 @@ public:
 	Joystick& GetMechanism();
 #endif
 private:
-#ifndef GAMEPAD
 	Joystick left;
 	Joystick right;
 	Joystick mechanism;
-#else
 	Joystick gamepad;
-#endif
 	JoystickButton straightDrive;
 	JoystickButton intake;
 	JoystickButton outtake;

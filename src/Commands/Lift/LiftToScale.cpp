@@ -1,28 +1,27 @@
 #include "LiftToScale.h"
 #include <WPILib.h>
-#include "UltraSonic.h"
-#include "Subsystems/Lift/LiftControl.h"
-#include <CommandBase.h>
+#include <Subsystems/Lift/LiftControl.h>
 
-LiftToScale::LiftToScale() {
+LiftToScale::LiftToScale() : CommandBase("LiftToScale") {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
 	Requires(lift.get());
-	Requires(ultrasonic.get());
-
-	state = 1;
+	Requires(liftStringPot.get());
 }
 
 // Called just before this Command runs the first time
 void LiftToScale::Initialize() {
-	state = 1;
-	lift->LiftToElevation(CommandBase::liftStringPot->GetMaxHeight());
+	//state = 1;
+	//lift->LiftToElevation(CommandBase::liftStringPot->GetMaxHeight());
+	lift->SetLiftPower(0.6);
+
 }
 
 // Called repeatedly when this Command is scheduled to run
 void LiftToScale::Execute() {
 
-	double distanceToScale = 600; //in millimeters. distance from the ultrasonic to the scale, horizontally
+
+	/*double distanceToScale = 600; //in millimeters. distance from the ultrasonic to the scale, horizontally
 	double ultraSonicToCube = 2.0; //TODO (also unit) the distance from the ultra sonic to the bottom of block
 
 	//always check if the lift is higher than max height
@@ -80,7 +79,7 @@ void LiftToScale::Execute() {
 			state = 4;
 		}
 			break;
-	}
+	}*/
 
 }
 
@@ -99,7 +98,8 @@ bool LiftToScale::IsFinished() {
 
 	return false;
 	*/
-	return (state == 4);
+	//about 0.1v of space so we don't reach the max
+	return (liftStringPot->GetHeight() >= (liftStringPot->GetMaxHeight() - 0.04));
 
 	//MLL this can be replaced with return (state == 4) if you want, but you also might
 	//want to consder ending early f we see joystck motiion
@@ -109,7 +109,7 @@ bool LiftToScale::IsFinished() {
 void LiftToScale::End() {
 	//TODO we should add somthing here (probably stopping the lift)
 	//done 2/12/2018 Stella
-	CommandBase::lift->StopLift();
+	lift->SetLiftPower(frc::Preferences::GetInstance()->GetDouble("lift-hold-command", 0.15));
 }
 
 // Called when another command which requires one or more of the same

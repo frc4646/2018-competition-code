@@ -150,16 +150,20 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 		error = (GetGyroAngle() - angleHoldTarget);
 	}
 	double motorCommand;
-
+	/*
+	if (std::fabs(driveData.cartX) < 0.1 && std::fabs(driveData.cartY) < 0.1 && std::fabs(driveData.cartR) < 0.1 && !runMotorsToTarget){
+		Stop();
+		return;
+	}*/
 	//if targeting is on, run P loop math
-	if (doTracking || (doAngleHold && angleHoldOverride)) {
+	if (doTracking || (doAngleHold && angleHoldOverride) ) {
 		//Get updated values from the dashboard if needed.
 
 		// During Stronghold season, at CowTown, we found that std::abs is for
 		// integers, so it messed up our autonomous. We fixed it by changing it
 		// to std::fabs.
 		if (std::fabs(error) < delta){
-			std::cout << "Inside deadband" << std::endl;
+			//std::cout << "Inside deadband" << std::endl;
 			//close enough to target so turn off command
 			motorCommand = 0;
 			targetMet = true;
@@ -181,7 +185,7 @@ void MecanumDriveTrain::Drive(SDriveData driveData) {
 			}
 			targetMet = false;
 		}
-		std::cout << "Motor command: " << motorCommand << std::endl;
+		//std::cout << "Motor command: " << motorCommand << std::endl;
 
 		driveData.cartR = motorCommand;
 		frc::SmartDashboard::PutNumber("CartR", driveData.cartR);

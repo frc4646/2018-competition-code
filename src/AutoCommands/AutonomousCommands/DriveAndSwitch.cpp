@@ -5,8 +5,14 @@
 #include <AutoCommands/AutonomousCommands/DriveSidewaysForDistance.h>
 #include <Commands/Lift/LiftToSwitch.h>
 #include <Commands/Intake/OuttakePowerCube.h>
+#include <DriverStation.h>
+#include <iostream>
+#include <Commands/Drive/ResetGyro.h>
+#include <Commands/Wait.h>
+#include <AutoCommands/AutonomousCommands/DriveForTime.h>
+#include <Commands/Lift/LiftToFloor.h>
 
-DriveAndSwitch::DriveAndSwitch(double driveForwardTime) {
+DriveAndSwitch::DriveAndSwitch(double sideDist) {
 	// Add Commands here:
 	// e.g. AddSequential(new Command1());
 	//      AddSequential(new Command2());
@@ -24,11 +30,16 @@ DriveAndSwitch::DriveAndSwitch(double driveForwardTime) {
 	// a CommandGroup containing them would require both the chassis and the
 	// arm.
 	// This is in inches
-
+	AddSequential(new ResetGyro());
 	AddParallel(new LiftToSwitch());
 	AddSequential(new DriveToPoint(0, 36));
-	AddSequential(new DriveSidewaysForDistance(67));
+	//AddSequential(new Wait(0.5));
+	AddSequential(new DriveSidewaysForDistance(sideDist));
+	//AddSequential(new Wait(0.5));
 	AddSequential(new DriveToPoint(0, 62));
+	//AddSequential(new Wait(0.5));
 	// *vomits cube*
 	AddSequential(new OuttakePowerCube()); //blarghhh
+	AddParallel(new LiftToFloor());
+	AddSequential(new DriveForTime(0.75, true));
 }

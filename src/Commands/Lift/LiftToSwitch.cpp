@@ -16,7 +16,7 @@ LiftToSwitch::LiftToSwitch() {
 // Called just before this Command runs the first time
 void LiftToSwitch::Initialize() {
 	//state = 1;
-	lift->LiftToElevation(CommandBase::liftStringPot->GetSwitchHeight());
+	//lift->LiftToElevation(CommandBase::liftStringPot->GetSwitchHeight());
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -25,10 +25,11 @@ void LiftToSwitch::Execute() {
 	//double ultraSonicToCube = 2.0; //TODO (also unit) the distance from the ultra sonic to the bottom of block
 
 	//always check if the lift is higher than max height
-	if(true) {
+	/*if(true) {
 		//state = 3;
-	}
-	lift->Lift();
+	}*/
+	//lift->Lift();
+	lift->SetLiftPower(0.6);
 
 	/*switch(state){
 		case 1:
@@ -85,7 +86,7 @@ bool LiftToSwitch::IsFinished() {
 
 // Called once after isFinished returns true
 void LiftToSwitch::End() {
-	lift->StopLift();
+	lift->SetLiftPower(frc::Preferences::GetInstance()->GetDouble("lift-hold-command"));
 }
 
 // Called when another command which requires one or more of the same

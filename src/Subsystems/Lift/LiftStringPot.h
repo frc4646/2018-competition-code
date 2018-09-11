@@ -10,8 +10,9 @@ private:
 	const double MinHeight = 0.0;
 	const double MaxHeight = 74.0;
 	const double SwitchHeight = 24;
-	const int MinValue = 1.42;//0;
-	const int MaxValue = 4.11;//1023;
+	const double MinValue = 1.39;//0;
+	const double MaxValue = 4.125;//1023;
+	const double SwitchValue = 2.5;
 	AnalogInput LiftStringPotPin;
 
 public:

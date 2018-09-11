@@ -10,20 +10,21 @@
 #include "Commands/TestCommands/TestDriveToPoint.h"
 #include "Commands/Drive/ResetGyro.h"
 #include "AutoCommands/AutonomousCommands/DriveSidewaysForDistance.h"
+#include "AutoCommands/AutonomousCommands/DriveAndSwitch.h"
+#include <Commands/Drive/RotateToPoint.h>
+#include <Commands/Lift/LiftToScale.h>
+#include <Commands/Lift/LiftToFloor.h>
 
 using namespace loop;
 
 OI::OI() :
-#ifndef GAMEPAD
 	left(0),
 	right(1),
 	mechanism(2),
-#else
-	gamepad(0),
-#endif
+	gamepad(3),
 	straightDrive(&right, 1),
-	intake(&mechanism, 11),
-	outtake(&mechanism, 9)
+	intake(&gamepad, 5),
+	outtake(&gamepad, 6)
 	//driveToPoint(&mechanism, 12)
 	{
 }
@@ -34,9 +35,14 @@ void OI::Init() {
 	// Works fine for tele-op, but not for auto.
 
 	//frc::SmartDashboard::PutData("Reset Encoders", new ResetDrivetrainEncoders());
+	frc::SmartDashboard::PutData(new LiftToScale());
 	frc::SmartDashboard::PutData(new DriveToPoint(0, 60));
 	frc::SmartDashboard::PutData(new ResetGyro());
 	frc::SmartDashboard::PutData(new DriveSidewaysForDistance(75));
+	frc::SmartDashboard::PutData(new LiftToFloor());
+
+	//frc::SmartDashboard::PutData(new DriveAndSwitch(-70));
+	frc::SmartDashboard::PutData(new RotateToPoint(45));
 	//driveToPoint.WhenPressed(new DriveToPoint(0, 60));
 	intake.WhileHeld(new IntakePowerCube());
 	outtake.WhileHeld(new OuttakePowerCube());
@@ -46,67 +52,34 @@ void OI::Init() {
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering
 double OI::GetLeftJoystickX() {
-#ifndef GAMEPAD
-	return left.GetRawAxis(0) * -1.0;
-#else
-	return gamepad.GetRawAxis(0) * -1.0;
-#endif
+return gamepad.GetRawAxis(0)*0.6;
 }
 double OI::GetRightJoystickThrottle() {
-#ifndef GAMEPAD
-	return right.GetRawAxis(2);
-#endif
+return 1.0;
 }
 double OI::GetLeftJoystickThrottle() {
-#ifndef GAMEPAD
-	return left.GetRawAxis(2);
-#endif
+return 1.0;
 }
 bool OI::GetMechanismTrigger(){
-#ifndef GAMEPAD
-	return mechanism.GetTrigger();
-#endif
+return gamepad.GetRawButton(1);
 }
 
 double OI::GetLeftJoystickY() {
-#ifndef GAMEPAD
-	return left.GetRawAxis(1) * -1.0;
-#else
-	return gamepad.GetRawAxis(1) * -1.0;
-#endif
+return gamepad.GetRawAxis(1);
 }
 
 double OI::GetRightJoystickX() {
-#ifndef GAMEPAD
-	return right.GetRawAxis(0) * -1.0;
-#else
-	return gamepad.GetRawAxis(4) * -1.0;
-#endif
+return gamepad.GetRawAxis(4);
 }
 
 double OI::GetRightJoystickY() {
-#ifndef GAMEPAD
-	return right.GetRawAxis(1) * -1.0;
-#else
-	return gamepad.GetRawAxis(5) * -1.0;
-#endif
-}
-
-#ifndef GAMEPAD
-double OI::GetMechanismX() {
-	return mechanism.GetRawAxis(0) * -1.0;
+return gamepad.GetRawAxis(5);
 }
 
 double OI::GetMechanismY() {
-	return mechanism.GetRawAxis(1) * -1.0;
-}
-
-double OI::GetMechanismZ() {
-	return mechanism.GetRawAxis(2) * -1.0;
+	return (gamepad.GetRawAxis(3)-gamepad.GetRawAxis(2));
 }
 
 Joystick& OI::GetMechanism() {
-	return mechanism;
+	return gamepad;
 }
-#endif
-

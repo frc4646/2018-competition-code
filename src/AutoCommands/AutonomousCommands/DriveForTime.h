@@ -4,12 +4,13 @@
 #include "CommandBase.h"
 #include "Timer.h"
 
-class DriveForwardForTime : public CommandBase {
+class DriveForTime : public CommandBase {
 private:
 	double time;
+	bool _back;
 	Timer timer;
 public:
-	DriveForwardForTime(double t);
+	DriveForTime(double t, bool back);
 	void Initialize();
 	void Execute();
 	bool IsFinished();

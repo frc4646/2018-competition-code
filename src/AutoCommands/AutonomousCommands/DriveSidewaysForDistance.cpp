@@ -1,6 +1,7 @@
 #include "DriveSidewaysForDistance.h"
 #include <LOOP/Utils.h>
 #include <Config.h>
+#include <iostream>
 
 DriveSidewaysForDistance::DriveSidewaysForDistance(double distance) : CommandBase("DSFD"),
 	dist(distance) {
@@ -28,13 +29,21 @@ void DriveSidewaysForDistance::Initialize() {
 	drivetrain->EnableAngleHold(true);
 	drivetrain->SetAngleTrackingTarget(0);
 	drivetrain->EnableTracking(true);
+
+	std::cout << "FR target ";
+	std::cout << (Config::strafeFRRatio * dist) << std::endl;
+	std::cout << "BL target ";
+	std::cout << (Config::strafeBLRatio * dist) << std::endl;
+	std::cout << "BR target ";
+	std::cout << (Config::strafeBRRatio * dist) << std::endl;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void DriveSidewaysForDistance::Execute() {
 	loop::SDriveData data;
-	data.cartX = (dist > 0) ? 0.75 : -0.75;
+	data.cartX = (dist < 0) ? 0.75 : -0.75;
 	//data.cartR = 2;
+	drivetrain->DumpEncoderValues();
 	drivetrain->Drive(data);
 }
 
@@ -46,9 +55,15 @@ bool DriveSidewaysForDistance::IsFinished() {
 				MecanumDriveTrain::EncoderIndex::BACK_RIGHT
 	)));*/
 	bool ret = false;
-	ret |= loop::withinRange(drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT), (Config::strafeFRRatio * dist) - 600.0, (Config::strafeFRRatio * dist));
-	ret |= loop::withinRange(drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_LEFT), (Config::strafeBLRatio * dist) - 600.0, (Config::strafeBLRatio * dist));
-	ret |= loop::withinRange(drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_RIGHT), (Config::strafeBRRatio * dist) - 600.0, (Config::strafeBRRatio * dist));
+	if (dist > 0) {
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT) < ((Config::strafeFRRatio * dist) + 600.0);
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_LEFT) < ((Config::strafeBLRatio * dist) + 600.0);
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_RIGHT) > ((Config::strafeBRRatio * dist) - 600.0);
+	} else {
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::FRONT_RIGHT) > ((Config::strafeFRRatio * dist) - 600.0);
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_LEFT) > ((Config::strafeBLRatio * dist) - 600.0);
+		ret |= drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::BACK_RIGHT) < ((Config::strafeBRRatio * dist) + 600.0);
+	}
 	//ret |= loop::withinRange(drivetrain->GetEncoderRaw(MecanumDriveTrain::EncoderIndex::FRONT_LEFT), (Config::strafeFLRatio * dist) - 600.0, (Config::strafeFLRatio * dist));
 	return ret;
 }

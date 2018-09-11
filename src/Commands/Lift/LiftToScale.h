@@ -11,9 +11,6 @@ public:
 	bool IsFinished();
 	void End();
 	void Interrupted();
-
-private:
-	int state;
 };
 
 #endif  // LiftToScale_H

@@ -5,7 +5,7 @@
 
 class DriveAndSwitch : public CommandGroup {
 public:
-	DriveAndSwitch(double driveForwardTime);
+	DriveAndSwitch(double sideDist);
 };
 
 #endif  // DriveAndSwitch_H

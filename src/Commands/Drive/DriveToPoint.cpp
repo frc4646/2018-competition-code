@@ -17,7 +17,7 @@ DriveToPoint::DriveToPoint(double x, double y) : CommandBase("DriveToPoint"),
 	state(State::TURNING_TO_THETA) {
 	// Use Requires() here to declare subsystem dependencies
 	// eg. Requires(Robot::chassis.get());
-	std::cout << "Constructor " << dist << std::endl;
+	//std::cout << "Constructor " << dist << std::endl;
 	Requires(drivetrain.get());
 }
 
@@ -36,7 +36,7 @@ void DriveToPoint::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveToPoint::Execute() {
-	std::cout << "Execute" << std::endl;
+	//std::cout << "Execute" << std::endl;
 	llvm::StringRef value;
 	if (state == State::TURNING_TO_THETA) {
 		value = "Turning to theta";
@@ -44,7 +44,7 @@ void DriveToPoint::Execute() {
 		value = "Driving to distance";
 	}
 	frc::SmartDashboard::PutString("DTP state", value);
-	std::cout << "State: " << value << std::endl;
+	//std::cout << "State: " << value << std::endl;
 	if (state == State::TURNING_TO_THETA) {
 		if (drivetrain->AngleTrackingTargetMet()) {
 			state = State::DRIVING_TO_DIST;
@@ -68,11 +68,11 @@ void DriveToPoint::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool DriveToPoint::IsFinished() {
-	std::cout << drivetrain->EncodersAtTarget((MecanumDriveTrain::EncoderIndex) (
+	/*std::cout << drivetrain->EncodersAtTarget((MecanumDriveTrain::EncoderIndex) (
 			MecanumDriveTrain::EncoderIndex::FRONT_RIGHT |
 			MecanumDriveTrain::EncoderIndex::BACK_LEFT |
 			MecanumDriveTrain::EncoderIndex::BACK_RIGHT
-	)) << std::endl;
+	)) << std::endl;*/
 	return (state == State::DRIVING_TO_DIST) && drivetrain->EncodersAtTarget((MecanumDriveTrain::EncoderIndex) (
 			MecanumDriveTrain::EncoderIndex::FRONT_RIGHT |
 			MecanumDriveTrain::EncoderIndex::BACK_LEFT |

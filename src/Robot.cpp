@@ -5,6 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <AutoCommands/AutonomousCommands/DriveForTime.h>
 #include <Commands/Command.h>
 #include <Commands/Scheduler.h>
 #include <LiveWindow/LiveWindow.h>
@@ -18,7 +19,8 @@
 #include "AutoCommands/AutonomousCommands/RobotRightScaleLeft.h"
 #include "AutoCommands/AutonomousCommands/RobotScaleFront.h"
 #include "AutoCommands/AutonomousCommands/Kickstand.h"
-#include "AutoCommands/AutonomousCommands/DriveForwardForTime.h"
+#include "AutoCommands/AutonomousCommands/DriveAndSwitch.h"
+#include "AutoCommands/AutonomousCommands/DriveAndScale.h"
 #include "CommandBase.h"
 
 #include "Config.h"
@@ -26,6 +28,7 @@
 #include <map>
 #include <utility>
 #include <string>
+#include <iostream>
 
 using namespace loop;
 
@@ -104,25 +107,74 @@ public:
 	 * to the if-else structure below with additional strings & commands.
 	 */
 	void AutonomousInit() override {
-		std::string robotLocation = frc::SmartDashboard::GetString("Robot location", "Center");
-		if (robotLocation == "Left") {
-			loc = Location::LEFT;
+		loc = m_location_chooser.GetSelected();
+		/*if (robotLocation == "Left") {
+			m_autonomousCommand = new DriveForwardForTime(3);
 		} else if (robotLocation == "Center") {
 			loc = Location::CENTER;
+			m_autonomousCommand = new DriveAndSwitch();
 		} else {
 			loc = Location::RIGHT;
+			m_autonomousCommand = new DriveForwardForTime(3);
+		}*/
+		char switchLoc = frc::DriverStation::GetInstance().GetGameSpecificMessage()[0];
+		char scaleLoc = frc::DriverStation::GetInstance().GetGameSpecificMessage()[1];
+		switch (loc) {
+			case Location::LEFT:
+				/*if (scaleLoc == 'L'){
+					m_autonomousCommand = new DriveAndScale(true, false, false);
+				}
+				else if (switchLoc == 'L'){
+					m_autonomousCommand = new DriveAndScale(false, true, false);
+				}
+				else{
+					m_autonomousCommand = new DriveAndScale(false, false, false);
+				}
+				break;*/
+
+			case Location::RIGHT:
+				m_autonomousCommand = new DriveForTime(3, false);
+				/*
+				std::cout << "Running DriveForwardForTime" << std::endl;
+				break;
+				if (scaleLoc == 'R'){
+					m_autonomousCommand = new DriveAndScale(true, false, true);
+				}
+				else if (switchLoc == 'R'){
+					m_autonomousCommand = new DriveAndScale(false, true, true);
+				}
+				else{
+					m_autonomousCommand = new DriveAndScale(false, false, true);
+				}*/
+				break;
+			case Location::CENTER:
+				double sideDist;
+				if (switchLoc == 'L'){
+					sideDist = -70;
+				}
+				else{
+					sideDist = 70;
+				}
+				m_autonomousCommand = new DriveAndSwitch(sideDist);
+				std::cout << "Running Switch Auto" << std::endl;
+				break;
 		}
 
 		//m_autonomousCommand = autoLut[robotLocation.substr(0, 1) + frc::DriverStation::GetInstance().GetGameSpecificMessage().substr(0, 2)];
 		//m_autonomousCommand->Start();
 		//TODO MLL - Fgure out which autonomus commands we want to run!
 		//new RobotCross();
-		m_autonomousCommand = new DriveForwardForTime(3);
+		//m_autonomousCommand = new DriveForwardForTime(3);
 		m_autonomousCommand->Start();
 	}
 
 	void AutonomousPeriodic() override {
 		frc::Scheduler::GetInstance()->Run();
+		if (m_autonomousCommand != nullptr) {
+			if (!m_autonomousCommand->IsRunning()) {
+				CommandBase::drivetrain->EnableAngleHold(false);
+			}
+		}
 	}
 
 	void TeleopInit() override {
@@ -134,6 +186,7 @@ public:
 			m_autonomousCommand->Cancel();
 			m_autonomousCommand = nullptr;
 		}
+		CommandBase::drivetrain->EnableAngleHold(true);
 	}
 
 	void TeleopPeriodic() override { frc::Scheduler::GetInstance()->Run(); }
