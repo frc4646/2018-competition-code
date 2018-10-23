@@ -23,8 +23,8 @@ OI::OI() :
 	mechanism(2),
 	gamepad(3),
 	straightDrive(&right, 1),
-	intake(&gamepad, 5),
-	outtake(&gamepad, 6)
+	intake(&mechanism, 11),
+	outtake(&mechanism, 9)
 	//driveToPoint(&mechanism, 12)
 	{
 }
@@ -52,34 +52,35 @@ void OI::Init() {
 
 // Since I don't have an F310 and the driver station with me, I'm making assumptions about axis numbering
 double OI::GetLeftJoystickX() {
-return gamepad.GetRawAxis(0)*0.6;
+//return gamepad.GetRawAxis(0)*0.6;
+	return left.GetRawAxis(0)*-1;
 }
 double OI::GetRightJoystickThrottle() {
-return 1.0;
+	return right.GetRawAxis(2);
 }
 double OI::GetLeftJoystickThrottle() {
-return 1.0;
+	return left.GetRawAxis(2);
 }
 bool OI::GetMechanismTrigger(){
-return gamepad.GetRawButton(1);
+	return mechanism.GetTrigger();
 }
 
 double OI::GetLeftJoystickY() {
-return gamepad.GetRawAxis(1);
+	return left.GetRawAxis(1)*-1;
 }
 
 double OI::GetRightJoystickX() {
-return gamepad.GetRawAxis(4);
+	return right.GetRawAxis(0)*-1;
 }
 
 double OI::GetRightJoystickY() {
-return gamepad.GetRawAxis(5);
+	return right.GetRawAxis(1)*-1;
 }
 
 double OI::GetMechanismY() {
-	return (gamepad.GetRawAxis(3)-gamepad.GetRawAxis(2));
+	return mechanism.GetRawAxis(1)*-1;
 }
 
 Joystick& OI::GetMechanism() {
-	return gamepad;
+	return mechanism;
 }

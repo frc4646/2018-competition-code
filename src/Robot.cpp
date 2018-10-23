@@ -121,7 +121,7 @@ public:
 		char scaleLoc = frc::DriverStation::GetInstance().GetGameSpecificMessage()[1];
 		switch (loc) {
 			case Location::LEFT:
-				/*if (scaleLoc == 'L'){
+				if (scaleLoc == 'L'){
 					m_autonomousCommand = new DriveAndScale(true, false, false);
 				}
 				else if (switchLoc == 'L'){
@@ -130,13 +130,13 @@ public:
 				else{
 					m_autonomousCommand = new DriveAndScale(false, false, false);
 				}
-				break;*/
+				break;
 
 			case Location::RIGHT:
-				m_autonomousCommand = new DriveForTime(3, false);
-				/*
+				/*m_autonomousCommand = new DriveForTime(3, false);
+
 				std::cout << "Running DriveForwardForTime" << std::endl;
-				break;
+				break;*/
 				if (scaleLoc == 'R'){
 					m_autonomousCommand = new DriveAndScale(true, false, true);
 				}
@@ -145,7 +145,7 @@ public:
 				}
 				else{
 					m_autonomousCommand = new DriveAndScale(false, false, true);
-				}*/
+				}
 				break;
 			case Location::CENTER:
 				double sideDist;
